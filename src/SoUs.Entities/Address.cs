@@ -15,6 +15,10 @@ namespace SoUs.Entities
         private string city;
         private string state;
         private string zipCode;
+
+        public Address()
+        {
+        }
         #endregion
 
         #region Constructors
