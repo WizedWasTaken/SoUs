@@ -12,9 +12,13 @@ namespace SoUs.Entities
         private int roleId;
         private string roleName;
         private List<Employee> employees;
+
+        public Role()
+        {
+        }
         #endregion
 
-        #region Constructors
+        #region Constructor
         public Role(int roleId, string roleName)
         {
             RoleId = roleId;

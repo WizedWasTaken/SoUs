@@ -22,7 +22,8 @@ namespace SoUs.API
                 options.UseSqlServer(builder.Configuration.GetConnectionString("CONNECTION_STRING"));
             });
 
-            builder.Services.AddScoped<IRepository<Entities.Task>, Repository<Entities.Task>>();
+            builder.Services.AddScoped<IRepository<Entities.Assignment>, Repository<Entities.Assignment>>();
+            builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
 
 
             var app = builder.Build();

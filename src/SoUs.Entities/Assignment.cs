@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SoUs.Entities
 {
-    public class Task
+    public class Assignment
     {
         #region Fields
 
@@ -20,13 +20,13 @@ namespace SoUs.Entities
 
         #region Constructors
 
-        public Task()
+        public Assignment()
         {
             Employees = new List<Employee>();
             Medicines = new List<Medicine>();
         }
 
-        public Task(int taskId, string name, DateTime timeStart, DateTime timeEnd, Resident resident,
+        public Assignment(int taskId, string name, DateTime timeStart, DateTime timeEnd, Resident resident,
                     List<Employee> employees, List<Medicine> medicines, bool completed)
         {
             TaskId = taskId;

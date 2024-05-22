@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoUs.DataAccess;
 
@@ -11,9 +12,11 @@ using SoUs.DataAccess;
 namespace SoUs.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240522110107_AddedCrazyTestDataMaybeLol3")]
+    partial class AddedCrazyTestDataMaybeLol3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,129 +27,17 @@ namespace SoUs.DataAccess.Migrations
 
             modelBuilder.Entity("EmployeeRole", b =>
                 {
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("EmployeesEmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int>("RolesRoleId")
                         .HasColumnType("int");
 
-                    b.HasKey("EmployeeId", "RoleId");
+                    b.HasKey("EmployeesEmployeeId", "RolesRoleId");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("RolesRoleId");
 
-                    b.ToTable("EmployeeRole");
-
-                    b.HasData(
-                        new
-                        {
-                            EmployeeId = 1,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 1,
-                            RoleId = 2
-                        },
-                        new
-                        {
-                            EmployeeId = 2,
-                            RoleId = 2
-                        },
-                        new
-                        {
-                            EmployeeId = 3,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 3,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            EmployeeId = 4,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 5,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 6,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 7,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 8,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 9,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 10,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 11,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 12,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 13,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 14,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 15,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 16,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 17,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 18,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 19,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 20,
-                            RoleId = 1
-                        });
+                    b.ToTable("EmployeeRoles", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeTask", b =>
@@ -855,13 +746,13 @@ namespace SoUs.DataAccess.Migrations
                 {
                     b.HasOne("SoUs.Entities.Employee", null)
                         .WithMany()
-                        .HasForeignKey("EmployeeId")
+                        .HasForeignKey("EmployeesEmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SoUs.Entities.Role", null)
                         .WithMany()
-                        .HasForeignKey("RoleId")
+                        .HasForeignKey("RolesRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

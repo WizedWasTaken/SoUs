@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoUs.DataAccess;
 
@@ -11,9 +12,11 @@ using SoUs.DataAccess;
 namespace SoUs.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240522095059_AddedCrazyTestDataMaybeLol")]
+    partial class AddedCrazyTestDataMaybeLol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,129 +27,17 @@ namespace SoUs.DataAccess.Migrations
 
             modelBuilder.Entity("EmployeeRole", b =>
                 {
-                    b.Property<int>("EmployeeId")
+                    b.Property<int>("EmployeesEmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int>("RolesRoleId")
                         .HasColumnType("int");
 
-                    b.HasKey("EmployeeId", "RoleId");
+                    b.HasKey("EmployeesEmployeeId", "RolesRoleId");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("RolesRoleId");
 
-                    b.ToTable("EmployeeRole");
-
-                    b.HasData(
-                        new
-                        {
-                            EmployeeId = 1,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 1,
-                            RoleId = 2
-                        },
-                        new
-                        {
-                            EmployeeId = 2,
-                            RoleId = 2
-                        },
-                        new
-                        {
-                            EmployeeId = 3,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 3,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            EmployeeId = 4,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 5,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 6,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 7,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 8,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 9,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 10,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 11,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 12,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 13,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 14,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 15,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 16,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 17,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 18,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 19,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 20,
-                            RoleId = 1
-                        });
+                    b.ToTable("EmployeeRoles", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeTask", b =>
@@ -708,80 +599,6 @@ namespace SoUs.DataAccess.Migrations
                     b.HasIndex("CareCenterId");
 
                     b.ToTable("Residents");
-
-                    b.HasData(
-                        new
-                        {
-                            ResidentId = 1,
-                            BirthDate = new DateTime(1930, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CareCenterId = 1,
-                            Name = "Hans Hansen",
-                            Notes = "Hans har brug for hjælp til at komme op om morgenen.",
-                            RoomNumber = "101"
-                        },
-                        new
-                        {
-                            ResidentId = 2,
-                            BirthDate = new DateTime(1940, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CareCenterId = 1,
-                            Name = "Lise Jensen",
-                            Notes = "Lise har brug for hjælp til at tage medicin.",
-                            RoomNumber = "102"
-                        },
-                        new
-                        {
-                            ResidentId = 3,
-                            BirthDate = new DateTime(1950, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CareCenterId = 1,
-                            Name = "Mads Nielsen",
-                            Notes = "Mads har brug for hjælp til at komme i bad.",
-                            RoomNumber = "103"
-                        },
-                        new
-                        {
-                            ResidentId = 4,
-                            BirthDate = new DateTime(1960, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CareCenterId = 1,
-                            Name = "Lone Pedersen",
-                            Notes = "Lone har brug for hjælp til at komme i tøj.",
-                            RoomNumber = "104"
-                        },
-                        new
-                        {
-                            ResidentId = 5,
-                            BirthDate = new DateTime(1970, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CareCenterId = 1,
-                            Name = "Jens Madsen",
-                            Notes = "Jens har brug for hjælp til at komme i seng.",
-                            RoomNumber = "105"
-                        },
-                        new
-                        {
-                            ResidentId = 6,
-                            BirthDate = new DateTime(1980, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CareCenterId = 1,
-                            Name = "Helle Hansen",
-                            Notes = "Helle har brug for hjælp til at komme i kørestol.",
-                            RoomNumber = "106"
-                        },
-                        new
-                        {
-                            ResidentId = 7,
-                            BirthDate = new DateTime(1990, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CareCenterId = 1,
-                            Name = "Mette Jensen",
-                            Notes = "Mette har brug for hjælp til at komme i stol.",
-                            RoomNumber = "107"
-                        },
-                        new
-                        {
-                            ResidentId = 8,
-                            BirthDate = new DateTime(2000, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CareCenterId = 1,
-                            Name = "Lars Nielsen",
-                            Notes = "Lars har brug for hjælp til at komme i seng.",
-                            RoomNumber = "108"
-                        });
                 });
 
             modelBuilder.Entity("SoUs.Entities.Role", b =>
@@ -855,13 +672,13 @@ namespace SoUs.DataAccess.Migrations
                 {
                     b.HasOne("SoUs.Entities.Employee", null)
                         .WithMany()
-                        .HasForeignKey("EmployeeId")
+                        .HasForeignKey("EmployeesEmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SoUs.Entities.Role", null)
                         .WithMany()
-                        .HasForeignKey("RoleId")
+                        .HasForeignKey("RolesRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

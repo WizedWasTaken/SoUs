@@ -14,6 +14,10 @@ namespace SoUs.Entities
         private string name;
         private string description;
 
+        public Diagnosis()
+        {
+        }
+
         #endregion
 
         #region Constructors

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoUs.DataAccess;
 
@@ -11,9 +12,11 @@ using SoUs.DataAccess;
 namespace SoUs.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240522105929_AddedCrazyTestDataMaybeLol2")]
+    partial class AddedCrazyTestDataMaybeLol2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,133 +24,6 @@ namespace SoUs.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("EmployeeRole", b =>
-                {
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmployeeId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("EmployeeRole");
-
-                    b.HasData(
-                        new
-                        {
-                            EmployeeId = 1,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 1,
-                            RoleId = 2
-                        },
-                        new
-                        {
-                            EmployeeId = 2,
-                            RoleId = 2
-                        },
-                        new
-                        {
-                            EmployeeId = 3,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 3,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            EmployeeId = 4,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 5,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 6,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 7,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 8,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 9,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 10,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 11,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 12,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 13,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 14,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 15,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 16,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 17,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 18,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 19,
-                            RoleId = 1
-                        },
-                        new
-                        {
-                            EmployeeId = 20,
-                            RoleId = 1
-                        });
-                });
 
             modelBuilder.Entity("EmployeeTask", b =>
                 {
@@ -792,12 +668,17 @@ namespace SoUs.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
 
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RoleName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
                     b.HasKey("RoleId");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Roles");
 
@@ -849,21 +730,6 @@ namespace SoUs.DataAccess.Migrations
                     b.HasIndex("ResidentId");
 
                     b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("EmployeeRole", b =>
-                {
-                    b.HasOne("SoUs.Entities.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SoUs.Entities.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("EmployeeTask", b =>
@@ -931,6 +797,13 @@ namespace SoUs.DataAccess.Migrations
                         .HasForeignKey("CareCenterId");
                 });
 
+            modelBuilder.Entity("SoUs.Entities.Role", b =>
+                {
+                    b.HasOne("SoUs.Entities.Employee", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("EmployeeId");
+                });
+
             modelBuilder.Entity("SoUs.Entities.Task", b =>
                 {
                     b.HasOne("SoUs.Entities.Resident", "Resident")
@@ -945,6 +818,11 @@ namespace SoUs.DataAccess.Migrations
             modelBuilder.Entity("SoUs.Entities.CareCenter", b =>
                 {
                     b.Navigation("Residents");
+                });
+
+            modelBuilder.Entity("SoUs.Entities.Employee", b =>
+                {
+                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("SoUs.Entities.Resident", b =>

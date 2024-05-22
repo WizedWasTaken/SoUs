@@ -7,11 +7,11 @@ namespace SoUs.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TaskController : Controller
+    public class AssignmentController : Controller
     {
-        private readonly IRepository<Entities.Task> _repository;
+        private readonly IAssignmentRepository _repository;
 
-        public TaskController(IRepository<Entities.Task> repository)
+        public AssignmentController(IAssignmentRepository repository)
         {
             _repository = repository;
         }
@@ -30,8 +30,22 @@ namespace SoUs.API.Controllers
             return Ok(task);
         }
 
+        [HttpGet(nameof(GetTasksOnDate))]
+        public ActionResult GetTasksOnDate(string date)
+        {
+            var tasks = _repository.GetAssignmentsOn(System.DateTime.Parse(date));
+            return Ok(tasks);
+        }
+
+        [HttpGet(nameof(GetTasksForEmployee))]
+        public ActionResult GetTasksForEmployee(string name)
+        {
+            var tasks = _repository.GetAssignmentsForEmployee(name);
+            return Ok(tasks);
+        }
+
         [HttpPost]
-        public IActionResult CreateTask(Entities.Task task)
+        public IActionResult CreateTask(Entities.Assignment task)
         {
             _repository.Add(task);
             return Ok();

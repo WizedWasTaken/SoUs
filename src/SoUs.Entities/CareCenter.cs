@@ -46,8 +46,6 @@ namespace SoUs.Entities
             set { name = value; }
         }
 
-        public int AddressId { get; set; }
-
         public virtual Address Address
         {
             get { return address; }

@@ -18,8 +18,8 @@ namespace SoUs.Entities
         #region Constructors
         public Resident()
         {
-            Diagnoses = new List<Diagnosis>();  // Initialize to prevent null reference issues
-            Prescriptions = new List<Prescription>();  // Initialize to prevent null reference issues
+            Diagnoses = new List<Diagnosis>();
+            Prescriptions = new List<Prescription>();
         }
 
         public Resident(int residentId, string name, DateTime birthDate, string roomNumber, List<Diagnosis> diagnoses,
@@ -29,7 +29,7 @@ namespace SoUs.Entities
             Name = name;
             BirthDate = birthDate;
             RoomNumber = roomNumber;
-            Diagnoses = diagnoses ?? new List<Diagnosis>();  // Use null-coalescing to ensure lists are never null
+            Diagnoses = diagnoses ?? new List<Diagnosis>();
             Prescriptions = prescriptions ?? new List<Prescription>();
             Notes = notes;
         }

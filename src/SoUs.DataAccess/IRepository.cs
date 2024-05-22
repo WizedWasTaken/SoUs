@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SoUs.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,40 +16,12 @@ namespace SoUs.DataAccess
         IEnumerable<T> GetAll();
     }
 
-    public class Repository<T> : IRepository<T> where T : class
+    public interface IAssignmentRepository : IRepository<Assignment>
     {
-        private readonly DataContext _context;
+        IEnumerable<Assignment> GetAssignmentsOn(DateTime date);
 
-        public Repository(DataContext context)
-        {
-            _context = context;
-        }
+        IEnumerable<Assignment> GetAssignmentsForEmployee(Employee employee);
 
-        public void Add(T entity)
-        {
-            _context.Add(entity);
-            _context.SaveChanges();
-        }
-
-        public void Update(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public T GetById(int id)
-        {
-            var res = _context.Set<T>().Find(id);
-            return res;
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        IEnumerable<Assignment> GetAssignmentsForEmployee(string name);
     }
 }
