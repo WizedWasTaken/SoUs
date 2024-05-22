@@ -1,4 +1,5 @@
-﻿using SoUs.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SoUs.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,16 @@ namespace SoUs.DataAccess
     public class AssignmentRepository(DataContext _context) :
         Repository<Assignment>(_context), IAssignmentRepository
     {
+        public new IEnumerable<Assignment> GetAll()
+        {
+            var res = _context.Assignments
+
+                    .Include(a => a.Resident)
+                    .ThenInclude(r => r.Prescriptions)
+
+                .ToList();
+            return res;
+        }
 
         public IEnumerable<Assignment> GetAssignmentsOn(DateTime date)
         {

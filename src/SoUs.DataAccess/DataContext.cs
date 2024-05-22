@@ -268,6 +268,17 @@ namespace SoUs.DataAccess
                 new { ResidentId = 8, Name = "Lars Nielsen", BirthDate = new DateTime(2000, 8, 8), RoomNumber = "108", CareCenterId = 1, Notes = "Lars har brug for hjælp til at komme i seng.", Diagnoses = 2 }
                 );
 
+            modelBuilder.Entity<Assignment>().HasData(
+                new { TaskId = 1, Name = "Hjælp til at komme op", TimeStart = new DateTime(2021, 1, 1, 8, 0, 0), TimeEnd = new DateTime(2021, 1, 1, 8, 30, 0), IsCompleted = false, ResidentId = 1, Employees = 1 },
+                new { TaskId = 2, Name = "Hjælp til at tage medicin", TimeStart = new DateTime(2021, 1, 1, 9, 0, 0), TimeEnd = new DateTime(2021, 1, 1, 9, 30, 0), IsCompleted = false, ResidentId = 2, Employees = 2 },
+                new { TaskId = 3, Name = "Hjælp til at komme i bad", TimeStart = new DateTime(2021, 1, 1, 10, 0, 0), TimeEnd = new DateTime(2021, 1, 1, 10, 30, 0), IsCompleted = false, ResidentId = 3, Employees = 3 },
+                new { TaskId = 4, Name = "Hjælp til at komme i tøj", TimeStart = new DateTime(2021, 1, 1, 11, 0, 0), TimeEnd = new DateTime(2021, 1, 1, 11, 30, 0), IsCompleted = false, ResidentId = 4, Employees = 4 },
+                new { TaskId = 5, Name = "Hjælp til at komme i seng", TimeStart = new DateTime(2021, 1, 1, 12, 0, 0), TimeEnd = new DateTime(2021, 1, 1, 12, 30, 0), IsCompleted = false, ResidentId = 5, Employees = 5 },
+                new { TaskId = 6, Name = "Hjælp til at komme i kørestol", TimeStart = new DateTime(2021, 1, 1, 13, 0, 0), TimeEnd = new DateTime(2021, 1, 1, 13, 30, 0), IsCompleted = false, ResidentId = 6, Employees = 6 },
+                new { TaskId = 7, Name = "Hjælp til at komme i stol", TimeStart = new DateTime(2021, 1, 1, 14, 0, 0), TimeEnd = new DateTime(2021, 1, 1, 14, 30, 0), IsCompleted = false, ResidentId = 7, Employees = 7 },
+                new { TaskId = 8, Name = "Hjælp til at komme i seng", TimeStart = new DateTime(2021, 1, 1, 15, 0, 0), TimeEnd = new DateTime(2021, 1, 1, 15, 30, 0), IsCompleted = false, ResidentId = 8, Employees = 8 }
+                );
+
         }
     }
 }

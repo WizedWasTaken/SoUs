@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoUs.DataAccess;
 
@@ -11,9 +12,11 @@ using SoUs.DataAccess;
 namespace SoUs.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240522183410_FixedInitialCreate")]
+    partial class FixedInitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -305,80 +308,6 @@ namespace SoUs.DataAccess.Migrations
                     b.HasIndex("ResidentId");
 
                     b.ToTable("Assignments");
-
-                    b.HasData(
-                        new
-                        {
-                            TaskId = 1,
-                            IsCompleted = false,
-                            Name = "Hjælp til at komme op",
-                            ResidentId = 1,
-                            TimeEnd = new DateTime(2021, 1, 1, 8, 30, 0, 0, DateTimeKind.Unspecified),
-                            TimeStart = new DateTime(2021, 1, 1, 8, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            TaskId = 2,
-                            IsCompleted = false,
-                            Name = "Hjælp til at tage medicin",
-                            ResidentId = 2,
-                            TimeEnd = new DateTime(2021, 1, 1, 9, 30, 0, 0, DateTimeKind.Unspecified),
-                            TimeStart = new DateTime(2021, 1, 1, 9, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            TaskId = 3,
-                            IsCompleted = false,
-                            Name = "Hjælp til at komme i bad",
-                            ResidentId = 3,
-                            TimeEnd = new DateTime(2021, 1, 1, 10, 30, 0, 0, DateTimeKind.Unspecified),
-                            TimeStart = new DateTime(2021, 1, 1, 10, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            TaskId = 4,
-                            IsCompleted = false,
-                            Name = "Hjælp til at komme i tøj",
-                            ResidentId = 4,
-                            TimeEnd = new DateTime(2021, 1, 1, 11, 30, 0, 0, DateTimeKind.Unspecified),
-                            TimeStart = new DateTime(2021, 1, 1, 11, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            TaskId = 5,
-                            IsCompleted = false,
-                            Name = "Hjælp til at komme i seng",
-                            ResidentId = 5,
-                            TimeEnd = new DateTime(2021, 1, 1, 12, 30, 0, 0, DateTimeKind.Unspecified),
-                            TimeStart = new DateTime(2021, 1, 1, 12, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            TaskId = 6,
-                            IsCompleted = false,
-                            Name = "Hjælp til at komme i kørestol",
-                            ResidentId = 6,
-                            TimeEnd = new DateTime(2021, 1, 1, 13, 30, 0, 0, DateTimeKind.Unspecified),
-                            TimeStart = new DateTime(2021, 1, 1, 13, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            TaskId = 7,
-                            IsCompleted = false,
-                            Name = "Hjælp til at komme i stol",
-                            ResidentId = 7,
-                            TimeEnd = new DateTime(2021, 1, 1, 14, 30, 0, 0, DateTimeKind.Unspecified),
-                            TimeStart = new DateTime(2021, 1, 1, 14, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            TaskId = 8,
-                            IsCompleted = false,
-                            Name = "Hjælp til at komme i seng",
-                            ResidentId = 8,
-                            TimeEnd = new DateTime(2021, 1, 1, 15, 30, 0, 0, DateTimeKind.Unspecified),
-                            TimeStart = new DateTime(2021, 1, 1, 15, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("SoUs.Entities.CareCenter", b =>
