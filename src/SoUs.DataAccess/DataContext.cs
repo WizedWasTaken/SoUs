@@ -43,6 +43,8 @@ namespace SoUs.DataAccess
                 entity.Property(e => e.IsCompleted)
                     .IsRequired();
 
+                entity.HasOne(e => e.Resident);
+
                 entity.HasMany(e => e.Employees)
                     .WithMany(e => e.Tasks)
                     .UsingEntity(j => j.ToTable("TaskEmployees"));
