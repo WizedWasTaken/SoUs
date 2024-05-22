@@ -137,6 +137,27 @@ namespace SoUs.DataAccess
                     .HasMaxLength(255);
             });
 
+            modelBuilder.Entity<Prescription>(entity =>
+            {
+                entity.HasKey(e => e.PrescriptionId);
+
+                entity.Property(e => e.PrescriptionId)
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Amount)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Unit)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+
 
             CareCenter cc = new CareCenter { CareCenterId = 1, Name = "Care Center 1", Address = new Address(1, "Solsikkevej 52", "Middelfart", "Syddanmark", "5500") };
             modelBuilder.Entity<Address>().HasData(
@@ -159,7 +180,7 @@ namespace SoUs.DataAccess
                 new CareCenter() { CareCenterId = 4, Name = "SFG (Sjov For Gamle)", AddressId = 2 },
                 new CareCenter() { CareCenterId = 5, Name = "Solskinshjemmet", AddressId = 1 },
                 new CareCenter() { CareCenterId = 6, Name = "Hyggehuset", AddressId = 3 },
-                new CareCenter() { CareCenterId = 7, Name = "", AddressId = 6 }
+                new CareCenter() { CareCenterId = 7, Name = "De Gamles Hus", AddressId = 6 }
                 );
         }
     }

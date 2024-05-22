@@ -10,15 +10,19 @@ namespace SoUs.Entities
     {
         #region Fields
         private int medicineId;
-        private int name;
+        private string name;
         private int amount;
         private string unit;
         private bool administered;
+
+        public Medicine()
+        {
+        }
         #endregion
 
         #region Constructors
 
-        public Medicine(int medicineId, int name, int amount, string unit, bool administered)
+        public Medicine(int medicineId, string name, int amount, string unit, bool administered)
         {
             MedicineId = medicineId;
             Name = name;
@@ -36,7 +40,7 @@ namespace SoUs.Entities
             set { medicineId = value; }
         }
 
-        public int Name
+        public string Name
         {
             get { return name; }
             set { name = value; }
