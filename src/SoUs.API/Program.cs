@@ -22,6 +22,9 @@ namespace SoUs.API
                 options.UseSqlServer(builder.Configuration.GetConnectionString("CONNECTION_STRING"));
             });
 
+            builder.Services.AddScoped<IRepository<Entities.Task>, Repository<Entities.Task>>();
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

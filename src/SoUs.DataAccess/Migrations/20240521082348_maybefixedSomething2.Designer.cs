@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoUs.DataAccess;
 
@@ -11,9 +12,11 @@ using SoUs.DataAccess;
 namespace SoUs.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240521082348_maybefixedSomething2")]
+    partial class maybefixedSomething2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace SoUs.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("EmployeeRole", b =>
-                {
-                    b.Property<int>("EmployeesEmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RolesRoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmployeesEmployeeId", "RolesRoleId");
-
-                    b.HasIndex("RolesRoleId");
-
-                    b.ToTable("EmployeeRoles", (string)null);
-                });
 
             modelBuilder.Entity("EmployeeTask", b =>
                 {
@@ -379,12 +367,17 @@ namespace SoUs.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
 
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RoleName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
                     b.HasKey("RoleId");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Roles");
                 });
@@ -419,21 +412,6 @@ namespace SoUs.DataAccess.Migrations
                     b.HasIndex("ResidentId");
 
                     b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("EmployeeRole", b =>
-                {
-                    b.HasOne("SoUs.Entities.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("EmployeesEmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SoUs.Entities.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RolesRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("EmployeeTask", b =>
@@ -501,6 +479,13 @@ namespace SoUs.DataAccess.Migrations
                         .HasForeignKey("CareCenterId");
                 });
 
+            modelBuilder.Entity("SoUs.Entities.Role", b =>
+                {
+                    b.HasOne("SoUs.Entities.Employee", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("EmployeeId");
+                });
+
             modelBuilder.Entity("SoUs.Entities.Task", b =>
                 {
                     b.HasOne("SoUs.Entities.Resident", "Resident")
@@ -515,6 +500,11 @@ namespace SoUs.DataAccess.Migrations
             modelBuilder.Entity("SoUs.Entities.CareCenter", b =>
                 {
                     b.Navigation("Residents");
+                });
+
+            modelBuilder.Entity("SoUs.Entities.Employee", b =>
+                {
+                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("SoUs.Entities.Resident", b =>

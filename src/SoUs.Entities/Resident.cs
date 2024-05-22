@@ -34,42 +34,36 @@ namespace SoUs.Entities
         #endregion
 
         #region Properties
-        [Key]
         public int ResidentId
         {
             get { return residentId; }
             set { residentId = value; }
         }
 
-        [Required]
-        [MaxLength(100)]
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
 
-        [Required]
-        [MaxLength(10)]
         public string RoomNumber
         {
             get { return roomNumber; }
             set { roomNumber = value; }
         }
 
-        public virtual List<Diagnosis> Diagnoses
+        public List<Diagnosis> Diagnoses
         {
             get { return diagnoses; }
             set { diagnoses = value; }
         }
 
-        public virtual List<Prescription> Prescriptions
+        public List<Prescription> Prescriptions
         {
             get { return prescriptions; }
             set { prescriptions = value; }
         }
 
-        [MaxLength(1000)] // Assuming there is a reasonable limit to the length of notes
         public string Notes
         {
             get { return notes; }

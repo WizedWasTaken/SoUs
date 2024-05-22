@@ -11,6 +11,7 @@ namespace SoUs.Entities
         #region Fields
         private int roleId;
         private string roleName;
+        private List<Employee> employees;
         #endregion
 
         #region Constructors
@@ -18,6 +19,13 @@ namespace SoUs.Entities
         {
             RoleId = roleId;
             RoleName = roleName;
+        }
+
+        public Role(int roleId, string roleName, List<Employee> employees)
+        {
+            RoleId = roleId;
+            RoleName = roleName;
+            Employees = employees;
         }
         #endregion
 
@@ -32,6 +40,12 @@ namespace SoUs.Entities
         {
             get { return roleName; }
             set { roleName = value; }
+        }
+
+        public List<Employee> Employees
+        {
+            get { return employees; }
+            set { employees = value; }
         }
         #endregion
     }

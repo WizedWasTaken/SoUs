@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoUs.DataAccess;
 
@@ -11,9 +12,11 @@ using SoUs.DataAccess;
 namespace SoUs.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240516123326_UpdateDataAgain")]
+    partial class UpdateDataAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace SoUs.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("EmployeeRole", b =>
-                {
-                    b.Property<int>("EmployeesEmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RolesRoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmployeesEmployeeId", "RolesRoleId");
-
-                    b.HasIndex("RolesRoleId");
-
-                    b.ToTable("EmployeeRoles", (string)null);
-                });
 
             modelBuilder.Entity("EmployeeTask", b =>
                 {
@@ -49,7 +37,7 @@ namespace SoUs.DataAccess.Migrations
 
                     b.HasIndex("TasksTaskId");
 
-                    b.ToTable("TaskEmployees", (string)null);
+                    b.ToTable("EmployeeTask");
                 });
 
             modelBuilder.Entity("SoUs.Entities.Address", b =>
@@ -62,19 +50,23 @@ namespace SoUs.DataAccess.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("State")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ZipCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("AddressId");
 
@@ -88,78 +80,6 @@ namespace SoUs.DataAccess.Migrations
                             State = "Syddanmark",
                             Street = "Solsikkevej 55",
                             ZipCode = "5500"
-                        },
-                        new
-                        {
-                            AddressId = 2,
-                            City = "Roskilde",
-                            State = "Sjælland",
-                            Street = "Roskildevej 12",
-                            ZipCode = "4000"
-                        },
-                        new
-                        {
-                            AddressId = 3,
-                            City = "København",
-                            State = "Hovedstaden",
-                            Street = "Hovedgaden 1",
-                            ZipCode = "1000"
-                        },
-                        new
-                        {
-                            AddressId = 4,
-                            City = "Viborg",
-                            State = "Midtjylland",
-                            Street = "Viborgvej 5",
-                            ZipCode = "8800"
-                        },
-                        new
-                        {
-                            AddressId = 5,
-                            City = "Herning",
-                            State = "Midtjylland",
-                            Street = "Herningvej 10",
-                            ZipCode = "7400"
-                        },
-                        new
-                        {
-                            AddressId = 6,
-                            City = "Odense",
-                            State = "Syddanmark",
-                            Street = "Odensevej 15",
-                            ZipCode = "5000"
-                        },
-                        new
-                        {
-                            AddressId = 7,
-                            City = "Aalborg",
-                            State = "Nordjylland",
-                            Street = "Aalborgvej 20",
-                            ZipCode = "9000"
-                        },
-                        new
-                        {
-                            AddressId = 8,
-                            City = "Esbjerg",
-                            State = "Syddanmark",
-                            Street = "Esbjergvej 25",
-                            ZipCode = "6700"
-                        },
-                        new
-                        {
-                            AddressId = 9,
-                            City = "Horsens",
-                            State = "Midtjylland",
-                            Street = "Horsensvej 30",
-                            ZipCode = "8700"
-                        },
-                        new
-                        {
-                            AddressId = 10,
-                            City = "Randers",
-                            State = "Midtjylland",
-                            Street = "Randersvej 35",
-                            ZipCode = "8900"
                         });
                 });
 
@@ -176,7 +96,8 @@ namespace SoUs.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("CareCenterId");
 
@@ -188,44 +109,8 @@ namespace SoUs.DataAccess.Migrations
                         new
                         {
                             CareCenterId = 1,
-                            AddressId = 4,
-                            Name = "GGM (Glade Gamle Mennesker)"
-                        },
-                        new
-                        {
-                            CareCenterId = 2,
-                            AddressId = 8,
-                            Name = "Hjemmet"
-                        },
-                        new
-                        {
-                            CareCenterId = 3,
-                            AddressId = 5,
-                            Name = "Smilets Hus"
-                        },
-                        new
-                        {
-                            CareCenterId = 4,
-                            AddressId = 2,
-                            Name = "SFG (Sjov For Gamle)"
-                        },
-                        new
-                        {
-                            CareCenterId = 5,
                             AddressId = 1,
-                            Name = "Solskinshjemmet"
-                        },
-                        new
-                        {
-                            CareCenterId = 6,
-                            AddressId = 3,
-                            Name = "Hyggehuset"
-                        },
-                        new
-                        {
-                            CareCenterId = 7,
-                            AddressId = 6,
-                            Name = ""
+                            Name = "Care Center 1"
                         });
                 });
 
@@ -268,8 +153,8 @@ namespace SoUs.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("EmployeeId");
 
@@ -287,15 +172,12 @@ namespace SoUs.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MedicineId"));
 
                     b.Property<bool>("Administered")
-                        .HasMaxLength(255)
                         .HasColumnType("bit");
 
                     b.Property<int>("Amount")
-                        .HasMaxLength(255)
                         .HasColumnType("int");
 
                     b.Property<int>("Name")
-                        .HasMaxLength(255)
                         .HasColumnType("int");
 
                     b.Property<int?>("TaskId")
@@ -303,8 +185,7 @@ namespace SoUs.DataAccess.Migrations
 
                     b.Property<string>("Unit")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("MedicineId");
 
@@ -354,15 +235,18 @@ namespace SoUs.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Notes")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("RoomNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("ResidentId");
 
@@ -379,12 +263,16 @@ namespace SoUs.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
 
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("RoleName")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoleId");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Roles");
                 });
@@ -397,7 +285,7 @@ namespace SoUs.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TaskId"));
 
-                    b.Property<bool>("IsCompleted")
+                    b.Property<bool>("Completed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -419,21 +307,6 @@ namespace SoUs.DataAccess.Migrations
                     b.HasIndex("ResidentId");
 
                     b.ToTable("Tasks");
-                });
-
-            modelBuilder.Entity("EmployeeRole", b =>
-                {
-                    b.HasOne("SoUs.Entities.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("EmployeesEmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SoUs.Entities.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RolesRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("EmployeeTask", b =>
@@ -501,6 +374,13 @@ namespace SoUs.DataAccess.Migrations
                         .HasForeignKey("CareCenterId");
                 });
 
+            modelBuilder.Entity("SoUs.Entities.Role", b =>
+                {
+                    b.HasOne("SoUs.Entities.Employee", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("EmployeeId");
+                });
+
             modelBuilder.Entity("SoUs.Entities.Task", b =>
                 {
                     b.HasOne("SoUs.Entities.Resident", "Resident")
@@ -515,6 +395,11 @@ namespace SoUs.DataAccess.Migrations
             modelBuilder.Entity("SoUs.Entities.CareCenter", b =>
                 {
                     b.Navigation("Residents");
+                });
+
+            modelBuilder.Entity("SoUs.Entities.Employee", b =>
+                {
+                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("SoUs.Entities.Resident", b =>

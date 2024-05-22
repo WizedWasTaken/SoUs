@@ -35,39 +35,30 @@ namespace SoUs.Entities
         #endregion
 
         #region Properties
-        [Key]
         public int AddressId
         {
             get { return addressId; }
             set { addressId = value; }
         }
 
-        [Required]
-        [MaxLength(100)]
         public string Street
         {
             get { return street; }
             set { street = value; }
         }
 
-        [Required]
-        [MaxLength(50)]
         public string City
         {
             get { return city; }
             set { city = value; }
         }
 
-        [Required]
-        [MaxLength(50)]
         public string State
         {
             get { return state; }
             set { state = value; }
         }
 
-        [Required]
-        [MaxLength(10)]
         public string ZipCode
         {
             get { return zipCode; }

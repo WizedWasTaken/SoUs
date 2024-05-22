@@ -9,7 +9,7 @@ namespace SoUs.Entities
         #region Fields
         private int employeeId;
         private List<Task> tasks;
-        private List<Role> roles;  // Renamed to 'roles' to better reflect that it's a collection
+        private List<Role> roles;
         private string name;
         private CareCenter careCenter;
         #endregion
@@ -32,43 +32,35 @@ namespace SoUs.Entities
         #endregion
 
         #region Properties
-        [Key]
         public int EmployeeId
         {
             get { return employeeId; }
             set { employeeId = value; }
         }
 
-        // Assuming Task and Role are defined elsewhere and they are proper entity classes
-        public virtual List<Task> Tasks
+        public List<Task> Tasks
         {
             get { return tasks; }
             set { tasks = value; }
         }
 
-        public virtual List<Role> Roles
+        public List<Role> Roles
         {
             get { return roles; }
             set { roles = value; }
         }
 
-        [Required]
-        [MaxLength(100)]
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
 
-        [ForeignKey("CareCenterId")]  // Assuming there is a CareCenterId foreign key in Employee table
-        public virtual CareCenter CareCenter
+        public CareCenter CareCenter
         {
             get { return careCenter; }
             set { careCenter = value; }
         }
-
-        // Add a foreign key property if not already present in CareCenter class
-        public int CareCenterId { get; set; }
         #endregion
     }
 }
