@@ -8,6 +8,7 @@ namespace SoUs.Entities
         #region Fields
         private int residentId;
         private string name;
+        private DateTime birthDate;
         private string roomNumber;
         private List<Diagnosis> diagnoses;
         private List<Prescription> prescriptions;
@@ -17,19 +18,20 @@ namespace SoUs.Entities
         #region Constructors
         public Resident()
         {
-            this.diagnoses = new List<Diagnosis>();  // Initialize to prevent null reference issues
-            this.prescriptions = new List<Prescription>();  // Initialize to prevent null reference issues
+            Diagnoses = new List<Diagnosis>();  // Initialize to prevent null reference issues
+            Prescriptions = new List<Prescription>();  // Initialize to prevent null reference issues
         }
 
-        public Resident(int residentId, string name, string roomNumber, List<Diagnosis> diagnoses,
+        public Resident(int residentId, string name, DateTime birthDate, string roomNumber, List<Diagnosis> diagnoses,
             List<Prescription> prescriptions, string notes)
         {
-            this.residentId = residentId;
-            this.name = name;
-            this.roomNumber = roomNumber;
-            this.diagnoses = diagnoses ?? new List<Diagnosis>();  // Use null-coalescing to ensure lists are never null
-            this.prescriptions = prescriptions ?? new List<Prescription>();
-            this.notes = notes;
+            ResidentId = residentId;
+            Name = name;
+            BirthDate = birthDate;
+            RoomNumber = roomNumber;
+            Diagnoses = diagnoses ?? new List<Diagnosis>();  // Use null-coalescing to ensure lists are never null
+            Prescriptions = prescriptions ?? new List<Prescription>();
+            Notes = notes;
         }
         #endregion
 
@@ -44,6 +46,12 @@ namespace SoUs.Entities
         {
             get { return name; }
             set { name = value; }
+        }
+
+        public DateTime BirthDate
+        {
+            get { return birthDate; }
+            set { birthDate = value; }
         }
 
         public string RoomNumber

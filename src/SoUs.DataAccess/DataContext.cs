@@ -60,7 +60,7 @@ namespace SoUs.DataAccess
                     .HasMaxLength(255);
 
                 entity.HasMany(e => e.Employees)
-                .WithMany(e => e.Roles)
+                    .WithMany(e => e.Roles)
                     .UsingEntity(j => j.ToTable("EmployeeRoles"));
             });
 
@@ -100,7 +100,7 @@ namespace SoUs.DataAccess
                     .UsingEntity(j => j.ToTable("TaskEmployees"));
 
                 entity.HasMany(entity => entity.Roles)
-                .WithMany(entity => entity.Employees)
+                    .WithMany(entity => entity.Employees)
                     .UsingEntity(j => j.ToTable("EmployeeRoles"));
 
                 entity.Property(e => e.Name)
@@ -110,19 +110,47 @@ namespace SoUs.DataAccess
                 entity.HasOne(e => e.CareCenter);
             });
 
+            modelBuilder.Entity<Resident>(entity =>
+            {
+                entity.HasKey(e => e.ResidentId);
+
+                entity.Property(e => e.ResidentId)
+                    .ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.BirthDate)
+                    .IsRequired();
+
+                entity.Property(e => e.RoomNumber)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                entity.HasMany(e => e.Diagnoses);
+
+                entity.HasMany(e => e.Prescriptions);
+
+                entity.Property(e => e.Notes)
+                    .IsRequired()
+                    .HasMaxLength(255);
+            });
+
+
             CareCenter cc = new CareCenter { CareCenterId = 1, Name = "Care Center 1", Address = new Address(1, "Solsikkevej 52", "Middelfart", "Syddanmark", "5500") };
             modelBuilder.Entity<Address>().HasData(
-                new Address() { AddressId = 1, Street = "Solsikkevej 55", City = "Middelfart", State = "Syddanmark", ZipCode = "5500" },
-                new Address() { AddressId = 2, Street = "Roskildevej 12", City = "Roskilde", State = "Sjælland", ZipCode = "4000" },
-                new Address() { AddressId = 3, Street = "Hovedgaden 1", City = "København", State = "Hovedstaden", ZipCode = "1000" },
-                new Address() { AddressId = 4, Street = "Viborgvej 5", City = "Viborg", State = "Midtjylland", ZipCode = "8800" },
-                new Address() { AddressId = 5, Street = "Herningvej 10", City = "Herning", State = "Midtjylland", ZipCode = "7400" },
-                new Address() { AddressId = 6, Street = "Odensevej 15", City = "Odense", State = "Syddanmark", ZipCode = "5000" },
-                new Address() { AddressId = 7, Street = "Aalborgvej 20", City = "Aalborg", State = "Nordjylland", ZipCode = "9000" },
-                new Address() { AddressId = 8, Street = "Esbjergvej 25", City = "Esbjerg", State = "Syddanmark", ZipCode = "6700" },
-                new Address() { AddressId = 9, Street = "Horsensvej 30", City = "Horsens", State = "Midtjylland", ZipCode = "8700" },
-                new Address() { AddressId = 10, Street = "Randersvej 35", City = "Randers", State = "Midtjylland", ZipCode = "8900" }
-            );
+                    new Address() { AddressId = 1, Street = "Solsikkevej 55", City = "Middelfart", State = "Syddanmark", ZipCode = "5500" },
+                    new Address() { AddressId = 2, Street = "Roskildevej 12", City = "Roskilde", State = "Sjælland", ZipCode = "4000" },
+                    new Address() { AddressId = 3, Street = "Hovedgaden 1", City = "København", State = "Hovedstaden", ZipCode = "1000" },
+                    new Address() { AddressId = 4, Street = "Viborgvej 5", City = "Viborg", State = "Midtjylland", ZipCode = "8800" },
+                    new Address() { AddressId = 5, Street = "Herningvej 10", City = "Herning", State = "Midtjylland", ZipCode = "7400" },
+                    new Address() { AddressId = 6, Street = "Odensevej 15", City = "Odense", State = "Syddanmark", ZipCode = "5000" },
+                    new Address() { AddressId = 7, Street = "Aalborgvej 20", City = "Aalborg", State = "Nordjylland", ZipCode = "9000" },
+                    new Address() { AddressId = 8, Street = "Esbjergvej 25", City = "Esbjerg", State = "Syddanmark", ZipCode = "6700" },
+                    new Address() { AddressId = 9, Street = "Horsensvej 30", City = "Horsens", State = "Midtjylland", ZipCode = "8700" },
+                    new Address() { AddressId = 10, Street = "Randersvej 35", City = "Randers", State = "Midtjylland", ZipCode = "8900" }
+                );
 
             modelBuilder.Entity<CareCenter>().HasData(
                 new CareCenter() { CareCenterId = 1, Name = "GGM (Glade Gamle Mennesker)", AddressId = 4 },
@@ -132,7 +160,9 @@ namespace SoUs.DataAccess
                 new CareCenter() { CareCenterId = 5, Name = "Solskinshjemmet", AddressId = 1 },
                 new CareCenter() { CareCenterId = 6, Name = "Hyggehuset", AddressId = 3 },
                 new CareCenter() { CareCenterId = 7, Name = "", AddressId = 6 }
-            );
+                );
         }
     }
 }
+
+
