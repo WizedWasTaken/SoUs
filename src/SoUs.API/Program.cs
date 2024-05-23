@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using SoUs.DataAccess;
+using SoUs.Entities;
 
 namespace SoUs.API
 {
@@ -22,7 +23,15 @@ namespace SoUs.API
                 options.UseSqlServer(builder.Configuration.GetConnectionString("CONNECTION_STRING"));
             });
 
-            builder.Services.AddScoped<IRepository<Entities.Assignment>, Repository<Entities.Assignment>>();
+            builder.Services.AddScoped<IRepository<Assignment>, Repository<Assignment>>();
+            builder.Services.AddScoped<IRepository<Address>, Repository<Address>>();
+            builder.Services.AddScoped<IRepository<CareCenter>, Repository<CareCenter>>();
+            builder.Services.AddScoped<IRepository<Diagnosis>, Repository<Diagnosis>>();
+            builder.Services.AddScoped<IRepository<Employee>, Repository<Employee>>();
+            builder.Services.AddScoped<IRepository<Medicine>, Repository<Medicine>>();
+            builder.Services.AddScoped<IRepository<Prescription>, Repository<Prescription>>();
+            builder.Services.AddScoped<IRepository<Resident>, Repository<Resident>>();
+            builder.Services.AddScoped<IRepository<Role>, Repository<Role>>();
             builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
 
 

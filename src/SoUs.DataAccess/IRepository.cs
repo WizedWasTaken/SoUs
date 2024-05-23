@@ -11,15 +11,8 @@ namespace SoUs.DataAccess
     {
         void Add(T entity);
         void Update(T entity);
-        void Delete(T entity);
+        void Delete(int id);
         T GetById(int id);
         IEnumerable<T> GetAll();
-    }
-
-    public interface IAssignmentRepository : IRepository<Assignment>
-    {
-        IEnumerable<Assignment> GetAssignmentsOn(DateTime date);
-
-        IEnumerable<Assignment> GetAssignmentsForEmployee(Employee employee);
     }
 }
