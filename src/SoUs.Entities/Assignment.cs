@@ -7,7 +7,7 @@ namespace SoUs.Entities
     {
         #region Fields
 
-        private int taskId;
+        private int assignmentId;
         private string name;
         private DateTime timeStart;
         private DateTime timeEnd;
@@ -26,10 +26,10 @@ namespace SoUs.Entities
             Medicines = new List<Medicine>();
         }
 
-        public Assignment(int taskId, string name, DateTime timeStart, DateTime timeEnd, Resident resident,
+        public Assignment(int assignmentId, string name, DateTime timeStart, DateTime timeEnd, Resident resident,
                     List<Employee> employees, List<Medicine> medicines, bool completed)
         {
-            TaskId = taskId;
+            AssignmentId = assignmentId;
             Name = name;
             TimeStart = timeStart;
             TimeEnd = timeEnd;
@@ -43,10 +43,10 @@ namespace SoUs.Entities
 
         #region Properties
 
-        public int TaskId
+        public int AssignmentId
         {
-            get { return taskId; }
-            set { taskId = value; }
+            get { return assignmentId; }
+            set { assignmentId = value; }
         }
 
         public string Name

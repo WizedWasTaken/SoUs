@@ -37,10 +37,5 @@ namespace SoUs.DataAccess
         {
             return _context.Assignments.Where(a => a.Employees.Contains(employee));
         }
-
-        public IEnumerable<Assignment> GetAssignmentsForEmployee(string name)
-        {
-            return _context.Assignments.Where(a => a.Employees.Any(e => e.Name == name));
-        }
     }
 }

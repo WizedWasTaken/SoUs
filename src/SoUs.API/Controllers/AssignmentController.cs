@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using SoUs.DataAccess;
+using SoUs.Entities;
 
 namespace SoUs.API.Controllers
 {
@@ -16,36 +17,36 @@ namespace SoUs.API.Controllers
             _repository = repository;
         }
 
-        [HttpGet(nameof(GetTasks))]
-        public ActionResult GetTasks()
+        [HttpGet(nameof(GetAssignments))]
+        public ActionResult GetAssignments()
         {
             var tasks = _repository.GetAll();
             return Ok(tasks);
         }
 
-        [HttpGet(nameof(GetTask))]
-        public ActionResult GetTask(int id)
+        [HttpGet(nameof(GetAssignmentsById))]
+        public ActionResult GetAssignmentsById(int id)
         {
             var task = _repository.GetById(id);
             return Ok(task);
         }
 
-        [HttpGet(nameof(GetTasksOnDate))]
-        public ActionResult GetTasksOnDate(string date)
+        [HttpGet(nameof(GetAssignmentsOnDate))]
+        public ActionResult GetAssignmentsOnDate(string date)
         {
             var tasks = _repository.GetAssignmentsOn(System.DateTime.Parse(date));
             return Ok(tasks);
         }
 
-        [HttpGet(nameof(GetTasksForEmployee))]
-        public ActionResult GetTasksForEmployee(string name)
+        [HttpGet(nameof(GetAssignmentsForEmployee))]
+        public ActionResult GetAssignmentsForEmployee(Employee employee)
         {
-            var tasks = _repository.GetAssignmentsForEmployee(name);
+            var tasks = _repository.GetAssignmentsForEmployee(employee);
             return Ok(tasks);
         }
 
         [HttpPost]
-        public IActionResult CreateTask(Entities.Assignment task)
+        public IActionResult CreateAssignment(Assignment task)
         {
             _repository.Add(task);
             return Ok();

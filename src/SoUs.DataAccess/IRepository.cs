@@ -21,7 +21,5 @@ namespace SoUs.DataAccess
         IEnumerable<Assignment> GetAssignmentsOn(DateTime date);
 
         IEnumerable<Assignment> GetAssignmentsForEmployee(Employee employee);
-
-        IEnumerable<Assignment> GetAssignmentsForEmployee(string name);
     }
 }
