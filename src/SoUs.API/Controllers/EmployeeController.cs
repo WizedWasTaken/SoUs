@@ -6,9 +6,9 @@ namespace SoUs.API.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IRepository<Employee> _repository;
+        private readonly IEmployeeRepository _repository;
 
-        public EmployeeController(IRepository<Employee> repository)
+        public EmployeeController(IEmployeeRepository repository)
         {
             _repository = repository;
         }
@@ -27,6 +27,20 @@ namespace SoUs.API.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult GetEmployeeByCareCenter(CareCenter careCenter)
+        {
+            try
+            {
+                var employees = _repository.GetEmployeesByCareCenter(careCenter);
+                return Ok(employees);
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
         [HttpGet(nameof(GetEmployeeById))]
         public ActionResult GetEmployeeById(int id)
         {
@@ -34,6 +48,20 @@ namespace SoUs.API.Controllers
             {
                 var employee = _repository.GetById(id);
                 return Ok(employee);
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
+        [HttpGet(nameof(GetEmployeeByRole))]
+        public ActionResult GetEmployeeByRole(Role role)
+        {
+            try
+            {
+                var employees = _repository.GetEmployeesByRole(role);
+                return Ok(employees);
             }
             catch (ArgumentException e)
             {

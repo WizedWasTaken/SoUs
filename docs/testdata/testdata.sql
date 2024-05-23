@@ -127,6 +127,15 @@ INSERT INTO Assignments (Name, TimeStart, TimeEnd, ResidentId, isCompleted) VALU
 ('Aftencheck', '2024-05-24 19:00:00', '2024-05-24 19:15:00', 5, 0),
 ('Natmedicin', '2024-05-24 19:15:00', '2024-05-24 19:30:00', 5, 0);
 
+INSERT INTO Medications(Name, Amount, Unit, Administered, AssignmentId) VALUES
+('Metformin', 500, 'mg', 0, 1),
+('Aspirin', 100, 'mg', 0, 2),
+('Lisinopril', 10, 'mg', 0, 3),
+('Donepezil', 5, 'mg', 0, 4),
+('Metformin', 500, 'mg', 0, 5),
+('Donepezil', 10, 'mg', 0, 5),
+('Aspirin', 500, 'mg', 0, 5)
+
 -- AssignmentEmployee ensuring no overlap for employees
 INSERT INTO AssignmentEmployee(EmployeesEmployeeId, TasksAssignmentId) VALUES
 (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7), (2, 8), (2, 9), (2, 10),

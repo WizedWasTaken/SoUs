@@ -27,7 +27,7 @@ namespace SoUs.API
             builder.Services.AddScoped<IRepository<Address>, Repository<Address>>();
             builder.Services.AddScoped<IRepository<CareCenter>, Repository<CareCenter>>();
             builder.Services.AddScoped<IRepository<Diagnosis>, Repository<Diagnosis>>();
-            builder.Services.AddScoped<IRepository<Employee>, Repository<Employee>>();
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IRepository<Medicine>, Repository<Medicine>>();
             builder.Services.AddScoped<IRepository<Prescription>, Repository<Prescription>>();
             builder.Services.AddScoped<IRepository<Resident>, Repository<Resident>>();
