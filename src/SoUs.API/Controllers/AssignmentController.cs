@@ -36,7 +36,7 @@ namespace SoUs.API.Controllers
         {
             try
             {
-                var task = _repository.GetById(id);
+                var task = _repository.GetBy(id);
                 return Ok(task);
             }
             catch (ArgumentException e)

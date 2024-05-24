@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SoUs.DataAccess;
 using SoUs.Entities;
+using System.Text.Json.Serialization;
 
 namespace SoUs.API
 {
@@ -33,6 +34,10 @@ namespace SoUs.API
             builder.Services.AddScoped<IRepository<Resident>, Repository<Resident>>();
             builder.Services.AddScoped<IRepository<Role>, Repository<Role>>();
             builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
+
+            builder.Services.AddControllers()
+                   // Handle cyclic dependencies in JSON:
+                   .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
 
             var app = builder.Build();

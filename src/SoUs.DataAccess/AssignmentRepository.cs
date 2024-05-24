@@ -11,28 +11,9 @@ namespace SoUs.DataAccess
     public class AssignmentRepository(DataContext _context) :
         Repository<Assignment>(_context), IAssignmentRepository
     {
-        public new IEnumerable<Assignment> GetAll()
+        public IEnumerable<Assignment> GetAssignmentsForEmployee(Employee employee)
         {
-            var res = _context.Assignments
-                .Include(a => a.Resident)
-                .ThenInclude(r => r.Diagnoses)
-                .ToList();
-            return res;
-        }
-
-        public new Assignment GetById(int id)
-        {
-            var res = _context.Assignments
-                    .Include(a => a.Resident)
-                    .ThenInclude(r => r.Diagnoses)
-                .FirstOrDefault(a => a.AssignmentId == id);
-
-            if (res == null)
-            {
-                throw new ArgumentException("Assignment not found");
-            }
-
-            return res;
+            return _context.Assignments.Where(a => a.Employees.Contains(employee));
         }
 
         public IEnumerable<Assignment> GetAssignmentsOn(DateTime date)
@@ -40,9 +21,9 @@ namespace SoUs.DataAccess
             return _context.Assignments.Where(a => a.TimeStart == date.Date);
         }
 
-        public IEnumerable<Assignment> GetAssignmentsForEmployee(Employee employee)
+        public Assignment GetBy(int id)
         {
-            return _context.Assignments.Where(a => a.Employees.Contains(employee));
+            return _context.Assignments.Include(a => a.Employees).Include(a => a.Medicines).FirstOrDefault(a => a.AssignmentId == id);
         }
     }
 }

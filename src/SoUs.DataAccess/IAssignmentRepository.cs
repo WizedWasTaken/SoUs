@@ -10,7 +10,7 @@ namespace SoUs.DataAccess
     public interface IAssignmentRepository : IRepository<Assignment>
     {
         IEnumerable<Assignment> GetAssignmentsOn(DateTime date);
-
         IEnumerable<Assignment> GetAssignmentsForEmployee(Employee employee);
+        Assignment GetBy(int id);
     }
 }
