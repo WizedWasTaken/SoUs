@@ -1,10 +1,103 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:SoUs.Entities;assembly=SoUs.Entities"
+             xmlns:converters="clr-namespace:SoUs.CareApp.Converters;assembly=SoUs.CareApp"
+             x:DataType="model:Assignment"
              x:Class="SoUs.CareApp.Views.MainPage">
+    <!-- Declaring stuff -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TimeRangeConverter x:Key="TimeRangeConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-    <ScrollView>
-        <Label Text="Hej Verden"/>
-    </ScrollView>
+    <!-- Base Grid -->
+    <Grid ColumnDefinitions="*"
+          RowDefinitions="Auto,*"
+          Padding="0,20"
+          BackgroundColor="{StaticResource Background}">
+        <!-- Header -->
+        <Grid ColumnDefinitions="*,*" 
+              RowDefinitions="*,*">
 
+            <Button Text="Recepter" 
+                    Grid.Column="0" 
+                    Grid.Row="0"
+                    WidthRequest="125"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource Pill}"/>
+
+            <Label Text="Mads Mikkel" 
+                   Grid.Column="1" 
+                   Grid.Row="0" 
+                   VerticalTextAlignment="Start" 
+                   HorizontalOptions="End"/>
+
+            <Label Text="DAGENS OPGAVER" 
+                   Style="{StaticResource Title}"
+                   Grid.Row="2" 
+                   Grid.Column="0" 
+                   Grid.ColumnSpan="2" 
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center" 
+                   Margin="0,10,0,0"/>
+
+        </Grid>
+
+        <!-- Main Content -->
+        <CollectionView Grid.Row="2"
+                        Style="{StaticResource Card}">
+
+            <CollectionView.ItemTemplate>
+
+                <!-- Cards -->
+                <DataTemplate x:DataType="model:Assignment">
+
+                    <Grid 
+                        RowDefinitions="1*, 4*"
+                        Style="{StaticResource Card}">
+
+                        <!-- Card Header -->
+                        <Grid Grid.Row="0"
+                            ColumnDefinitions="Auto,*,Auto"
+                            Style="{StaticResource CardHeader}">
+
+                            <Label Text="1." 
+                                   Style="{StaticResource CardText}"
+                                   Grid.Column="0"/>
+
+                            <!-- This shit should work... Update later -->
+                            <Label Style="{StaticResource CardText}"
+                                   Grid.Column="1">
+                                <Label.Text>
+                                    <MultiBinding Converter="{StaticResource TimeRangeConverter}">
+                                        <Binding Path="StartTime"/>
+                                        <Binding Path="EndTime"/>
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+
+                            <Label Text="Nr. 312B"
+                                   Style="{StaticResource CardText}"
+                                   Grid.Column="2"/>
+
+                        </Grid>
+                        <!-- Card Body -->
+                        <Grid Grid.Row="1"
+                              ColumnDefinitions="4*, 1*">
+
+                            <Label Text="Borger Navn"
+                                   Style="{StaticResource CardText}"
+                                   Grid.Column="0"/>
+
+                            <CheckBox IsChecked="{Binding IsCompleted}"
+                                      Style="{StaticResource Rounded}"
+                                      Grid.Column="1"/>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>
