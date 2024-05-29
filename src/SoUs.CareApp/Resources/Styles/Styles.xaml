@@ -5,11 +5,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!-- General -->
+    
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="White"/>
     </Style>
 
     <!-- Classes -->
+    
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{StaticResource Primary}" />
     </Style>
@@ -27,17 +29,40 @@
     </Style>
 
     <Style x:Key="Rounded" TargetType="CheckBox">
-        <Setter Property="CornerRadius" Value="50" />
+        
     </Style>
 
-    <Style x:Key="Card" TargetType="Grid">
+    <Style x:Key="Card" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Margin" Value="0,15" />
+        <Setter Property="Stroke" Value="{StaticResource Border}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 10" />
     </Style>
 
     <Style x:Key="CardHeader" TargetType="Grid">
-        <Setter Property="BorderBrush" Value="Black" />
-        <Setter Property="BorderThickness" Value="0,0,0,2" />
+        <Setter Property="Padding" Value="8" />
+    </Style>
+
+
+    <Style x:Key="CardHeaderBorder" TargetType="Border">
+        <Setter Property="Stroke" Value="{StaticResource Border}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+    </Style>
+
+    <Style x:Key="CardBody" TargetType="Grid">
+        <Setter Property="Padding" Value="8" />
+    </Style>
+
+    <!-- TODO: Shit can't go round... -->
+    <Style x:Key="CardCheckbox" TargetType="CheckBox">
+        <Setter Property="HorizontalOptions" Value="End" />
+        <Setter Property="VerticalOptions" Value="End" />
+    </Style>
+
+    <Style x:Key="CardText" TargetType="Label">
+        <Setter Property="TextColor" Value="Black" />
     </Style>
 
 </ResourceDictionary>

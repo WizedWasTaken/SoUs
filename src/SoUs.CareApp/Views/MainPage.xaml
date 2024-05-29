@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:SoUs.Entities;assembly=SoUs.Entities"
-             xmlns:converters="clr-namespace:SoUs.CareApp.Converters;assembly=SoUs.CareApp"
-             x:DataType="model:Assignment"
+             xmlns:converters="clr-namespace:SoUs.CareApp.Converters"
+             xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
+             x:DataType="viewModel:MainPageViewModel"
              x:Class="SoUs.CareApp.Views.MainPage">
     <!-- Declaring stuff -->
     <ContentPage.Resources>
@@ -15,7 +16,7 @@
     <!-- Base Grid -->
     <Grid ColumnDefinitions="*"
           RowDefinitions="Auto,*"
-          Padding="0,20"
+          Padding="20"
           BackgroundColor="{StaticResource Background}">
         <!-- Header -->
         <Grid ColumnDefinitions="*,*" 
@@ -47,55 +48,68 @@
 
         <!-- Main Content -->
         <CollectionView Grid.Row="2"
-                        Style="{StaticResource Card}">
+                        ItemsSource="{Binding TodaysAssignments}">
 
             <CollectionView.ItemTemplate>
 
                 <!-- Cards -->
                 <DataTemplate x:DataType="model:Assignment">
 
-                    <Grid 
-                        RowDefinitions="1*, 4*"
-                        Style="{StaticResource Card}">
+                    <Border Style="{StaticResource Card}">
+                        <Grid 
+                        RowDefinitions="2*,1,4*"
+                        HeightRequest="100">
 
                         <!-- Card Header -->
                         <Grid Grid.Row="0"
-                            ColumnDefinitions="Auto,*,Auto"
+                            ColumnDefinitions="40,*,40"
+                              RowDefinitions="*, Auto"
                             Style="{StaticResource CardHeader}">
 
-                            <Label Text="1." 
+                            <Label Text="Nr." 
                                    Style="{StaticResource CardText}"
-                                   Grid.Column="0"/>
+                                   Grid.Column="0"
+                                   HorizontalTextAlignment="Start"/>
 
                             <!-- This shit should work... Update later -->
+                            <!-- Didn't work correctly. We'll try again :D -->
                             <Label Style="{StaticResource CardText}"
+                                   HorizontalOptions="Center"
                                    Grid.Column="1">
                                 <Label.Text>
                                     <MultiBinding Converter="{StaticResource TimeRangeConverter}">
-                                        <Binding Path="StartTime"/>
-                                        <Binding Path="EndTime"/>
+                                        <Binding Path="TimeStart" />
+                                        <Binding Path="TimeEnd" />
                                     </MultiBinding>
                                 </Label.Text>
                             </Label>
 
-                            <Label Text="Nr. 312B"
+                                <Label Text="{Binding Resident.RoomNumber}"
                                    Style="{StaticResource CardText}"
-                                   Grid.Column="2"/>
+                                   Grid.Column="2"
+                                       HorizontalTextAlignment="End"/>
 
-                        </Grid>
-                        <!-- Card Body -->
-                        <Grid Grid.Row="1"
-                              ColumnDefinitions="4*, 1*">
+                            </Grid>
+                            <!-- Header Border -->
+                            <Border
+                                    Style="{StaticResource CardHeaderBorder}"
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="3"/>
+                            <!-- Card Body -->
+                        <Grid Grid.Row="2"
+                              ColumnDefinitions="4*, 1*"
+                              Style="{StaticResource CardBody}">
 
-                            <Label Text="Borger Navn"
+                            <Label Text="{Binding Resident.Name}"
                                    Style="{StaticResource CardText}"
                                    Grid.Column="0"/>
 
                             <CheckBox IsChecked="{Binding IsCompleted}"
-                                      Style="{StaticResource Rounded}"
+                                      Style="{StaticResource CardCheckbox}"
                                       Grid.Column="1"/>
                         </Grid>
                     </Grid>
+                    </Border>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:SoUs.CareApp.Views"
     Shell.FlyoutBehavior="Disabled"
-    Title="SoUs.CareApp">
+    Title="SoUs.CareApp"
+    Shell.NavBarIsVisible="False">
 
     <ShellContent
         Title="Home"

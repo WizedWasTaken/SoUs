@@ -13,7 +13,7 @@ namespace SoUs.CareApp.Converters
         {
             if (values[0] is DateTime start && values[1] is DateTime end)
             {
-                return $"{start:HH:mm} - {end:HH:mm}";
+                return $"{start:HH.mm} - {end:HH.mm}";
             }
 
             return string.Empty;

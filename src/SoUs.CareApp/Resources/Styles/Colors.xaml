@@ -9,6 +9,7 @@
     <Color x:Key="Primary">#B5ECE7</Color>
     <Color x:Key="Background">#0A716B</Color>
     <!-- #79A9A6 If you want... -->
+    <Color x:Key="Border">#000</Color>
     <Color x:Key="Blue">#009FFD</Color>
     <Color x:Key="White">#FFFFFF</Color>
 </ResourceDictionary>
