@@ -22,11 +22,13 @@
         <Grid ColumnDefinitions="*,*" 
               RowDefinitions="*,*">
 
+            <!-- Make this correct some time... -->
             <Button Text="Recepter" 
                     Grid.Column="0" 
                     Grid.Row="0"
                     WidthRequest="125"
                     HorizontalOptions="Start"
+                    Command="{Binding UpdateAssignmentsCommand}"
                     Style="{StaticResource Pill}"/>
 
             <!-- Fix name to be correct to the logged in user (log in not existing yet...)-->

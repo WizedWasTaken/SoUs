@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using SoUs.CareApp.ViewModels;
 using SoUs.CareApp.Views;
+using SoUs.Services;
 
 namespace SoUs.CareApp
 {
@@ -20,7 +21,9 @@ namespace SoUs.CareApp
                 });
 
             Uri uri = new(baseUri);
-            builder.Services.AddScoped<ISoUsService>(x => new SoUsService(uri));
+            // Er Singleton det korrekte, eller skal det være Scoped?
+            // Singleton fordi der er fejl i alt andet...
+            builder.Services.AddSingleton<ISoUsService>(x => new SoUsService(uri));
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
 
