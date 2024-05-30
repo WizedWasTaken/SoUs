@@ -29,7 +29,8 @@
                     HorizontalOptions="Start"
                     Style="{StaticResource Pill}"/>
 
-            <Label Text="Mads Mikkel" 
+            <!-- Fix name to be correct to the logged in user (log in not existing yet...)-->
+            <Label Text="Noah. A. Nielsen" 
                    Grid.Column="1" 
                    Grid.Row="0" 
                    VerticalTextAlignment="Start" 
