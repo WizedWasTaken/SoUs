@@ -1,16 +1,20 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using SoUs.Entities;
+﻿using SoUs.Entities;
+using SoUs.Services;
 using System.Collections.ObjectModel;
 
 namespace SoUs.CareApp.ViewModels
 {
     public partial class MainPageViewModel : BaseViewModel
     {
+        private readonly ISoUsService sosuService;
+
         public ObservableCollection<Assignment> TodaysAssignments { get; } = new();
 
-        public MainPageViewModel()
+        public MainPageViewModel(ISoUsService sosuService)
         {
-            Title = "FORSIDEN";
+            Title = "DAGENS OPGAVER";
+            this.sosuService = sosuService;
+            UpdateAssignmentsAsync();
 
             var a = new Assignment
             {
@@ -37,5 +41,8 @@ namespace SoUs.CareApp.ViewModels
             TodaysAssignments.Add(a);
             TodaysAssignments.Add(b);
         }
+
+        private async Task UpdateAssignmentsAsync()
+        {
     }
 }

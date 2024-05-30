@@ -9,7 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoUs.DataAccess", "SoUs.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoUs.Entities", "SoUs.Entities\SoUs.Entities.csproj", "{572E1B9A-90E0-4995-B4E5-61A1B7DBFAA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoUs.CareApp", "SoUs.CareApp\SoUs.CareApp.csproj", "{6CB59597-6E95-414D-86CA-9FDEB9DE4207}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoUs.CareApp", "SoUs.CareApp\SoUs.CareApp.csproj", "{6CB59597-6E95-414D-86CA-9FDEB9DE4207}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoUs.Services", "SoUs.Services\SoUs.Services.csproj", "{9453CB85-47AF-47FF-8E32-5FB546A9CE23}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4A4AF318-3808-40FC-AB57-D2E77E1E05EE}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +42,10 @@ Global
 		{6CB59597-6E95-414D-86CA-9FDEB9DE4207}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CB59597-6E95-414D-86CA-9FDEB9DE4207}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6CB59597-6E95-414D-86CA-9FDEB9DE4207}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9453CB85-47AF-47FF-8E32-5FB546A9CE23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9453CB85-47AF-47FF-8E32-5FB546A9CE23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9453CB85-47AF-47FF-8E32-5FB546A9CE23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9453CB85-47AF-47FF-8E32-5FB546A9CE23}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

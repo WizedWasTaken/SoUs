@@ -45,26 +45,12 @@ namespace SoUs.API.Controllers
             }
         }
 
-        [HttpGet(nameof(GetAssignmentsOnDate))]
-        public ActionResult GetAssignmentsOnDate(string date)
+        [HttpGet(nameof(GetAssignmentsForEmployeeByDate))]
+        public ActionResult GetAssignmentsForEmployeeByDate(int employeeId, DateTime date)
         {
             try
             {
-                var tasks = _repository.GetAssignmentsOn(System.DateTime.Parse(date));
-                return Ok(tasks);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpGet(nameof(GetAssignmentsForEmployee))]
-        public ActionResult GetAssignmentsForEmployee(Employee employee)
-        {
-            try
-            {
-                var tasks = _repository.GetAssignmentsForEmployee(employee);
+                var tasks = _repository.GetAssignmentsForEmployee(date, employeeId);
                 return Ok(tasks);
             }
             catch (Exception e)

@@ -11,14 +11,9 @@ namespace SoUs.DataAccess
     public class AssignmentRepository(DataContext _context) :
         Repository<Assignment>(_context), IAssignmentRepository
     {
-        public IEnumerable<Assignment> GetAssignmentsForEmployee(Employee employee)
+        public IEnumerable<Assignment> GetAssignmentsForEmployee(DateTime date, int employeeId)
         {
-            return _context.Assignments.Where(a => a.Employees.Contains(employee));
-        }
-
-        public IEnumerable<Assignment> GetAssignmentsOn(DateTime date)
-        {
-            return _context.Assignments.Where(a => a.TimeStart == date.Date);
+            return _context.Assignments.Where(a => a.Employees.Any(e => e.EmployeeId == employeeId) && a.TimeStart.Date == date.Date).Include(a => a.Employees).Include(a => a.Medicines).ToList();
         }
 
         public Assignment GetBy(int id)
