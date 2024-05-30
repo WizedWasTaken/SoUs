@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:SoUs.Entities;assembly=SoUs.Entities"
              xmlns:converters="clr-namespace:SoUs.CareApp.Converters;assembly=SoUs.CareApp"
-             x:DataType="model:Assignment"
+             xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
+             x:DataType="viewModel:MainPageViewModel"
              x:Class="SoUs.CareApp.Views.MainPage">
     <!-- Declaring stuff -->
     <ContentPage.Resources>
@@ -28,7 +29,7 @@
                     HorizontalOptions="Start"
                     Style="{StaticResource Pill}"/>
 
-            <Label Text="Mads Mikkel" 
+            <Label Text="Mads Mikkelsen" 
                    Grid.Column="1" 
                    Grid.Row="0" 
                    VerticalTextAlignment="Start" 
@@ -46,7 +47,8 @@
         </Grid>
 
         <!-- Main Content -->
-        <CollectionView Grid.Row="2">
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding TodaysAssignments}">
 
             <CollectionView.ItemTemplate>
 
@@ -71,13 +73,13 @@
                                    Grid.Column="1">
                                 <Label.Text>
                                     <MultiBinding Converter="{StaticResource TimeRangeConverter}">
-                                        <Binding Path="StartTime"/>
-                                        <Binding Path="EndTime"/>
+                                        <Binding Path="TimeStart"/>
+                                        <Binding Path="TimeEnd"/>
                                     </MultiBinding>
                                 </Label.Text>
                             </Label>
 
-                            <Label Text="Nr. 312B"
+                            <Label Text="{Binding Resident.RoomNumber}"
                                    Style="{StaticResource CardText}"
                                    Grid.Column="2"/>
 
@@ -86,7 +88,7 @@
                         <Grid Grid.Row="1"
                               ColumnDefinitions="4*, 1*">
 
-                            <Label Text="Borger Navn"
+                            <Label Text="{Binding Resident.Name}"
                                    Style="{StaticResource CardText}"
                                    Grid.Column="0"/>
 
