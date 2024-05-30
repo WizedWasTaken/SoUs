@@ -46,8 +46,7 @@
         </Grid>
 
         <!-- Main Content -->
-        <CollectionView Grid.Row="2"
-                        Style="{StaticResource Card}">
+        <CollectionView Grid.Row="2">
 
             <CollectionView.ItemTemplate>
 

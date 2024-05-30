@@ -26,18 +26,11 @@
         <Setter Property="CornerRadius" Value="50" />
     </Style>
 
-    <Style x:Key="Rounded" TargetType="CheckBox">
-        <Setter Property="CornerRadius" Value="50" />
-    </Style>
-
     <Style x:Key="Card" TargetType="Grid">
         <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-        <Setter Property="CornerRadius" Value="10" />
     </Style>
 
     <Style x:Key="CardHeader" TargetType="Grid">
-        <Setter Property="BorderBrush" Value="Black" />
-        <Setter Property="BorderThickness" Value="0,0,0,2" />
     </Style>
 
 </ResourceDictionary>
