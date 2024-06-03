@@ -9,7 +9,7 @@ EXEC sp_MSforeachtable "DELETE FROM ?"
 
 -- Re-enable all foreign key constraints
 EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
-
+>
 -- Re-enable all triggers
 EXEC sp_MSforeachtable "ENABLE TRIGGER all ON ?"
 

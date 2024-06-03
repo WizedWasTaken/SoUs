@@ -59,6 +59,7 @@
     <Style x:Key="CardCheckbox" TargetType="CheckBox">
         <Setter Property="HorizontalOptions" Value="End" />
         <Setter Property="VerticalOptions" Value="End" />
+        <Setter Property="BackgroundColor" Value="White" />
     </Style>
 
     <Style x:Key="CardText" TargetType="Label">
