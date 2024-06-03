@@ -6,11 +6,25 @@ namespace SoUs.API.Controllers
 {
     public class ResidentController : Controller
     {
-        private readonly IRepository<Resident> _repository;
+        private readonly IResidentRepository _repository;
 
-        public ResidentController(IRepository<Resident> repository)
+        public ResidentController(IResidentRepository repository)
         {
             _repository = repository;
+        }
+
+        [HttpGet(nameof(GetResidentsTasksOnDateAndEmployee))]
+        public ActionResult GetResidentsTasksOnDateAndEmployee(DateTime date, int employeeId)
+        {
+            try
+            {
+                var residents = _repository.GetResidentsTasksOnDateAndEmployee(date, employeeId);
+                return Ok(residents);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpGet(nameof(GetResidents))]
