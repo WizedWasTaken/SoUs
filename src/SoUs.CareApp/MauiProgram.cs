@@ -7,7 +7,7 @@ namespace SoUs.CareApp
 {
     public static class MauiProgram
     {
-        private const string baseUri = "https://localhost:7093/api/";
+        private const string baseUri = "https://10.0.2.2:7093/api/";
 
         public static MauiApp CreateMauiApp()
         {
@@ -23,7 +23,7 @@ namespace SoUs.CareApp
             Uri uri = new(baseUri);
             // Er Singleton det korrekte, eller skal det være Scoped?
             // Singleton fordi der er fejl i alt andet...
-            builder.Services.AddSingleton<ISoUsService>(x => new SoUsService(uri));
+            builder.Services.AddScoped<ISoUsService>(x => new SoUsService(uri));
             builder.Services.AddSingleton<MainPageViewModel>();
             builder.Services.AddSingleton<MainPage>();
 

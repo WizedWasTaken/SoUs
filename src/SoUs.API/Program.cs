@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SoUs.DataAccess;
 using SoUs.Entities;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SoUs.API
 {
@@ -21,8 +22,10 @@ namespace SoUs.API
 
             builder.Services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("CONNECTION_STRING"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("CONNECTION_STRING")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
+
+
 
             builder.Services.AddScoped<IRepository<Assignment>, Repository<Assignment>>();
             builder.Services.AddScoped<IRepository<Address>, Repository<Address>>();
@@ -38,6 +41,13 @@ namespace SoUs.API
             builder.Services.AddControllers()
                    // Handle cyclic dependencies in JSON:
                    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
+            builder.Services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                });
 
 
             var app = builder.Build();

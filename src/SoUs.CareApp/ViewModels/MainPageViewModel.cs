@@ -17,36 +17,12 @@ namespace SoUs.CareApp.ViewModels
             Title = "DAGENS OPGAVER";
             this.sousService = sousService;
             UpdateAssignmentsAsync();
-
-            var a = new Assignment
-            {
-                Resident = new()
-                {
-                    Name = "Ibn Halfdan",
-                    RoomNumber = "A2"
-                },
-                TimeStart = new(2024, 01, 01, 12, 00, 00),
-                TimeEnd = new(2024, 01, 01, 12, 30, 00)
-            };
-            var b = new Assignment
-            {
-                Resident = new()
-                {
-                    Name = "Ib Bifrost",
-                    RoomNumber = "A1"
-                },
-                TimeStart = new(2024, 01, 01, 15, 30, 00),
-                TimeEnd = new(2024, 01, 01, 16, 30, 00),
-                IsCompleted = true
-            };
-
-            TodaysAssignments.Add(a);
-            TodaysAssignments.Add(b);
         }
 
         [RelayCommand]
         private async Task UpdateAssignmentsAsync()
         {
+            IsBusy = false;
             if (IsBusy) return;
 
             try
@@ -71,12 +47,6 @@ namespace SoUs.CareApp.ViewModels
                     TodaysAssignments.Add(assignment);
                 }
 
-            } 
-            catch(Exception e)
-            {
-                Debug.WriteLine(e.Message);
-                // Vis fejlbesked til brugeren...
-                await Shell.Current.DisplayAlert("Fejl", $"Kunne ikke hente opgaver... \nFejl besked: {e.Message}", "OK");
             }
             finally
             {
