@@ -17,11 +17,13 @@ namespace SoUs.Services
             // Makes the HttpClient that everything uses ignore SSL stuff. Stupid errors
             HttpClientHandler handler = new HttpClientHandler()
             {
-                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; }
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; },
+                
             };
 
             // Initialise HttpClient that everything uses with the new handler ignoring f****** stupid errors :D
             client = new HttpClient(handler);
+            client.Timeout = TimeSpan.FromSeconds(15);
         }
 
         protected ApiBase(string baseUri) : this(new Uri(baseUri))

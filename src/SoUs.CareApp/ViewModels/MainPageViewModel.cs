@@ -19,11 +19,21 @@ namespace SoUs.CareApp.ViewModels
             UpdateAssignmentsAsync();
         }
 
+        #region Commands
         [RelayCommand]
-        private void NoWorkey()
+        public async Task RefreshAssignments()
         {
-            Shell.Current.DisplayAlert("Not Made Yet.", "Denne funktion virker ikke endnu.", "OK");
+            ErrorOccurred = false;
+            await UpdateAssignmentsAsync();
         }
+
+        [RelayCommand]
+        private static void GoToSpecificTask()
+        {             
+            NoWorkey();
+        }
+
+        #endregion
 
         private async Task UpdateAssignmentsAsync()
         {
@@ -38,7 +48,6 @@ namespace SoUs.CareApp.ViewModels
                 // Kald service for at hente opgaver
                 var assignments = await sousService.GetAssignmentsAsync(date, employee);
 
-                // Tjek om der er opgaver i dag, hvis der er, så fjern dem
                 if (TodaysAssignments.Count != 0)
                 {
                     TodaysAssignments.Clear();
@@ -50,13 +59,22 @@ namespace SoUs.CareApp.ViewModels
                 {
                     TodaysAssignments.Add(assignment);
                 }
+
+                if (TodaysAssignments.Count == 0)
+                {
+                    Shell.Current.DisplayAlert("INFO", "Der er ingen opgaver for i dag.", "OK");
+                }
             }
-            catch (Exception e)
+            catch
             {
-                Debug.Write(e);
+                Shell.Current.DisplayAlert("FEJL", "Der skete en fejl under hentning af opgaver.", "OK");
             }
             finally
             {
+                if (TodaysAssignments.Count == 0)
+                {
+                    ErrorOccurred = true;
+                }
                 IsBusy = false;
             }
         }
