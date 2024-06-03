@@ -20,15 +20,19 @@ namespace SoUs.CareApp.ViewModels
         }
 
         [RelayCommand]
+        private void NoWorkey()
+        {
+            Shell.Current.DisplayAlert("Not Made Yet.", "Denne funktion virker ikke endnu.", "OK");
+        }
+
         private async Task UpdateAssignmentsAsync()
         {
-            IsBusy = false;
             if (IsBusy) return;
 
             try
             {
                 IsBusy = true;
-                // Sæt placeholder data... (Det bliver ikke brugt lol)
+                // Sæt placeholder data... (Det bliver ikke brugt, lol.)
                 DateTime date = DateTime.Now;
                 Employee employee = new() { EmployeeId = 2 };
                 // Kald service for at hente opgaver
@@ -40,13 +44,16 @@ namespace SoUs.CareApp.ViewModels
                     TodaysAssignments.Clear();
                 }
 
-                // Tilføj de nye opgaver til 'TodaysAssignments
+                // Tilføj de nye opgaver til 'TodaysAssignments'
                 // Det her er fint, fordi vi ikke rigtigt har 1000 opgaver om dagen, pr. bruger. - ellers kig på at oprette ny ObservableCollection...
                 foreach (var assignment in assignments)
                 {
                     TodaysAssignments.Add(assignment);
                 }
-
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e);
             }
             finally
             {

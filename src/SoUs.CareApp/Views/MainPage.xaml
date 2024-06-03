@@ -6,10 +6,12 @@
              xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
              x:DataType="viewModel:MainPageViewModel"
              x:Class="SoUs.CareApp.Views.MainPage">
+    
     <!-- Declaring stuff -->
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:TimeRangeConverter x:Key="TimeRangeConverter"/>
+            <converters:ItemIndexConverter x:Key="ItemIndexConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -18,17 +20,17 @@
           RowDefinitions="Auto,*"
           Padding="20"
           BackgroundColor="{StaticResource Background}">
+        
         <!-- Header -->
         <Grid ColumnDefinitions="*,*" 
               RowDefinitions="*,*">
 
-            <!-- Make this correct some time... -->
             <Button Text="Recepter" 
                     Grid.Column="0" 
                     Grid.Row="0"
                     WidthRequest="125"
                     HorizontalOptions="Start"
-                    Command="{Binding UpdateAssignmentsCommand}"
+                    Command="{Binding NoWorkeyCommand}"
                     Style="{StaticResource Pill}"/>
 
             <!-- Fix name to be correct to the logged in user (log in not existing yet...)-->
@@ -38,7 +40,7 @@
                    VerticalTextAlignment="Start" 
                    HorizontalOptions="End"/>
 
-            <Label Text="DAGENS OPGAVER" 
+            <Label Text="{Binding Title}" 
                    Style="{StaticResource Title}"
                    Grid.Row="2" 
                    Grid.Column="0" 
@@ -50,7 +52,8 @@
         </Grid>
 
         <!-- Main Content -->
-        <CollectionView Grid.Row="2"
+        <CollectionView x:Name="TodaysAssignmentsCollectionView"
+                        Grid.Row="2"
                         ItemsSource="{Binding TodaysAssignments}">
 
             <CollectionView.ItemTemplate>
@@ -69,12 +72,13 @@
                               RowDefinitions="*, Auto"
                             Style="{StaticResource CardHeader}">
 
-                            <Label Text="Nr." 
-                                   Style="{StaticResource CardText}"
-                                   Grid.Column="0"
-                                   HorizontalTextAlignment="Start"/>
+                                <Label Grid.Column="0"
+                                       HorizontalTextAlignment="Start"
+                                       Style="{StaticResource CardText}"
+                                       Text="{Binding ., Converter={StaticResource ItemIndexConverter}, ConverterParameter={x:Reference TodaysAssignmentsCollectionView}, StringFormat='Nr. {0}'}"
+                                       />
 
-                            <!-- This shit should work... Update later -->
+                                <!-- This shit should work... Update later -->
                             <!-- Didn't work correctly. We'll try again :D -->
                             <Label Style="{StaticResource CardText}"
                                    HorizontalOptions="Center"
