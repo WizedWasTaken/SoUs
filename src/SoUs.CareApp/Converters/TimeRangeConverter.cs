@@ -1,5 +1,8 @@
-﻿using System;
+﻿using SoUs.DataObjects;
+using SoUs.Entities;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -11,9 +14,15 @@ namespace SoUs.CareApp.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values[0] is DateTime start && values[1] is DateTime end)
+            if (values.Length == 1 && values[0] is ResidentWithAssignmentsDTO residentWithAssignments)
             {
-                return $"{start:HH.mm} - {end:HH.mm}";
+                var assignments = residentWithAssignments.Assignments;
+                if (assignments != null && assignments.Count > 0)
+                {
+                    var firstAssignment = assignments.First();
+                    var lastAssignment = assignments.Last();
+                    return $"{firstAssignment.TimeStart:HH.mm} - {lastAssignment.TimeEnd:HH.mm}";
+                }
             }
 
             return string.Empty;

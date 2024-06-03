@@ -40,23 +40,4 @@ namespace SoUs.DataObjects
 
         #endregion
     }
-
-    public class AssignmentDTO
-    {
-        public int Id { get; set; }
-        public int ResidentId { get; set; }
-        public int EmployeeId { get; set; }
-        public DateTime TimeStart { get; set; }
-        public DateTime TimeEnd { get; set; }
-        // Other properties
-    }
-
-    public class ResidentDTO
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime BirthDate { get; set; }
-        public string RoomNumber { get; set; }
-        // Other properties
-    }
 }

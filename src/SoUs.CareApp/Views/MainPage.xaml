@@ -94,16 +94,16 @@
                                        Text="{Binding ., Converter={StaticResource ItemIndexConverter}, ConverterParameter={x:Reference TodaysAssignmentsCollectionView}, StringFormat='Nr. {0}'}"
                                        />
 
-                            <Label Style="{StaticResource CardText}"
+                                <Label Style="{StaticResource CardText}"
                                    HorizontalOptions="Center"
                                    Grid.Column="1">
-                                <Label.Text>
-                                    <MultiBinding Converter="{StaticResource TimeRangeConverter}">
-                                        <Binding Path="TimeStart" />
-                                        <Binding Path="TimeEnd" />
-                                    </MultiBinding>
-                                </Label.Text>
-                            </Label>
+                                    <Label.Text>
+                                        <MultiBinding Converter="{StaticResource TimeRangeConverter}">
+                                            <Binding Path="." />
+                                            <!-- Pass the entire ResidentWithAssignmentsDTO -->
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
 
                                 <Label Text="{Binding Resident.RoomNumber}"
                                    Style="{StaticResource CardText}"
