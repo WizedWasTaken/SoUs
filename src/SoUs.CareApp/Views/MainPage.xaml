@@ -4,7 +4,9 @@
              xmlns:model="clr-namespace:SoUs.Entities;assembly=SoUs.Entities"
              xmlns:converters="clr-namespace:SoUs.CareApp.Converters"
              xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
+             xmlns:dataObjects="clr-namespace:SoUs.DataObjects;assembly=SoUs.DataObjects"
              x:DataType="viewModel:MainPageViewModel"
+             x:Subclass="dataObjects:ResidentWithAssignmentsDTO"
              x:Class="SoUs.CareApp.Views.MainPage">
     
     <!-- Declaring stuff -->
@@ -69,7 +71,7 @@
             <CollectionView.ItemTemplate>
 
                 <!-- Cards -->
-                <DataTemplate x:DataType="model:Assignment">
+                <DataTemplate x:DataType="dataObjects:ResidentWithAssignmentsDTO">
 
                     <Border Style="{StaticResource Card}">
                         <Border.GestureRecognizers>
@@ -123,15 +125,10 @@
                                    Style="{StaticResource CardText}"
                                    Grid.Column="0"/>
 
-                                <HorizontalStackLayout Grid.Column="1"
-                                                  HorizontalOptions="End"
-                                                  VerticalOptions="Center">
-                                    <Label Text="{Binding Name}"/>
-                                    <CheckBox IsChecked="{Binding IsCompleted}"
+                                <CheckBox IsChecked="{Binding AreAllTasksCompleted}"
                                       Style="{StaticResource CardCheckbox}"
                                       Grid.Column="1"/>
-                                </HorizontalStackLayout>
-                            </Grid>
+                        </Grid>
                     </Grid>
                     </Border>
                 </DataTemplate>

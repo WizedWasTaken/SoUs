@@ -1,3 +1,30 @@
+-- Disable all foreign key constraints
+EXEC sp_MSforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT all"
+
+-- Disable all triggers
+EXEC sp_MSforeachtable "DISABLE TRIGGER all ON ?"
+
+-- Delete all data from all tables
+EXEC sp_MSforeachtable "DELETE FROM ?"
+
+-- Re-enable all foreign key constraints
+EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
+
+-- Re-enable all triggers
+EXEC sp_MSforeachtable "ENABLE TRIGGER all ON ?"
+
+DBCC CHECKIDENT ('Addresses', RESEED, 0);
+DBCC CHECKIDENT ('CareCenters', RESEED, 0);
+DBCC CHECKIDENT ('Residents', RESEED, 0);
+DBCC CHECKIDENT ('Diagnoses', RESEED, 0);
+DBCC CHECKIDENT ('Prescriptions', RESEED, 0);
+DBCC CHECKIDENT ('Roles', RESEED, 0);
+DBCC CHECKIDENT ('Employees', RESEED, 0);
+DBCC CHECKIDENT ('Assignments', RESEED, 0);
+DBCC CHECKIDENT ('Medications', RESEED, 0);
+
+
+
 -- Addresses
 INSERT INTO Addresses (Street, City, State, ZipCode) VALUES
 ('Østerbrogade 34', 'København', 'Hovedstaden', '2100'),
@@ -64,29 +91,29 @@ INSERT INTO EmployeeRole(EmployeesEmployeeId, RolesRoleId) VALUES
 
 -- Assignments for Resident 1
 INSERT INTO Assignments (Name, TimeStart, TimeEnd, ResidentId, isCompleted) VALUES
-('Morgenmedicin', '2024-05-24 07:00:00', '2024-05-24 07:15:00', 1, 0),
-('Daglig kontrol', '2024-05-24 07:15:00', '2024-05-24 07:30:00', 1, 0),
-('Træning', '2024-05-24 07:30:00', '2024-05-24 07:45:00', 1, 0),
-('Frokostmedicin', '2024-05-24 07:45:00', '2024-05-24 08:00:00', 1, 0),
-('Eftermiddags hvile', '2024-05-24 08:00:00', '2024-05-24 08:15:00', 1, 0),
-('Aftenmedicin', '2024-05-24 08:15:00', '2024-05-24 08:30:00', 1, 0),
-('Daglig snak', '2024-05-24 08:30:00', '2024-05-24 08:45:00', 1, 0),
-('Fysioterapi', '2024-05-24 08:45:00', '2024-05-24 09:00:00', 1, 0),
-('Aftencheck', '2024-05-24 09:00:00', '2024-05-24 09:15:00', 1, 0),
-('Natmedicin', '2024-05-24 09:15:00', '2024-05-24 09:30:00', 1, 0);
+('Morgenmedicin', '2024-05-24 07:00:00', '2024-05-24 07:15:00', 1, 1),
+('Daglig kontrol', '2024-05-24 07:15:00', '2024-05-24 07:30:00', 1, 1),
+('Træning', '2024-05-24 07:30:00', '2024-05-24 07:45:00', 1, 1),
+('Frokostmedicin', '2024-05-24 07:45:00', '2024-05-24 08:00:00', 1, 1),
+('Eftermiddags hvile', '2024-05-24 08:00:00', '2024-05-24 08:15:00', 1, 1),
+('Aftenmedicin', '2024-05-24 08:15:00', '2024-05-24 08:30:00', 1, 1),
+('Daglig snak', '2024-05-24 08:30:00', '2024-05-24 08:45:00', 1, 1),
+('Fysioterapi', '2024-05-24 08:45:00', '2024-05-24 09:00:00', 1, 1),
+('Aftencheck', '2024-05-24 09:00:00', '2024-05-24 09:15:00', 1, 1),
+('Natmedicin', '2024-05-24 09:15:00', '2024-05-24 09:30:00', 1, 1);
 
 -- Assignments for Resident 2
 INSERT INTO Assignments (Name, TimeStart, TimeEnd, ResidentId, isCompleted) VALUES
-('Morgenmedicin', '2024-05-24 09:30:00', '2024-05-24 09:45:00', 2, 0),
-('Daglig kontrol', '2024-05-24 09:45:00', '2024-05-24 10:00:00', 2, 0),
-('Træning', '2024-05-24 10:00:00', '2024-05-24 10:15:00', 2, 0),
+('Morgenmedicin', '2024-05-24 09:30:00', '2024-05-24 09:45:00', 2, 1),
+('Daglig kontrol', '2024-05-24 09:45:00', '2024-05-24 10:00:00', 2, 1),
+('Træning', '2024-05-24 10:00:00', '2024-05-24 10:15:00', 2, 1),
 ('Frokostmedicin', '2024-05-24 10:15:00', '2024-05-24 10:30:00', 2, 0),
-('Eftermiddags hvile', '2024-05-24 10:30:00', '2024-05-24 10:45:00', 2, 0),
-('Aftenmedicin', '2024-05-24 10:45:00', '2024-05-24 11:00:00', 2, 0),
-('Daglig snak', '2024-05-24 11:00:00', '2024-05-24 11:15:00', 2, 0),
-('Fysioterapi', '2024-05-24 11:15:00', '2024-05-24 11:30:00', 2, 0),
-('Aftencheck', '2024-05-24 11:30:00', '2024-05-24 11:45:00', 2, 0),
-('Natmedicin', '2024-05-24 11:45:00', '2024-05-24 12:00:00', 2, 0);
+('Eftermiddags hvile', '2024-05-24 10:30:00', '2024-05-24 10:45:00', 2, 1),
+('Aftenmedicin', '2024-05-24 10:45:00', '2024-05-24 11:00:00', 2, 1),
+('Daglig snak', '2024-05-24 11:00:00', '2024-05-24 11:15:00', 2, 1),
+('Fysioterapi', '2024-05-24 11:15:00', '2024-05-24 11:30:00', 2, 1),
+('Aftencheck', '2024-05-24 11:30:00', '2024-05-24 11:45:00', 2, 1),
+('Natmedicin', '2024-05-24 11:45:00', '2024-05-24 12:00:00', 2, 1);
 
 -- Assignments for Resident 3
 INSERT INTO Assignments (Name, TimeStart, TimeEnd, ResidentId, isCompleted) VALUES

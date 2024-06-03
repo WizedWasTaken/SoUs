@@ -3,6 +3,8 @@ using SoUs.Entities;
 using SoUs.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using SoUs.DataObjects;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SoUs.CareApp.ViewModels
 {
@@ -10,7 +12,7 @@ namespace SoUs.CareApp.ViewModels
     {
         private readonly ISoUsService sousService;
 
-        public ObservableCollection<Assignment> TodaysAssignments { get; } = [];
+        public ObservableCollection<ResidentWithAssignmentsDTO> TodaysAssignments { get; } = [];
 
         public MainPageViewModel(ISoUsService sousService)
         {

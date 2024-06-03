@@ -2,6 +2,7 @@
 using System.Data;
 using System.Diagnostics;
 using System.Net.Http.Json;
+using SoUs.DataObjects;
 
 namespace SoUs.Services
 {
@@ -11,19 +12,19 @@ namespace SoUs.Services
 
         public SoUsService(string baseUri) : base(baseUri) { }
 
-        public async Task<List<Assignment>> GetAssignmentsAsync(DateTime date, Employee employee)
+        public async Task<List<ResidentWithAssignmentsDTO>> GetAssignmentsAsync(DateTime date, Employee employee)
         {
             try {
-                List<Assignment> assignmentList = new List<Assignment>();
+                List<ResidentWithAssignmentsDTO> assignmentList = new();
 
-                var response = await GetHttpAsync($"Assignment/GetAssignmentsForEmployeeByDate?employeeId={employee.EmployeeId}&date=2024-05-24");
+                var response = await GetHttpAsync($"Resident/GetResidentsTasksOnDateAndEmployee?date=2024-05-24&employeeId={employee.EmployeeId}");
 
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new DataException("Kunne ikke hente opgaver");
                 }
 
-                assignmentList = await response.Content.ReadFromJsonAsync<List<Assignment>>();
+                assignmentList = await response.Content.ReadFromJsonAsync<List<ResidentWithAssignmentsDTO>>();
 
                 return assignmentList;
             }

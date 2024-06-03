@@ -7,6 +7,7 @@ namespace SoUs.DataObjects
         #region Fields
         private Resident resident;
         private List<Assignment> assignments;
+        public bool AreAllTasksCompleted => Assignments != null && Assignments.All(a => a.IsCompleted);
         #endregion
 
         #region Constructors
@@ -46,6 +47,7 @@ namespace SoUs.DataObjects
         public int ResidentId { get; set; }
         public int EmployeeId { get; set; }
         public DateTime TimeStart { get; set; }
+        public DateTime TimeEnd { get; set; }
         // Other properties
     }
 
@@ -55,7 +57,6 @@ namespace SoUs.DataObjects
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
         public string RoomNumber { get; set; }
-        public string Notes { get; set; }
         // Other properties
     }
 }
