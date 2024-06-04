@@ -19,6 +19,7 @@ namespace SoUs.DataAccess
         public DbSet<Role> Roles { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<CareCenter> CareCenters { get; set; }
+        public DbSet<SubTask> SubTasks { get; set; }
     }
 }
 

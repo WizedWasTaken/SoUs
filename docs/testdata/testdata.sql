@@ -7,12 +7,6 @@ EXEC sp_MSforeachtable "DISABLE TRIGGER all ON ?"
 -- Delete all data from all tables
 EXEC sp_MSforeachtable "DELETE FROM ?"
 
--- Re-enable all foreign key constraints
-EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
->
--- Re-enable all triggers
-EXEC sp_MSforeachtable "ENABLE TRIGGER all ON ?"
-
 DBCC CHECKIDENT ('Addresses', RESEED, 0);
 DBCC CHECKIDENT ('CareCenters', RESEED, 0);
 DBCC CHECKIDENT ('Residents', RESEED, 0);
@@ -22,6 +16,7 @@ DBCC CHECKIDENT ('Roles', RESEED, 0);
 DBCC CHECKIDENT ('Employees', RESEED, 0);
 DBCC CHECKIDENT ('Assignments', RESEED, 0);
 DBCC CHECKIDENT ('Medications', RESEED, 0);
+DBCC CHECKIDENT ('SubTasks', RESEED, 0);
 
 
 
@@ -63,8 +58,6 @@ INSERT INTO Prescriptions(Name, Amount, Unit, ResidentID) VALUES
 ('Lisinopril', 10, 'mg', 5),
 ('Donepezil', 5, 'mg', 2);
 
-
-
 -- Roles
 INSERT INTO Roles(RoleName) VALUES
 ('SoSu Hjælper'),
@@ -89,84 +82,111 @@ INSERT INTO EmployeeRole(EmployeesEmployeeId, RolesRoleId) VALUES
 (5, 1),
 (5, 2);
 
--- Assignments for Resident 1
-INSERT INTO Assignments (Name, TimeStart, TimeEnd, ResidentId, isCompleted) VALUES
-('Morgenmedicin', '2024-05-24 07:00:00', '2024-05-24 07:15:00', 1, 1),
-('Daglig kontrol', '2024-05-24 07:15:00', '2024-05-24 07:30:00', 1, 1),
-('Træning', '2024-05-24 07:30:00', '2024-05-24 07:45:00', 1, 1),
-('Frokostmedicin', '2024-05-24 07:45:00', '2024-05-24 08:00:00', 1, 1),
-('Eftermiddags hvile', '2024-05-24 08:00:00', '2024-05-24 08:15:00', 1, 1),
-('Aftenmedicin', '2024-05-24 08:15:00', '2024-05-24 08:30:00', 1, 1),
-('Daglig snak', '2024-05-24 08:30:00', '2024-05-24 08:45:00', 1, 1),
-('Fysioterapi', '2024-05-24 08:45:00', '2024-05-24 09:00:00', 1, 1),
-('Aftencheck', '2024-05-24 09:00:00', '2024-05-24 09:15:00', 1, 1),
-('Natmedicin', '2024-05-24 09:15:00', '2024-05-24 09:30:00', 1, 1);
+-- Assignments
 
--- Assignments for Resident 2
-INSERT INTO Assignments (Name, TimeStart, TimeEnd, ResidentId, isCompleted) VALUES
-('Morgenmedicin', '2024-05-24 09:30:00', '2024-05-24 09:45:00', 2, 1),
-('Daglig kontrol', '2024-05-24 09:45:00', '2024-05-24 10:00:00', 2, 1),
-('Træning', '2024-05-24 10:00:00', '2024-05-24 10:15:00', 2, 1),
-('Frokostmedicin', '2024-05-24 10:15:00', '2024-05-24 10:30:00', 2, 0),
-('Eftermiddags hvile', '2024-05-24 10:30:00', '2024-05-24 10:45:00', 2, 1),
-('Aftenmedicin', '2024-05-24 10:45:00', '2024-05-24 11:00:00', 2, 1),
-('Daglig snak', '2024-05-24 11:00:00', '2024-05-24 11:15:00', 2, 1),
-('Fysioterapi', '2024-05-24 11:15:00', '2024-05-24 11:30:00', 2, 1),
-('Aftencheck', '2024-05-24 11:30:00', '2024-05-24 11:45:00', 2, 1),
-('Natmedicin', '2024-05-24 11:45:00', '2024-05-24 12:00:00', 2, 1);
+-- Resident 1
+INSERT INTO Assignments (TimeStart, TimeEnd, ResidentId) VALUES
+('2024-06-04 08:00:00', '2024-06-04 08:45:00', 1),
+('2024-06-04 08:50:00', '2024-06-04 09:35:00', 2),
+('2024-06-04 09:40:00', '2024-06-04 10:25:00', 3),
+('2024-06-04 11:20:00', '2024-06-04 12:05:00', 4),
+('2024-06-04 12:10:00', '2024-06-04 12:55:00', 5),
+('2024-06-04 13:00:00', '2024-06-04 13:45:00', 3),
+('2024-06-04 13:50:00', '2024-06-04 14:35:00', 1),
+('2024-06-04 14:40:00', '2024-06-04 15:25:00', 2);
 
--- Assignments for Resident 3
-INSERT INTO Assignments (Name, TimeStart, TimeEnd, ResidentId, isCompleted) VALUES
-('Morgenmedicin', '2024-05-24 12:00:00', '2024-05-24 12:15:00', 3, 0),
-('Daglig kontrol', '2024-05-24 12:15:00', '2024-05-24 12:30:00', 3, 0),
-('Træning', '2024-05-24 12:30:00', '2024-05-24 12:45:00', 3, 0),
-('Frokostmedicin', '2024-05-24 12:45:00', '2024-05-24 13:00:00', 3, 0),
-('Eftermiddags hvile', '2024-05-24 13:00:00', '2024-05-24 13:15:00', 3, 0),
-('Aftenmedicin', '2024-05-24 13:15:00', '2024-05-24 13:30:00', 3, 0),
-('Daglig snak', '2024-05-24 13:30:00', '2024-05-24 13:45:00', 3, 0),
-('Fysioterapi', '2024-05-24 13:45:00', '2024-05-24 14:00:00', 3, 0),
-('Aftencheck', '2024-05-24 14:00:00', '2024-05-24 14:15:00', 3, 0),
-('Natmedicin', '2024-05-24 14:15:00', '2024-05-24 14:30:00', 3, 0);
+-- SubTasks
 
--- Assignments for Resident 4
-INSERT INTO Assignments (Name, TimeStart, TimeEnd, ResidentId, isCompleted) VALUES
-('Morgenmedicin', '2024-05-24 14:30:00', '2024-05-24 14:45:00', 4, 0),
-('Daglig kontrol', '2024-05-24 14:45:00', '2024-05-24 15:00:00', 4, 0),
-('Træning', '2024-05-24 15:00:00', '2024-05-24 15:15:00', 4, 0),
-('Frokostmedicin', '2024-05-24 15:15:00', '2024-05-24 15:30:00', 4, 0),
-('Eftermiddags hvile', '2024-05-24 15:30:00', '2024-05-24 15:45:00', 4, 0),
-('Aftenmedicin', '2024-05-24 15:45:00', '2024-05-24 16:00:00', 4, 0),
-('Daglig snak', '2024-05-24 16:00:00', '2024-05-24 16:15:00', 4, 0),
-('Fysioterapi', '2024-05-24 16:15:00', '2024-05-24 16:30:00', 4, 0),
-('Aftencheck', '2024-05-24 16:30:00', '2024-05-24 16:45:00', 4, 0),
-('Natmedicin', '2024-05-24 16:45:00', '2024-05-24 17:00:00', 4, 0);
+-- Assignment 1
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Hjælp med morgenmad', 1, 1),
+('Hjælp med bad', 1, 1),
+('Hjælp med påklædning', 1, 1),
+('Vask gulv', 1, 1),
+('Luft ud', 1, 1);
 
--- Assignments for Resident 5
-INSERT INTO Assignments (Name, TimeStart, TimeEnd, ResidentId, isCompleted) VALUES
-('Morgenmedicin', '2024-05-24 17:00:00', '2024-05-24 17:15:00', 5, 0),
-('Daglig kontrol', '2024-05-24 17:15:00', '2024-05-24 17:30:00', 5, 0),
-('Træning', '2024-05-24 17:30:00', '2024-05-24 17:45:00', 5, 0),
-('Frokostmedicin', '2024-05-24 17:45:00', '2024-05-24 18:00:00', 5, 0),
-('Eftermiddags hvile', '2024-05-24 18:00:00', '2024-05-24 18:15:00', 5, 0),
-('Aftenmedicin', '2024-05-24 18:15:00', '2024-05-24 18:30:00', 5, 0),
-('Daglig snak', '2024-05-24 18:30:00', '2024-05-24 18:45:00', 5, 0),
-('Fysioterapi', '2024-05-24 18:45:00', '2024-05-24 19:00:00', 5, 0),
-('Aftencheck', '2024-05-24 19:00:00', '2024-05-24 19:15:00', 5, 0),
-('Natmedicin', '2024-05-24 19:15:00', '2024-05-24 19:30:00', 5, 0);
+-- Assignment 2
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Støv af', 2, 0),
+('Rens sofa', 2, 1),
+('Køb chokolade', 2, 0),
+('Køb blomster fra Bjørn til Carla', 2, 1);
 
-INSERT INTO Medications(Name, Amount, Unit, Administered, AssignmentId) VALUES
-('Metformin', 500, 'mg', 0, 1),
-('Aspirin', 100, 'mg', 0, 2),
-('Lisinopril', 10, 'mg', 0, 3),
-('Donepezil', 5, 'mg', 0, 4),
-('Metformin', 500, 'mg', 0, 5),
-('Donepezil', 10, 'mg', 0, 5),
-('Aspirin', 500, 'mg', 0, 5)
+-- Assignment 3
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Find fjernbetjening', 3, 0),
+('Læg vasketøj sammen', 3, 1),
+('Læs dagens avis højt', 3, 1),
+('Plant nye blomster i haven', 3, 0);
 
--- AssignmentEmployee ensuring no overlap for employees
-INSERT INTO AssignmentEmployee(EmployeesEmployeeId, TasksAssignmentId) VALUES
-(2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7), (2, 8), (2, 9), (2, 10),
-(2, 11), (2, 12), (2, 13), (2, 14), (2, 15), (2, 16), (2, 17), (2, 18), (2, 19), (2, 20),
-(2, 21), (2, 22), (2, 23), (2, 24), (2, 25), (2, 26), (2, 27), (2, 28), (2, 29), (2, 30),
-(5, 31), (5, 32), (5, 33), (5, 34), (5, 35), (5, 36), (5, 37), (5, 38), (5, 39), (5, 40),
-(5, 41), (5, 42), (5, 43), (5, 44), (5, 45), (5, 46), (5, 47), (5, 48), (5, 49), (5, 50);
+-- Assignment 4
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Lav en kop te', 4, 1),
+('Find læsebriller', 4, 1),
+('Opdatér familiens kontaktinformationer', 4, 0),
+('Køb ind til aftensmad', 4, 0);
+
+-- Assignment 5
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Hjælp med at skrive brev', 5, 0),
+('Gå en tur i parken', 5, 0),
+('Sæt yndlingsmusik på', 5, 1),
+('Træn let motion', 5, 1);
+
+-- Assignment 6
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Giv kattemad', 6, 1),
+('Skift sengetøj', 6, 1),
+('Organisér medicinskab', 6, 1),
+('Læs en bog sammen', 6, 0);
+
+-- Assignment 7
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Lav en indkøbsliste', 7, 1),
+('Tag et selfie', 7, 0),
+('Lyt til en radioudsendelse', 7, 1),
+('Hjælp med at finde gamle fotos', 7, 0);
+
+-- Assignment 8
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Skriv dagbog', 8, 0),
+('Giv planten vand', 8, 1),
+('Hent post', 8, 1),
+('Se en film sammen', 8, 0);
+
+-- Medications
+
+INSERT INTO Medications(Name, Amount, Unit, Administered, SubTaskId) VALUES
+('Paracetamol', 100, 'Mg', 0, 2),
+('Ibuprofen', 200, 'Mg', 0, 2),
+('Vitamin D', 10, 'Mg', 0, 3),
+('Vitamin C', 20, 'Mg', 0, 3),
+('Vitamin B12', 5, 'Mg', 0, 3),
+('Vitamin A', 10, 'Mg', 0, 3),
+('Vitamin E', 10, 'Mg', 0, 3),
+('Vitamin K', 10, 'Mg', 0, 3),
+('Vitamin B6', 10, 'Mg', 0, 3),
+('Vitamin B1', 10, 'Mg', 0, 3),
+('Vitamin B2', 10, 'Mg', 0, 3),
+('Vitamin B3', 10, 'Mg', 0, 3),
+('Vitamin B5', 10, 'Mg', 0, 3),
+('Vitamin B7', 10, 'Mg', 0, 3),
+('Vitamin B9', 10, 'Mg', 0, 3),
+('Vitamin B12', 10, 'Mg', 0, 3),
+('Vitamin C', 10, 'Mg', 0, 3),
+('Vitamin D', 10, 'Mg', 0, 3),
+('Vitamin E', 10, 'Mg', 0, 3),
+('Vitamin K', 10, 'Mg', 0, 3),
+('Vitamin B6', 10, 'Mg', 0, 3),
+('Vitamin B1', 10, 'Mg', 0, 3),
+('Vitamin B2', 10, 'Mg', 0, 3),
+('Vitamin B3', 10, 'Mg', 0, 3),
+('Vitamin B5', 10, 'Mg', 0, 3),
+('Vitamin B7', 10, 'Mg', 0, 3),
+('Vitamin B9', 10, 'Mg', 0, 3);
+
+-- Re-enable all foreign key constraints
+EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
+
+-- Re-enable all triggers
+EXEC sp_MSforeachtable "ENABLE TRIGGER all ON ?"

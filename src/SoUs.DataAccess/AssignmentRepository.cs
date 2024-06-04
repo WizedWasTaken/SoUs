@@ -16,9 +16,8 @@ namespace SoUs.DataAccess
             return _context.Assignments
                 .Where(a => a.Employees
                 .Any(e => e.EmployeeId == employeeId) && a.TimeStart.Date == date.Date)
-                .Include(a => a.Employees)
-                .Include(a => a.Medicines)
                 .Include(a => a.Resident)
+                .Include(a => a.SubTasks)
                 .ToList();
         }
 
@@ -26,7 +25,6 @@ namespace SoUs.DataAccess
         {
             return _context.Assignments
                 .Include(a => a.Employees)
-                .Include(a => a.Medicines)
                 .Include(a => a.Resident)
                 .FirstOrDefault(a => a.AssignmentId == id);
         }

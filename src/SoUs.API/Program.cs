@@ -34,7 +34,8 @@ namespace SoUs.API
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IRepository<Medicine>, Repository<Medicine>>();
             builder.Services.AddScoped<IRepository<Prescription>, Repository<Prescription>>();
-            builder.Services.AddScoped<IResidentRepository, ResidentRepository>();
+            builder.Services.AddScoped<IRepository<SubTask>, Repository<SubTask>>();
+            builder.Services.AddScoped<IRepository<Resident>, Repository<Resident>>();
             builder.Services.AddScoped<IRepository<Role>, Repository<Role>>();
             builder.Services.AddScoped<IAssignmentRepository, AssignmentRepository>();
 

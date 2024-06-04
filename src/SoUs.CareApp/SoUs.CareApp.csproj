@@ -65,7 +65,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\SoUs.DataObjects\SoUs.DataObjects.csproj" />
 		<ProjectReference Include="..\SoUs.Entities\SoUs.Entities.csproj" />
 		<ProjectReference Include="..\SoUs.Services\SoUs.Services.csproj" />
 	</ItemGroup>

@@ -1,27 +1,28 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SoUs.DataAccess;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using SoUs.Entities;
+using SoUs.DataAccess;
 
 namespace SoUs.API.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class ResidentController : Controller
+    [ApiController]
+    public class SubTaskController : ControllerBase
     {
-        private readonly IRepository<Resident> _repository;
+        private readonly IRepository<SubTask> _repository;
 
-        public ResidentController(IRepository<Resident> repository)
+        public SubTaskController(IRepository<SubTask> repository)
         {
             _repository = repository;
         }
 
-        [HttpGet(nameof(GetResidents))]
-        public ActionResult GetResidents()
+        [HttpGet(nameof(GetSubTasks))]
+        public ActionResult GetSubTasks()
         {
             try
             {
-                var residents = _repository.GetAll();
-                return Ok(residents);
+                var subTasks = _repository.GetAll();
+                return Ok(subTasks);
             }
             catch (Exception e)
             {
@@ -29,13 +30,13 @@ namespace SoUs.API.Controllers
             }
         }
 
-        [HttpGet(nameof(GetResidentById))]
-        public ActionResult GetResidentById(int id)
+        [HttpGet(nameof(GetSubTaskById))]
+        public ActionResult GetSubTaskById(int id)
         {
             try
             {
-                var resident = _repository.GetById(id);
-                return Ok(resident);
+                var subTask = _repository.GetById(id);
+                return Ok(subTask);
             }
             catch (ArgumentException e)
             {
@@ -43,12 +44,12 @@ namespace SoUs.API.Controllers
             }
         }
 
-        [HttpPost(nameof(AddResident))]
-        public ActionResult AddResident([FromBody] Resident resident)
+        [HttpPost(nameof(AddSubTask))]
+        public ActionResult AddSubTask([FromBody] SubTask subTask)
         {
             try
             {
-                _repository.Add(resident);
+                _repository.Add(subTask);
                 return Ok();
             }
             catch (Exception e)
@@ -57,12 +58,12 @@ namespace SoUs.API.Controllers
             }
         }
 
-        [HttpPut(nameof(UpdateResident))]
-        public ActionResult UpdateResident([FromBody] Resident resident)
+        [HttpPut(nameof(UpdateSubTask))]
+        public ActionResult UpdateSubTask([FromBody] SubTask subTask)
         {
             try
             {
-                _repository.Update(resident);
+                _repository.Update(subTask);
                 return Ok();
             }
             catch (Exception e)
@@ -71,8 +72,8 @@ namespace SoUs.API.Controllers
             }
         }
 
-        [HttpDelete(nameof(DeleteResident))]
-        public ActionResult DeleteResident(int id)
+        [HttpDelete(nameof(DeleteSubTask))]
+        public ActionResult DeleteSubTask(int id)
         {
             try
             {

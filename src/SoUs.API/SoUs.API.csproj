@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SoUs.DataAccess\SoUs.DataAccess.csproj" />
-    <ProjectReference Include="..\SoUs.DataObjects\SoUs.DataObjects.csproj" />
     <ProjectReference Include="..\SoUs.Entities\SoUs.Entities.csproj" />
   </ItemGroup>
 

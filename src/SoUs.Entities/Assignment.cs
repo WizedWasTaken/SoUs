@@ -8,13 +8,11 @@ namespace SoUs.Entities
         #region Fields
 
         private int assignmentId;
-        private string name;
         private DateTime timeStart;
         private DateTime timeEnd;
         private Resident resident;
         private List<Employee> employees;
-        private List<Medicine> medicines;
-        private bool isCompleted;
+        private List<SubTask> subTasks;
 
         #endregion
 
@@ -23,20 +21,18 @@ namespace SoUs.Entities
         public Assignment()
         {
             Employees = new List<Employee>();
-            Medicines = new List<Medicine>();
+            SubTasks = new List<SubTask>();
         }
 
-        public Assignment(int assignmentId, string name, DateTime timeStart, DateTime timeEnd, Resident resident,
-                    List<Employee> employees, List<Medicine> medicines, bool completed)
+        public Assignment(int assignmentId, DateTime timeStart, DateTime timeEnd, Resident resident,
+                    List<Employee> employees, List<SubTask> SubTasks)
         {
             AssignmentId = assignmentId;
-            Name = name;
             TimeStart = timeStart;
             TimeEnd = timeEnd;
             Resident = resident;
             Employees = employees ?? new List<Employee>();
-            Medicines = medicines ?? new List<Medicine>();
-            IsCompleted = completed;
+            SubTasks = SubTasks ?? new List<SubTask>();
         }
 
         #endregion
@@ -47,12 +43,6 @@ namespace SoUs.Entities
         {
             get { return assignmentId; }
             set { assignmentId = value; }
-        }
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
         }
 
         public DateTime TimeStart
@@ -79,16 +69,10 @@ namespace SoUs.Entities
             set { employees = value; }
         }
 
-        public List<Medicine> Medicines
+        public List<SubTask> SubTasks
         {
-            get { return medicines; }
-            set { medicines = value; }
-        }
-
-        public bool IsCompleted
-        {
-            get { return isCompleted; }
-            set { isCompleted = value; }
+            get { return subTasks; }
+            set { subTasks = value; }
         }
 
         #endregion
