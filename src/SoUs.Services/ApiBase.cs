@@ -17,7 +17,7 @@ namespace SoUs.Services
             // Makes the HttpClient that everything uses ignore SSL stuff. Stupid errors
             HttpClientHandler handler = new HttpClientHandler()
             {
-                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; },
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; }
                 
             };
 
@@ -42,8 +42,9 @@ namespace SoUs.Services
             }
             catch (Exception e)
             {
-                Debug.Write($"Shit no workey workey on line 33... {e.Message}");
+                Debug.Write($"Shit no workey workey... {e.Message}");
             }
+
             return default;
         }
     }

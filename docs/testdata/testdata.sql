@@ -171,14 +171,14 @@ INSERT INTO Medications(Name) VALUES
 
 -- AssignmentEmployee
 INSERT INTO AssignmentEmployee(TasksAssignmentId, EmployeesEmployeeId) VALUES
-(1, 1),
+(1, 2),
 (2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
-(6, 1),
+(3, 2),
+(4, 2),
+(5, 2),
+(6, 2),
 (7, 2),
-(8, 3);
+(8, 2);
 
 -- Re-enable all foreign key constraints
 EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"

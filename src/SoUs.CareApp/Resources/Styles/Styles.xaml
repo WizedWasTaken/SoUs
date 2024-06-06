@@ -34,7 +34,7 @@
 
     <Style x:Key="Card" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-        <Setter Property="Margin" Value="0,15" />
+        <Setter Property="Margin" Value="0,10" />
         <Setter Property="Stroke" Value="{StaticResource Border}" />
         <Setter Property="StrokeThickness" Value="1" />
         <Setter Property="StrokeShape" Value="RoundRectangle 10" />

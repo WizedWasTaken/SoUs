@@ -29,9 +29,9 @@ namespace SoUs.CareApp.ViewModels
         #region Commands
 
         [RelayCommand]
-        protected static void NoWorkey()
+        protected static void NoWorkey(string message)
         {
-            Shell.Current.DisplayAlert("Fejl", "Denne funktion er ikke implementeret endnu.", "OK");
+            Shell.Current.DisplayAlert("Fejl", message, "OK");
         }
 
         #endregion

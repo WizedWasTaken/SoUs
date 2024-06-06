@@ -16,8 +16,9 @@ namespace SoUs.Services
         {
             try {
                 List<Assignment> assignmentList = new();
+                date = new DateTime(2024, 05, 24);
 
-                var response = await GetHttpAsync($"Assignment/GetAssignmentsForEmployeeByDate?date=2024-05-24&employeeId={employee.EmployeeId}");
+                var response = await GetHttpAsync($"Assignment/GetAssignmentsForEmployeeByDate?date={date.ToString("yyyy-MM-dd")}&employeeId={employee.EmployeeId}");
 
                 if (!response.IsSuccessStatusCode)
                 {

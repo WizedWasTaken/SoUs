@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using SoUs.DataObjects;
 using CommunityToolkit.Mvvm.ComponentModel;
+using SoUs.CareApp.Views;
 
 namespace SoUs.CareApp.ViewModels
 {
@@ -30,9 +31,19 @@ namespace SoUs.CareApp.ViewModels
         }
 
         [RelayCommand]
-        private static void GoToSpecificTask()
-        {             
-            NoWorkey();
+        private async void GoToSpecificTask(Assignment ass)
+        {
+            if (ass is null)
+            {
+                NoWorkey("Denne opgave kunne ikke findes.");
+                return;
+            }
+
+            await Shell.Current.GoToAsync($"{nameof(SubTaskPage)}", true,
+                new Dictionary<string, object>
+                {
+                    {"Assignment", ass }
+                });
         }
 
         #endregion
