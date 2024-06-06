@@ -96,94 +96,78 @@ INSERT INTO Assignments (TimeStart, TimeEnd, ResidentId) VALUES
 ('2024-06-04 14:40:00', '2024-06-04 15:25:00', 2);
 
 -- SubTasks
+-- SubTasks
 
 -- Assignment 1
-INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
-('Hjælp med morgenmad', 1, 1),
-('Hjælp med bad', 1, 1),
-('Hjælp med påklædning', 1, 1),
-('Vask gulv', 1, 1),
-('Luft ud', 1, 1);
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted, SubTaskType) VALUES
+('Hjælp med morgenmad', 1, 1, 'SubTask'),
+('Hjælp med bad', 1, 1, 'SubTask'),
+('Hjælp med påklædning', 1, 1, 'SubTask'),
+('Vask gulv', 1, 1, 'SubTask'),
+('Luft ud', 1, 1, 'SubTask');
 
 -- Assignment 2
-INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
-('Støv af', 2, 0),
-('Rens sofa', 2, 1),
-('Køb chokolade', 2, 0),
-('Køb blomster fra Bjørn til Carla', 2, 1);
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted, SubTaskType) VALUES
+('Støv af', 2, 0, 'SubTask'),
+('Rens sofa', 2, 1, 'SubTask'),
+('Køb chokolade', 2, 0, 'SubTask'),
+('Køb blomster fra Bjørn til Carla', 2, 1, 'SubTask');
 
 -- Assignment 3
-INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
-('Find fjernbetjening', 3, 0),
-('Læg vasketøj sammen', 3, 1),
-('Læs dagens avis højt', 3, 1),
-('Plant nye blomster i haven', 3, 0);
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted, SubTaskType) VALUES
+('Find fjernbetjening', 3, 0, 'SubTask'),
+('Læg vasketøj sammen', 3, 1, 'SubTask'),
+('Læs dagens avis højt', 3, 1, 'SubTask'),
+('Plant nye blomster i haven', 3, 0, 'SubTask');
 
 -- Assignment 4
-INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
-('Lav en kop te', 4, 1),
-('Find læsebriller', 4, 1),
-('Opdatér familiens kontaktinformationer', 4, 0),
-('Køb ind til aftensmad', 4, 0);
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted, SubTaskType) VALUES
+('Lav en kop te', 4, 1, 'SubTask'),
+('Find læsebriller', 4, 1, 'SubTask'),
+('Opdatér familiens kontaktinformationer', 4, 0, 'SubTask'),
+('Køb ind til aftensmad', 4, 0, 'SubTask');
 
 -- Assignment 5
-INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
-('Hjælp med at skrive brev', 5, 0),
-('Gå en tur i parken', 5, 0),
-('Sæt yndlingsmusik på', 5, 1),
-('Træn let motion', 5, 1);
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted, SubTaskType) VALUES
+('Hjælp med at skrive brev', 5, 0, 'SubTask'),
+('Gå en tur i parken', 5, 0, 'SubTask'),
+('Sæt yndlingsmusik på', 5, 1, 'SubTask'),
+('Træn let motion', 5, 1, 'SubTask');
 
 -- Assignment 6
-INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
-('Giv kattemad', 6, 1),
-('Skift sengetøj', 6, 1),
-('Organisér medicinskab', 6, 1),
-('Læs en bog sammen', 6, 0);
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted, SubTaskType) VALUES
+('Giv kattemad', 6, 1, 'SubTask'),
+('Skift sengetøj', 6, 1, 'SubTask'),
+('Organisér medicinskab', 6, 1, 'SubTask'),
+('Læs en bog sammen', 6, 0, 'SubTask');
 
 -- Assignment 7
-INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
-('Lav en indkøbsliste', 7, 1),
-('Tag et selfie', 7, 0),
-('Lyt til en radioudsendelse', 7, 1),
-('Hjælp med at finde gamle fotos', 7, 0);
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted, SubTaskType) VALUES
+('Lav en indkøbsliste', 7, 1, 'SubTask'),
+('Tag et selfie', 7, 0, 'SubTask'),
+('Lyt til en radioudsendelse', 7, 1, 'SubTask'),
+('Hjælp med at finde gamle fotos', 7, 0, 'SubTask');
 
 -- Assignment 8
-INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
-('Skriv dagbog', 8, 0),
-('Giv planten vand', 8, 1),
-('Hent post', 8, 1),
-('Se en film sammen', 8, 0);
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted, SubTaskType) VALUES
+('Skriv dagbog', 8, 0, 'SubTask'),
+('Giv planten vand', 8, 1, 'SubTask'),
+('Hent post', 8, 1, 'SubTask'),
+('Se en film sammen', 8, 0, 'SubTask');
+
+-- MedicineTasks
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted, SubTaskType, MedicineId, Unit, Amount) VALUES
+('Tag medicin', 2, 0, 'MedicineTask', 1, 'mg', 500),
+('Tag medicin', 2, 0, 'MedicineTask', 2, 'mg', 200),
+('Tag medicin', 2, 1, 'MedicineTask', 2, 'mg', 200);
 
 -- Medications
 
-INSERT INTO Medications(Name, Amount, Unit, Administered, SubTaskId) VALUES
-('Paracetamol', 100, 'Mg', 0, 2),
-('Ibuprofen', 200, 'Mg', 0, 2),
-('Vitamin D', 10, 'Mg', 0, 3),
-('Vitamin C', 20, 'Mg', 0, 3),
-('Vitamin B12', 5, 'Mg', 0, 3),
-('Vitamin A', 10, 'Mg', 0, 3),
-('Vitamin E', 10, 'Mg', 0, 3),
-('Vitamin K', 10, 'Mg', 0, 3),
-('Vitamin B6', 10, 'Mg', 0, 3),
-('Vitamin B1', 10, 'Mg', 0, 3),
-('Vitamin B2', 10, 'Mg', 0, 3),
-('Vitamin B3', 10, 'Mg', 0, 3),
-('Vitamin B5', 10, 'Mg', 0, 3),
-('Vitamin B7', 10, 'Mg', 0, 3),
-('Vitamin B9', 10, 'Mg', 0, 3),
-('Vitamin B12', 10, 'Mg', 0, 3),
-('Vitamin C', 10, 'Mg', 0, 3),
-('Vitamin D', 10, 'Mg', 0, 3),
-('Vitamin E', 10, 'Mg', 0, 3),
-('Vitamin K', 10, 'Mg', 0, 3),
-('Vitamin B6', 10, 'Mg', 0, 3),
-('Vitamin B1', 10, 'Mg', 0, 3),
-('Vitamin B2', 10, 'Mg', 0, 3),
-('Vitamin B3', 10, 'Mg', 0, 3),
-('Vitamin B5', 10, 'Mg', 0, 3),
-('Vitamin B7', 10, 'Mg', 0, 3),
-('Vitamin B9', 10, 'Mg', 0, 3);
+INSERT INTO Medications(Name) VALUES
+('Metformin'),
+('Aspirin'),
+('Lisinopril'),
+('Donepezil');
 
 -- Re-enable all foreign key constraints
 EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
