@@ -12,7 +12,7 @@ namespace SoUs.CareApp.ViewModels
     {
         private readonly ISoUsService sousService;
 
-        public ObservableCollection<ResidentWithAssignmentsDTO> TodaysAssignments { get; } = [];
+        public ObservableCollection<Assignment> TodaysAssignments { get; } = [];
 
         public MainPageViewModel(ISoUsService sousService)
         {

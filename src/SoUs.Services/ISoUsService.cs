@@ -5,6 +5,6 @@ namespace SoUs.Services
 {
     public interface ISoUsService
     {
-        Task<List<ResidentWithAssignmentsDTO>> GetAssignmentsAsync(DateTime date, Employee employee);
+        Task<List<Assignment>> GetAssignmentsAsync(DateTime date, Employee employee);
     }
 }

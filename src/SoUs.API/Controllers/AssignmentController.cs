@@ -50,6 +50,8 @@ namespace SoUs.API.Controllers
         {
             try
             {
+                employeeId = 2;
+                date = new DateTime(2024, 06, 04);
                 var tasks = _repository.GetAssignmentsForEmployee(date, employeeId);
                 return Ok(tasks);
             }

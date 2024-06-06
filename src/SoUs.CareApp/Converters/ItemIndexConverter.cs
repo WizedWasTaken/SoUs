@@ -14,11 +14,9 @@ namespace SoUs.CareApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Debug.WriteLine(value is ResidentWithAssignmentsDTO ass ? ass.Resident.Name : "null");
-            Debug.WriteLine(parameter is CollectionView);
-            if (parameter is CollectionView collectionView && value is ResidentWithAssignmentsDTO assignment)
+            if (parameter is CollectionView collectionView && value is Assignment assignment)
             {
-                var itemsSource = collectionView.ItemsSource as IList<ResidentWithAssignmentsDTO>;
+                var itemsSource = collectionView.ItemsSource as IList<Assignment>;
                 if (itemsSource != null)
                 {
                     return itemsSource.IndexOf(assignment) + 1;

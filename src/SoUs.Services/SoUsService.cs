@@ -12,19 +12,19 @@ namespace SoUs.Services
 
         public SoUsService(string baseUri) : base(baseUri) { }
 
-        public async Task<List<ResidentWithAssignmentsDTO>> GetAssignmentsAsync(DateTime date, Employee employee)
+        public async Task<List<Assignment>> GetAssignmentsAsync(DateTime date, Employee employee)
         {
             try {
-                List<ResidentWithAssignmentsDTO> assignmentList = new();
+                List<Assignment> assignmentList = new();
 
-                var response = await GetHttpAsync($"Resident/GetResidentsTasksOnDateAndEmployee?date=2024-05-24&employeeId={employee.EmployeeId}");
+                var response = await GetHttpAsync($"Assignment/GetAssignmentsForEmployeeByDate?date=2024-05-24&employeeId={employee.EmployeeId}");
 
                 if (!response.IsSuccessStatusCode)
                 {
                     throw new DataException("Kunne ikke hente opgaver");
                 }
 
-                assignmentList = await response.Content.ReadFromJsonAsync<List<ResidentWithAssignmentsDTO>>();
+                assignmentList = await response.Content.ReadFromJsonAsync<List<Assignment>>();
 
                 return assignmentList;
             }

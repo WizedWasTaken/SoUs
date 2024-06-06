@@ -4,9 +4,7 @@
              xmlns:model="clr-namespace:SoUs.Entities;assembly=SoUs.Entities"
              xmlns:converters="clr-namespace:SoUs.CareApp.Converters"
              xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
-             xmlns:dataObjects="clr-namespace:SoUs.DataObjects;assembly=SoUs.DataObjects"
              x:DataType="viewModel:MainPageViewModel"
-             x:Subclass="dataObjects:ResidentWithAssignmentsDTO"
              x:Class="SoUs.CareApp.Views.MainPage">
     
     <!-- Declaring stuff -->
@@ -71,13 +69,15 @@
             <CollectionView.ItemTemplate>
 
                 <!-- Cards -->
-                <DataTemplate x:DataType="dataObjects:ResidentWithAssignmentsDTO">
+                <DataTemplate x:DataType="model:Assignment">
 
                     <Border Style="{StaticResource Card}">
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer CommandParameter="{Binding .}"
                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainPageViewModel}}, Path=GoToSpecificTaskCommand}"/>
                         </Border.GestureRecognizers>
+                        
+                        
                         <Grid 
                         RowDefinitions="2*,1,4*"
                         HeightRequest="100">
@@ -99,8 +99,8 @@
                                    Grid.Column="1">
                                     <Label.Text>
                                         <MultiBinding Converter="{StaticResource TimeRangeConverter}">
-                                            <Binding Path="." />
-                                            <!-- Pass the entire ResidentWithAssignmentsDTO -->
+                                            <Binding Path="TimeStart"/>
+                                                <Binding Path="TimeEnd"/>
                                         </MultiBinding>
                                     </Label.Text>
                                 </Label>
@@ -125,7 +125,7 @@
                                    Style="{StaticResource CardText}"
                                    Grid.Column="0"/>
 
-                                <CheckBox IsChecked="{Binding AreAllTasksCompleted}"
+                                <CheckBox IsChecked="False"
                                       Style="{StaticResource CardCheckbox}"
                                           IsEnabled="False"
                                       Grid.Column="1"/>

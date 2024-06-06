@@ -169,6 +169,17 @@ INSERT INTO Medications(Name) VALUES
 ('Lisinopril'),
 ('Donepezil');
 
+-- AssignmentEmployee
+INSERT INTO AssignmentEmployee(TasksAssignmentId, EmployeesEmployeeId) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 1),
+(7, 2),
+(8, 3);
+
 -- Re-enable all foreign key constraints
 EXEC sp_MSforeachtable "ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all"
 
