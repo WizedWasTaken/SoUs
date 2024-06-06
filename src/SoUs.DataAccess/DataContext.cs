@@ -17,6 +17,7 @@ namespace SoUs.DataAccess
                 .HasValue<SubTask>("SubTask")
                 .HasValue<MedicineTask>("MedicineTask");
 
+
             base.OnModelCreating(modelBuilder);
         }
 
