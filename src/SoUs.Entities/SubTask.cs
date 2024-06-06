@@ -12,25 +12,16 @@ namespace SoUs.Entities
 
         private int subTaskId;
         private string name;
-        private List<Medicine>? medicines;
-        private Assignment assignment;
         private bool isCompleted;
 
         #endregion
 
         #region Constructors
 
-        public SubTask()
-        {
-            Medicines = new List<Medicine>();
-        }
-
-        public SubTask(int subTaskId, string name, List<Medicine>? medicines, Assignment assignment, bool isCompleted)
+        public SubTask(int subTaskId, string name, bool isCompleted)
         {
             SubTaskId = subTaskId;
             Name = name;
-            Medicines = medicines ?? new List<Medicine>();
-            Assignment = assignment;
             IsCompleted = isCompleted;
         }
 
@@ -48,18 +39,6 @@ namespace SoUs.Entities
         {
             get { return name; }
             set { name = value; }
-        }
-
-        public List<Medicine>? Medicines
-        {
-            get { return medicines; }
-            set { medicines = value; }
-        }
-
-        public Assignment Assignment
-        {
-            get { return assignment; }
-            set { assignment = value; }
         }
 
         public bool IsCompleted
