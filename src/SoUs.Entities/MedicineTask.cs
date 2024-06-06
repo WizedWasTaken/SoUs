@@ -53,6 +53,5 @@ namespace SoUs.Entities
         }
 
         #endregion
-
     }
 }
