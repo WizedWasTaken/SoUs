@@ -39,11 +39,12 @@ namespace SoUs.CareApp.ViewModels
                 return;
             }
 
-            await Shell.Current.GoToAsync($"{nameof(SubTaskPage)}", true,
-                new Dictionary<string, object>
+            var navigationParams = new Dictionary<string, object>
                 {
                     {"Assignment", ass }
-                });
+                };
+
+            await Shell.Current.GoToAsync(nameof(SubTaskPage), true, navigationParams);
         }
 
         #endregion

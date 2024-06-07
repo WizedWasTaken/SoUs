@@ -1,14 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SoUs.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SoUs.CareApp.ViewModels
 {
-    [QueryProperty("Assignment", "Assignment")]
+    [QueryProperty(nameof(Assignment), "Assignment")]
     public partial class SubTaskPageViewmodel : BaseViewModel
     {
         public SubTaskPageViewmodel()
@@ -16,6 +11,12 @@ namespace SoUs.CareApp.ViewModels
         }
 
         [ObservableProperty]
-        Assignment assignment;
+        Assignment assignment; // Hoved opgaven.
+
+        partial void OnAssignmentChanged(Assignment? oldValue, Assignment newValue)
+        {
+            Console.WriteLine("Assignment changed");
+            Console.WriteLine(Assignment);
+        }
     }
 }

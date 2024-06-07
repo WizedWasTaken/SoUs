@@ -24,9 +24,11 @@ namespace SoUs.CareApp
             // Er Singleton det korrekte, eller skal det være Scoped?
             // Singleton fordi der er fejl i alt andet...
             builder.Services.AddScoped<ISoUsService>(x => new SoUsService(uri));
+
             builder.Services.AddTransient<MainPageViewModel>();
-            builder.Services.AddSingleton<MainPage>();
             builder.Services.AddTransient<SubTaskPageViewmodel>();
+
+            builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<SubTaskPage>();
 
 #if DEBUG
