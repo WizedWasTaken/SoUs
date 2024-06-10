@@ -62,4 +62,12 @@
         <Setter Property="TextColor" Value="Black" />
     </Style>
 
+    <!--  Log Ind Siden  -->
+
+    <Style x:Key="InputBorder" TargetType="Border">
+        <Setter Property="Stroke" Value="{StaticResource Background}" />
+        <Setter Property="StrokeThickness" Value="3" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+    </Style>
+
 </ResourceDictionary>

@@ -1,135 +1,144 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:model="clr-namespace:SoUs.Entities;assembly=SoUs.Entities"
-             xmlns:converters="clr-namespace:SoUs.CareApp.Converters"
-             xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
-             x:DataType="viewModel:MainPageViewModel"
-             x:Class="SoUs.CareApp.Views.MainPage">
+<ContentPage
+    x:Class="SoUs.CareApp.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:SoUs.CareApp.Converters"
+    xmlns:model="clr-namespace:SoUs.Entities;assembly=SoUs.Entities"
+    xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
+    x:DataType="viewModel:MainPageViewModel">
 
-    <!-- Declaring stuff -->
+    <!--  Declaring stuff  -->
     <ContentPage.Resources>
         <ResourceDictionary>
-            <converters:TimeRangeConverter x:Key="TimeRangeConverter"/>
+            <converters:TimeRangeConverter x:Key="TimeRangeConverter" />
             <converters:ItemIndexConverter x:Key="ItemIndexConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <!-- Base Grid -->
-    <Grid ColumnDefinitions="*"
-          RowDefinitions="Auto,*"
-          Padding="20"
-          BackgroundColor="{StaticResource Background}">
+    <!--  Base Grid  -->
+    <Grid
+        Padding="20"
+        BackgroundColor="{StaticResource Background}"
+        ColumnDefinitions="*"
+        RowDefinitions="Auto,*">
 
-        <!-- Header -->
-        <Grid ColumnDefinitions="*,*" 
-              RowDefinitions="*,*">
+        <!--  Header  -->
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
 
-            <Button Text="Recepter" 
-                    Grid.Column="0" 
-                    Grid.Row="0"
-                    WidthRequest="125"
-                    HorizontalOptions="Start"
-                    Command="{Binding NoWorkeyCommand}"
-                    Style="{StaticResource Pill}"/>
+            <Button
+                Grid.Row="0"
+                Grid.Column="0"
+                Command="{Binding NoWorkeyCommand}"
+                HorizontalOptions="Start"
+                Style="{StaticResource Pill}"
+                Text="Recepter"
+                WidthRequest="125" />
 
-            <!-- Fix name to be correct to the logged in user (log in not existing yet...)-->
-            <Label Text="Noah. A. Nielsen" 
-                   Grid.Column="1" 
-                   Grid.Row="0" 
-                   VerticalTextAlignment="Start" 
-                   HorizontalOptions="End"/>
+            <!--  Fix name to be correct to the logged in user (log in not existing yet...)  -->
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalOptions="End"
+                Text="Noah. A. Nielsen"
+                VerticalTextAlignment="Start" />
 
-            <Label Text="{Binding Title}" 
-                   Style="{StaticResource Title}"
-                   Grid.Row="2" 
-                   Grid.Column="0" 
-                   Grid.ColumnSpan="2" 
-                   VerticalOptions="Center" 
-                   HorizontalOptions="Center" 
-                   Margin="0,10,0,0"/>
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0,10,0,0"
+                HorizontalOptions="Center"
+                Style="{StaticResource Title}"
+                Text="{Binding Title}"
+                VerticalOptions="Center" />
 
         </Grid>
 
-        <!-- Try again button -->
-        <Button Style="{StaticResource Pill}"
-                Text="Prøv igen"
-                Command="{Binding RefreshAssignmentsCommand}"
-                IsVisible="{Binding ErrorOccurred}"
-                Grid.Row="1"
-                HorizontalOptions="Center"
-                ZIndex="10"
-                VerticalOptions="Center"/>
+        <!--  Try again button  -->
+        <Button
+            Grid.Row="1"
+            Command="{Binding RefreshAssignmentsCommand}"
+            HorizontalOptions="Center"
+            IsVisible="{Binding ErrorOccurred}"
+            Style="{StaticResource Pill}"
+            Text="Prøv igen"
+            VerticalOptions="Center"
+            ZIndex="10" />
 
-        <!-- Main Content -->
-        <CollectionView x:Name="TodaysAssignmentsCollectionView"
-                        Grid.Row="2"
-                        ItemsSource="{Binding TodaysAssignments}"
-                        SelectionMode="None">
+        <!--  Main Content  -->
+        <CollectionView
+            x:Name="TodaysAssignmentsCollectionView"
+            Grid.Row="2"
+            ItemsSource="{Binding TodaysAssignments}"
+            SelectionMode="None">
 
             <CollectionView.ItemTemplate>
 
-                <!-- Cards -->
+                <!--  Cards  -->
                 <DataTemplate x:DataType="model:Assignment">
 
                     <Border Style="{StaticResource Card}">
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer CommandParameter="{Binding .}"
-                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainPageViewModel}}, Path=GoToSpecificTaskCommand}"/>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainPageViewModel}}, Path=GoToSpecificTaskCommand}" CommandParameter="{Binding .}" />
                         </Border.GestureRecognizers>
 
 
-                        <Grid 
-                        RowDefinitions="2*,1,4*"
-                        HeightRequest="100">
+                        <Grid HeightRequest="100" RowDefinitions="2*,1,4*">
 
-                            <!-- Card Header -->
-                            <Grid Grid.Row="0"
-                              ColumnDefinitions="40,*,40"
-                              RowDefinitions="*, Auto"
-                              Style="{StaticResource CardHeader}">
+                            <!--  Card Header  -->
+                            <Grid
+                                Grid.Row="0"
+                                ColumnDefinitions="40,*,40"
+                                RowDefinitions="*, Auto"
+                                Style="{StaticResource CardHeader}">
 
-                                <Label Grid.Column="0"
-                                       HorizontalTextAlignment="Start"
-                                       Style="{StaticResource CardText}"
-                                       Text="{Binding ., Converter={StaticResource ItemIndexConverter}, ConverterParameter={x:Reference TodaysAssignmentsCollectionView}, StringFormat='Nr. {0}'}"
-                                       />
+                                <Label
+                                    Grid.Column="0"
+                                    HorizontalTextAlignment="Start"
+                                    Style="{StaticResource CardText}"
+                                    Text="{Binding ., Converter={StaticResource ItemIndexConverter}, ConverterParameter={x:Reference TodaysAssignmentsCollectionView}, StringFormat='Nr. {0}'}" />
 
-                                <Label Style="{StaticResource CardText}"
-                                   HorizontalOptions="Center"
-                                   Grid.Column="1">
+                                <Label
+                                    Grid.Column="1"
+                                    HorizontalOptions="Center"
+                                    Style="{StaticResource CardText}">
                                     <Label.Text>
                                         <MultiBinding Converter="{StaticResource TimeRangeConverter}">
-                                            <Binding Path="TimeStart"/>
-                                            <Binding Path="TimeEnd"/>
+                                            <Binding Path="TimeStart" />
+                                            <Binding Path="TimeEnd" />
                                         </MultiBinding>
                                     </Label.Text>
                                 </Label>
 
-                                <Label Text="{Binding Resident.RoomNumber}"
-                                   Style="{StaticResource CardText}"
-                                   Grid.Column="2"
-                                       HorizontalTextAlignment="End"/>
+                                <Label
+                                    Grid.Column="2"
+                                    HorizontalTextAlignment="End"
+                                    Style="{StaticResource CardText}"
+                                    Text="{Binding Resident.RoomNumber}" />
 
                             </Grid>
-                            <!-- Header Border -->
+                            <!--  Header Border  -->
                             <Border
-                                    Style="{StaticResource CardHeaderBorder}"
-                                    Grid.Row="1"
-                                    Grid.ColumnSpan="3"/>
-                            <!-- Card Body -->
-                            <Grid Grid.Row="2"
-                              ColumnDefinitions="4*, 1*"
-                              Style="{StaticResource CardBody}">
+                                Grid.Row="1"
+                                Grid.ColumnSpan="3"
+                                Style="{StaticResource CardHeaderBorder}" />
+                            <!--  Card Body  -->
+                            <Grid
+                                Grid.Row="2"
+                                ColumnDefinitions="4*, 1*"
+                                Style="{StaticResource CardBody}">
 
-                                <Label Text="{Binding Resident.Name}"
-                                   Style="{StaticResource CardText}"
-                                   Grid.Column="0"/>
+                                <Label
+                                    Grid.Column="0"
+                                    Style="{StaticResource CardText}"
+                                    Text="{Binding Resident.Name}" />
 
-                                <CheckBox IsChecked="False"
-                                      Style="{StaticResource CardCheckbox}"
-                                          IsEnabled="False"
-                                      Grid.Column="1"/>
+                                <CheckBox
+                                    Grid.Column="1"
+                                    IsChecked="False"
+                                    IsEnabled="False"
+                                    Style="{StaticResource CardCheckbox}" />
                             </Grid>
                         </Grid>
                     </Border>
@@ -137,11 +146,12 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Busy Indicator -->
-        <ActivityIndicator IsVisible="{Binding IsBusy}"
-                           IsRunning="{Binding IsBusy}"
-                           Grid.Row="1"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"/>
+        <!--  Busy Indicator  -->
+        <ActivityIndicator
+            Grid.Row="1"
+            HorizontalOptions="Center"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Center" />
     </Grid>
 </ContentPage>

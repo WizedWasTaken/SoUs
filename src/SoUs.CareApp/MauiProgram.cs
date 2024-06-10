@@ -21,9 +21,10 @@ namespace SoUs.CareApp
                 });
 
             Uri uri = new(baseUri);
-            // Er Singleton det korrekte, eller skal det være Scoped?
-            // Singleton fordi der er fejl i alt andet...
+
+
             builder.Services.AddScoped<ISoUsService>(x => new SoUsService(uri));
+            builder.Services.AddScoped<IEmployeeService>(x => new EmployeeService(uri));
 
             builder.Services.AddTransient<MainPageViewModel>();
             builder.Services.AddTransient<SubTaskPageViewmodel>();
@@ -31,9 +32,19 @@ namespace SoUs.CareApp
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<SubTaskPage>();
 
+            builder.Services.AddSingleton<LogIndPage>();
+            builder.Services.AddSingleton<LogIndPageViewmodel>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
+
+            Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping(nameof(Entry), (handler, view) =>
+            {
+#if ANDROID
+            handler.PlatformView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+#endif
+            });
 
             return builder.Build();
         }

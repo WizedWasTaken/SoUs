@@ -1,14 +1,12 @@
+using SoUs.CareApp.ViewModels;
+
 namespace SoUs.CareApp.Views;
 
 public partial class LogIndPage : ContentPage
 {
-    public LogIndPage()
+    public LogIndPage(LogIndPageViewmodel viewmodel)
     {
         InitializeComponent();
-    }
-
-    protected override void OnNavigatedTo(NavigatedToEventArgs args)
-    {
-        base.OnNavigatedTo(args);
+        BindingContext = viewmodel;
     }
 }
