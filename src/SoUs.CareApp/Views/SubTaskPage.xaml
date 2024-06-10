@@ -6,7 +6,15 @@
     xmlns:converters="clr-namespace:SoUs.CareApp.Converters"
     xmlns:model="clr-namespace:SoUs.Entities;assembly=SoUs.Entities"
     xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
+    xmlns:local="clr-namespace:SoUs.CareApp.Components"
     x:DataType="viewModel:SubTaskPageViewmodel">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:TimeRangeConverter x:Key="TimeRangeConverter" />
+            <converters:ItemIndexConverter x:Key="ItemIndexConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <!--  Base Grid  -->
     <Grid BackgroundColor="{StaticResource Background}" RowDefinitions="Auto, 20, *, Auto">
@@ -22,6 +30,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!-- Triangle Button -->
@@ -29,19 +38,65 @@
                      BackgroundColor="Transparent"
                      Grid.Row="0"
                      Grid.Column="0"
-                     WidthRequest="30"
-                     HeightRequest="30"
+                     WidthRequest="15"
+                     HeightRequest="15"
                      HorizontalOptions="Start"
-                     VerticalOptions="Center"/>
-            
-            <Label Text="1." FontAttributes="Bold" Margin="5,0" Grid.Column="1"/>
+                     VerticalOptions="Center"
+                     Command="{Binding GoToPrevPageCommand}"/>
 
-                <Label Text="9.30 - 10.00" Grid.Column="2" Margin="5,0" HorizontalTextAlignment="Center"/>
+            <Label Text="9.30 - 10.00" Grid.ColumnSpan="4" Margin="5,0" HorizontalTextAlignment="Center"/>
 
-            <Label Text="{Binding Assignment.Resident.RoomNumber}" Grid.Column="3" FontAttributes="Bold" Margin="5,0"/>
+            <Label Text="{Binding Assignment.Resident.RoomNumber, StringFormat='Nr. {0}'}" Grid.Column="3" FontAttributes="Bold" Margin="5,0"/>
 
             <!-- Name -->
-            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold" Text="{Binding Assignment.Resident.Name}" Margin="10" />
+            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold" Text="{Binding Assignment.Resident.Name}" Margin="10" />
         </Grid>
+
+        <!--  Main Content  -->
+        <CollectionView
+            x:Name="SubTasksCollectionView"
+            ZIndex="100"
+            Grid.Row="2"
+            ItemsSource="{Binding SubTasks}"
+            SelectionMode="None">
+
+            <CollectionView.ItemTemplate>
+
+                <!--  Cards  -->
+                <DataTemplate x:DataType="model:SubTask">
+
+                    <Border Style="{StaticResource Card}" Padding="10" Margin="20,5">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:SubTaskPageViewmodel}}, Path=CheckCardCommand}" CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="20, *, 20">
+                            <Label Style="{StaticResource CardText}"
+                                   Text="{Binding ., Converter={StaticResource ItemIndexConverter}, ConverterParameter={x:Reference SubTasksCollectionView}}" />
+
+                            <Label Grid.Column="1" Style="{StaticResource CardText}" Text="{Binding Name}" />
+
+                            <CheckBox Grid.Column="2" IsChecked="{Binding IsCompleted}"/>
+                        </Grid>
+
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <VerticalStackLayout Grid.Row="3" Padding="30">
+            <Label Text="Notater" Style="{StaticResource Title}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" Margin="0,0,0,20"/>
+            
+            <Editor x:Name="BigTextBox"
+                Placeholder="Enter text here..."
+                AutoSize="TextChanges"
+                HeightRequest="200"
+                FontSize="Medium"
+                BackgroundColor="LightGray"
+                    Text="{Binding Assignment.Note, Mode=TwoWay}"
+                TextColor="Black"/>
+
+            <Button Text="Jeg er færdig." Style="{StaticResource Pill}" Margin="10,30"/>
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>

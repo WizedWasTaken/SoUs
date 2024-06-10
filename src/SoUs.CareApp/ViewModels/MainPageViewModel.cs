@@ -10,23 +10,25 @@ namespace SoUs.CareApp.ViewModels
 {
     public partial class MainPageViewModel : BaseViewModel
     {
-        private readonly ISoUsService sousService;
-        private readonly IEmployeeService employeeService;
+        private readonly ISoUsService _sousService;
+        private readonly IEmployeeService _employeeService;
 
         [ObservableProperty]
         private Employee employee;
-        public ObservableCollection<Assignment> TodaysAssignments { get; } = [];
+
+        public ObservableCollection<Assignment> TodaysAssignments { get; } = new ObservableCollection<Assignment>();
 
         public MainPageViewModel(ISoUsService sousService, IEmployeeService employeeService)
         {
             Title = "DAGENS OPGAVER";
-            this.sousService = sousService;
-            this.employeeService = employeeService;
+            _sousService = sousService;
+            _employeeService = employeeService;
             Employee = employeeService.Employee;
-            UpdateAssignmentsAsync();
+            _ = UpdateAssignmentsAsync(); // Brug af discard, da vi ikke bruger resultatet.
         }
 
         #region Commands
+
         [RelayCommand]
         public async Task RefreshAssignments()
         {
@@ -35,18 +37,18 @@ namespace SoUs.CareApp.ViewModels
         }
 
         [RelayCommand]
-        private async Task GoToSpecificTask(Assignment ass)
+        private async Task GoToSpecificTask(Assignment assignment)
         {
-            if (ass is null)
+            if (assignment == null)
             {
                 ErrorAlert("Denne opgave kunne ikke findes.");
                 return;
             }
 
             var navigationParams = new Dictionary<string, object>
-                {
-                    {"Assignment", ass }
-                };
+            {
+                { "Assignment", assignment }
+            };
 
             await Shell.Current.GoToAsync(nameof(SubTaskPage), true, navigationParams);
         }
@@ -60,27 +62,15 @@ namespace SoUs.CareApp.ViewModels
             try
             {
                 IsBusy = true;
-                // Sæt placeholder data... (Det bliver ikke brugt, lol.)
-                DateTime date = DateTime.Now;
-                
-                // Kald service for at hente opgaver
-                var assignments = await sousService.GetAssignmentsAsync(date, employeeService.Employee);
 
-                if (TodaysAssignments.Count != 0)
-                {
-                    TodaysAssignments.Clear();
-                }
+                var date = DateTime.Now;
+                var assignments = await _sousService.GetAssignmentsAsync(date, _employeeService.Employee);
 
-                // Tilføj de nye opgaver til 'TodaysAssignments'
-                // Det her er fint, fordi vi ikke rigtigt har 1000 opgaver om dagen, pr. bruger. - ellers kig på at oprette ny ObservableCollection...
-                foreach (var assignment in assignments)
-                {
-                    TodaysAssignments.Add(assignment);
-                }
+                UpdateTodaysAssignments(assignments);
 
                 if (TodaysAssignments.Count == 0)
                 {
-                    Shell.Current.DisplayAlert("INFO", "Der er ingen opgaver for i dag.", "OK");
+                    await Shell.Current.DisplayAlert("INFO", "Der er ingen opgaver for i dag.", "OK");
                 }
             }
             catch (Exception ex)
@@ -89,11 +79,18 @@ namespace SoUs.CareApp.ViewModels
             }
             finally
             {
-                if (TodaysAssignments.Count == 0)
-                {
-                    ErrorOccurred = true;
-                }
+                ErrorOccurred = TodaysAssignments.Count == 0;
                 IsBusy = false;
+            }
+        }
+
+        private void UpdateTodaysAssignments(IEnumerable<Assignment> assignments)
+        {
+            TodaysAssignments.Clear();
+
+            foreach (var assignment in assignments)
+            {
+                TodaysAssignments.Add(assignment);
             }
         }
     }

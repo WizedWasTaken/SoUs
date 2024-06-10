@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SoUs.CareApp.Views;
 
 namespace SoUs.CareApp.ViewModels
 {
@@ -29,22 +30,32 @@ namespace SoUs.CareApp.ViewModels
         #region Commands
 
         [RelayCommand]
-        protected static void ErrorAlert(string message)
+        protected static async Task GoToPrevPage()
         {
-            Shell.Current.DisplayAlert("FEJL", message, "OK");
+            await Shell.Current.GoToAsync("../");
         }
 
         [RelayCommand]
-        protected static void SuccessAlert(string message)
+        protected static async Task InfoAlert(string message)
         {
-            Shell.Current.DisplayAlert("Succes", message, "OK");
+            await Shell.Current.DisplayAlert("Information", message, "OK");
+            return;
         }
 
         [RelayCommand]
-        protected static void InfoAlert(string message)
+        protected static async Task ErrorAlert(string message)
         {
-            Shell.Current.DisplayAlert("Information", message, "OK");
+            await Shell.Current.DisplayAlert("FEJL", message, "OK");
+            return;
         }
+
+        [RelayCommand]
+        protected static async Task SuccessAlert(string message)
+        {
+            await Shell.Current.DisplayAlert("Succes", message, "OK");
+            return;
+        }
+
 
         #endregion
 

@@ -15,7 +15,8 @@ namespace SoUs.DataAccess
         {
             return _context.Assignments
                 .Where(a => a.Employees.Any(e => e.EmployeeId == employeeId))
-                .Include(a => a.Resident);
+                .Include(a => a.Resident)
+                .Include(a => a.SubTasks);
         }
 
         public Assignment GetBy(int id)

@@ -7,16 +7,16 @@ EXEC sp_MSforeachtable "DISABLE TRIGGER all ON ?"
 -- Delete all data from all tables
 EXEC sp_MSforeachtable "DELETE FROM ?"
 
-DBCC CHECKIDENT ('Addresses', RESEED, 0);
-DBCC CHECKIDENT ('CareCenters', RESEED, 0);
-DBCC CHECKIDENT ('Residents', RESEED, 0);
-DBCC CHECKIDENT ('Diagnoses', RESEED, 0);
-DBCC CHECKIDENT ('Prescriptions', RESEED, 0);
-DBCC CHECKIDENT ('Roles', RESEED, 0);
-DBCC CHECKIDENT ('Employees', RESEED, 0);
-DBCC CHECKIDENT ('Assignments', RESEED, 0);
-DBCC CHECKIDENT ('Medications', RESEED, 0);
-DBCC CHECKIDENT ('SubTasks', RESEED, 0);
+DBCC CHECKIDENT ('Addresses', RESEED, 1);
+DBCC CHECKIDENT ('CareCenters', RESEED, 1);
+DBCC CHECKIDENT ('Residents', RESEED, 1);
+DBCC CHECKIDENT ('Diagnoses', RESEED, 1);
+DBCC CHECKIDENT ('Prescriptions', RESEED, 1);
+DBCC CHECKIDENT ('Roles', RESEED, 1);
+DBCC CHECKIDENT ('Employees', RESEED, 1);
+DBCC CHECKIDENT ('Assignments', RESEED, 1);
+DBCC CHECKIDENT ('Medications', RESEED, 1);
+DBCC CHECKIDENT ('SubTasks', RESEED, 1);
 
 
 

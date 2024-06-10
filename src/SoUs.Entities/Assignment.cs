@@ -14,6 +14,7 @@ namespace SoUs.Entities
         private List<Employee> employees;
         private List<SubTask> subTasks;
         private List<MedicineTask>? medicineTasks;
+        private string? note;
 
         #endregion
 
@@ -27,7 +28,7 @@ namespace SoUs.Entities
         }
 
         public Assignment(int assignmentId, DateTime timeStart, DateTime timeEnd, Resident resident,
-                    List<Employee> employees, List<SubTask> SubTasks, List<MedicineTask> medicineTasks)
+                    List<Employee> employees, List<SubTask> SubTasks, List<MedicineTask> medicineTasks, string? note)
         {
             AssignmentId = assignmentId;
             TimeStart = timeStart;
@@ -36,6 +37,7 @@ namespace SoUs.Entities
             Employees = employees ?? new List<Employee>();
             SubTasks = SubTasks ?? new List<SubTask>();
             MedicineTasks = medicineTasks ?? new List<MedicineTask>();
+            Note = note;
         }
 
         #endregion
@@ -82,6 +84,12 @@ namespace SoUs.Entities
         {
             get { return medicineTasks; }
             set { medicineTasks = value; }
+        }
+
+        public string? Note
+        {
+            get { return note; }
+            set { note = value;  }
         }
 
         #endregion

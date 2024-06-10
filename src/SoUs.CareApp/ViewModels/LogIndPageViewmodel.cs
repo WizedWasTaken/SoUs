@@ -32,7 +32,7 @@ namespace SoUs.CareApp.ViewModels
 
                     if (employee != null)
                     {
-                        InfoAlert("Korrekt log ind.\nDu bliver sendt videre om et øjeblik.");
+                        await InfoAlert("Korrekt log ind.\nDu bliver sendt videre om et øjeblik.");
                         employeeService.Employee = employee;
 
                         // Hvis brugeren er en medarbejder, så vises hovedopgaverne.

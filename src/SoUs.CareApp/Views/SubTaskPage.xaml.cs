@@ -14,6 +14,11 @@ namespace SoUs.CareApp.Views
         {
             base.OnAppearing();
         }
+
+        private void Label_ChildrenReordered(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

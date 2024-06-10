@@ -1,5 +1,6 @@
 ﻿using SoUs.Entities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -13,15 +14,20 @@ namespace SoUs.CareApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter is CollectionView collectionView && value is Assignment assignment)
+            if (parameter is CollectionView collectionView && value != null)
             {
-                var itemsSource = collectionView.ItemsSource as IList<Assignment>;
+                var itemsSource = collectionView.ItemsSource as IEnumerable;
                 if (itemsSource != null)
                 {
-                    return itemsSource.IndexOf(assignment) + 1;
+                    var itemList = itemsSource.Cast<object>().ToList();
+                    var index = itemList.IndexOf(value);
+                    if (index >= 0)
+                    {
+                        return index + 1; // 1-based index
+                    }
                 }
             }
-            return 0;
+            return 0; // Return 0 if item not found
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
