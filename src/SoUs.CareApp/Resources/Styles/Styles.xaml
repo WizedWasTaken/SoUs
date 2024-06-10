@@ -1,17 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
-<ResourceDictionary 
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!-- General -->
-    
+    <!--  General  -->
+
     <Style TargetType="Label">
-        <Setter Property="TextColor" Value="White"/>
+        <Setter Property="TextColor" Value="White" />
     </Style>
 
-    <!-- Classes -->
-    
+    <!--  Classes  -->
+
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{StaticResource Primary}" />
     </Style>
@@ -28,9 +26,7 @@
         <Setter Property="CornerRadius" Value="50" />
     </Style>
 
-    <Style x:Key="Rounded" TargetType="CheckBox">
-        
-    </Style>
+    <Style x:Key="Rounded" TargetType="CheckBox" />
 
     <Style x:Key="Card" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
@@ -55,7 +51,7 @@
         <Setter Property="Padding" Value="8" />
     </Style>
 
-    <!-- TODO: Shit can't go round... -->
+    <!--  TODO: Shit can't go round...  -->
     <Style x:Key="CardCheckbox" TargetType="CheckBox">
         <Setter Property="HorizontalOptions" Value="End" />
         <Setter Property="VerticalOptions" Value="End" />

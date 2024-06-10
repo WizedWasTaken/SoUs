@@ -12,11 +12,5 @@ namespace SoUs.CareApp.ViewModels
 
         [ObservableProperty]
         Assignment assignment; // Hoved opgaven.
-
-        partial void OnAssignmentChanged(Assignment? oldValue, Assignment newValue)
-        {
-            Console.WriteLine("Assignment changed");
-            Console.WriteLine(Assignment);
-        }
     }
 }

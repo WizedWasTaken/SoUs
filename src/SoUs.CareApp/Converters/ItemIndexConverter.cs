@@ -1,5 +1,4 @@
-﻿using SoUs.DataObjects;
-using SoUs.Entities;
+﻿using SoUs.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

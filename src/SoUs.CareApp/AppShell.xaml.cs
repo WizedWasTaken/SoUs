@@ -8,6 +8,7 @@ namespace SoUs.CareApp
         {
             InitializeComponent();
 
+            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(SubTaskPage), typeof(SubTaskPage));
         }
     }

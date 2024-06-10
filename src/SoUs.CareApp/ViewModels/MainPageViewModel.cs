@@ -3,7 +3,6 @@ using SoUs.Entities;
 using SoUs.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using SoUs.DataObjects;
 using CommunityToolkit.Mvvm.ComponentModel;
 using SoUs.CareApp.Views;
 

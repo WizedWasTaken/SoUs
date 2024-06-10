@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:model="clr-namespace:SoUs.Entities;assembly=SoUs.Entities"
-             xmlns:converters="clr-namespace:SoUs.CareApp.Converters"
-             xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
-             x:DataType="viewModel:SubTaskPageViewmodel"
-             x:Class="SoUs.CareApp.Views.SubTaskPage">
+<ContentPage
+    x:Class="SoUs.CareApp.Views.SubTaskPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:SoUs.CareApp.Converters"
+    xmlns:model="clr-namespace:SoUs.Entities;assembly=SoUs.Entities"
+    xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
+    x:DataType="viewModel:SubTaskPageViewmodel">
 
-    <!-- Base Grid -->
-    <Grid RowDefinitions="Auto, 20, *, Auto"
-          BackgroundColor="{StaticResource Background}">
+    <!--  Base Grid  -->
+    <Grid BackgroundColor="{StaticResource Background}" RowDefinitions="Auto, 20, *, Auto">
 
-        <!-- Header -->
-        <Grid ColumnDefinitions="*, *, *"
-              RowDefinitions="*, *"
-              BackgroundColor="{StaticResource Primary}"
-              x:DataType="model:Assignment">
-            <Label Style="{StaticResource CardText}"
-                                   HorizontalOptions="Center"
-                                   Grid.Column="1">
-                <Label.Text>
-                    <MultiBinding Converter="{StaticResource TimeRangeConverter}">
-                        <Binding Path="Assignment.TimeStart"/>
-                        <Binding Path="Assignment.TimeEnd"/>
-                    </MultiBinding>
-                </Label.Text>
-            </Label>
+        <!--  Header  -->
+        <Grid
+            x:DataType="model:Assignment"
+            BackgroundColor="{StaticResource Primary}"
+            ColumnDefinitions="*, *, *"
+            RowDefinitions="*, *">
+            <Label
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                Style="{StaticResource CardText}"
+                Text="10:00 - 10:45" />
+
         </Grid>
     </Grid>
 </ContentPage>
