@@ -12,17 +12,36 @@
     <Grid BackgroundColor="{StaticResource Background}" RowDefinitions="Auto, 20, *, Auto">
 
         <!--  Header  -->
-        <Grid
-            x:DataType="model:Assignment"
-            BackgroundColor="{StaticResource Primary}"
-            ColumnDefinitions="*, *, *"
-            RowDefinitions="*, *">
-            <Label
-                Grid.Column="1"
-                HorizontalOptions="Center"
-                Style="{StaticResource CardText}"
-                Text="10:00 - 10:45" />
+        <Grid BackgroundColor="{StaticResource Primary}" Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
+            <!-- Triangle Button -->
+            <ImageButton Source="back_arrow.png"
+                     BackgroundColor="Transparent"
+                     Grid.Row="0"
+                     Grid.Column="0"
+                     WidthRequest="30"
+                     HeightRequest="30"
+                     HorizontalOptions="Start"
+                     VerticalOptions="Center"/>
+            
+            <Label Text="1." FontAttributes="Bold" Margin="5,0" Grid.Column="1"/>
+
+                <Label Text="9.30 - 10.00" Grid.Column="2" Margin="5,0" HorizontalTextAlignment="Center"/>
+
+            <Label Text="{Binding Assignment.Resident.RoomNumber}" Grid.Column="3" FontAttributes="Bold" Margin="5,0"/>
+
+            <!-- Name -->
+            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" FontAttributes="Bold" Text="{Binding Assignment.Resident.Name}" Margin="10" />
         </Grid>
     </Grid>
 </ContentPage>

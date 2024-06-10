@@ -11,13 +11,18 @@ namespace SoUs.CareApp.ViewModels
     public partial class MainPageViewModel : BaseViewModel
     {
         private readonly ISoUsService sousService;
+        private readonly IEmployeeService employeeService;
 
+        [ObservableProperty]
+        private Employee employee;
         public ObservableCollection<Assignment> TodaysAssignments { get; } = [];
 
-        public MainPageViewModel(ISoUsService sousService)
+        public MainPageViewModel(ISoUsService sousService, IEmployeeService employeeService)
         {
             Title = "DAGENS OPGAVER";
             this.sousService = sousService;
+            this.employeeService = employeeService;
+            Employee = employeeService.Employee;
             UpdateAssignmentsAsync();
         }
 
@@ -30,11 +35,11 @@ namespace SoUs.CareApp.ViewModels
         }
 
         [RelayCommand]
-        private async void GoToSpecificTask(Assignment ass)
+        private async Task GoToSpecificTask(Assignment ass)
         {
             if (ass is null)
             {
-                NoWorkey("Denne opgave kunne ikke findes.");
+                ErrorAlert("Denne opgave kunne ikke findes.");
                 return;
             }
 
@@ -57,9 +62,9 @@ namespace SoUs.CareApp.ViewModels
                 IsBusy = true;
                 // Sæt placeholder data... (Det bliver ikke brugt, lol.)
                 DateTime date = DateTime.Now;
-                Employee employee = new() { EmployeeId = 2 };
+                
                 // Kald service for at hente opgaver
-                var assignments = await sousService.GetAssignmentsAsync(date, employee);
+                var assignments = await sousService.GetAssignmentsAsync(date, employeeService.Employee);
 
                 if (TodaysAssignments.Count != 0)
                 {
@@ -78,9 +83,9 @@ namespace SoUs.CareApp.ViewModels
                     Shell.Current.DisplayAlert("INFO", "Der er ingen opgaver for i dag.", "OK");
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                Shell.Current.DisplayAlert("FEJL", "Der skete en fejl under hentning af opgaver.", "OK");
+                ErrorAlert(ex.Message);
             }
             finally
             {

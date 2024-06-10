@@ -26,14 +26,13 @@ namespace SoUs.CareApp
             builder.Services.AddScoped<ISoUsService>(x => new SoUsService(uri));
             builder.Services.AddScoped<IEmployeeService>(x => new EmployeeService(uri));
 
+            builder.Services.AddSingleton<LogIndPageViewmodel>();
             builder.Services.AddTransient<MainPageViewModel>();
             builder.Services.AddTransient<SubTaskPageViewmodel>();
 
+            builder.Services.AddSingleton<LogIndPage>();
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<SubTaskPage>();
-
-            builder.Services.AddSingleton<LogIndPage>();
-            builder.Services.AddSingleton<LogIndPageViewmodel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

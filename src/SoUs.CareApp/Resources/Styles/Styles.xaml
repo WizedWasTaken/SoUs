@@ -24,6 +24,7 @@
         <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
         <Setter Property="TextColor" Value="{StaticResource Background}" />
         <Setter Property="CornerRadius" Value="50" />
+        <Setter Property="HorizontalOptions" Value="Center" />
     </Style>
 
     <Style x:Key="Rounded" TargetType="CheckBox" />
@@ -62,12 +63,21 @@
         <Setter Property="TextColor" Value="Black" />
     </Style>
 
+    <Style x:Key="BackButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="Transparent"/>
+        <Setter Property="Margin" Value="5" />
+    </Style>
+
     <!--  Log Ind Siden  -->
 
     <Style x:Key="InputBorder" TargetType="Border">
         <Setter Property="Stroke" Value="{StaticResource Background}" />
         <Setter Property="StrokeThickness" Value="3" />
-        <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="10" />
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

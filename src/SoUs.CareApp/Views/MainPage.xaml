@@ -29,7 +29,7 @@
             <Button
                 Grid.Row="0"
                 Grid.Column="0"
-                Command="{Binding NoWorkeyCommand}"
+                Command="{Binding ErrorAlertCommand}"
                 HorizontalOptions="Start"
                 Style="{StaticResource Pill}"
                 Text="Recepter"
@@ -40,7 +40,7 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 HorizontalOptions="End"
-                Text="Noah. A. Nielsen"
+                Text="{Binding Employee.Name}"
                 VerticalTextAlignment="Start" />
 
             <Label

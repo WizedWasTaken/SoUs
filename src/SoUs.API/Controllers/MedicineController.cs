@@ -4,6 +4,8 @@ using SoUs.Entities;
 
 namespace SoUs.API.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class MedicineController : Controller
     {
         private readonly IRepository<Medicine> _repository;

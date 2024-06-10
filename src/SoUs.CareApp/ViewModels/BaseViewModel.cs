@@ -29,9 +29,21 @@ namespace SoUs.CareApp.ViewModels
         #region Commands
 
         [RelayCommand]
-        protected static void NoWorkey(string message)
+        protected static void ErrorAlert(string message)
         {
-            Shell.Current.DisplayAlert("Fejl", message, "OK");
+            Shell.Current.DisplayAlert("FEJL", message, "OK");
+        }
+
+        [RelayCommand]
+        protected static void SuccessAlert(string message)
+        {
+            Shell.Current.DisplayAlert("Succes", message, "OK");
+        }
+
+        [RelayCommand]
+        protected static void InfoAlert(string message)
+        {
+            Shell.Current.DisplayAlert("Information", message, "OK");
         }
 
         #endregion

@@ -10,19 +10,19 @@
 
     <!--  Base Grid  -->
     <Frame Padding="50,200" BackgroundColor="{StaticResource Background}">
-        <Grid BackgroundColor="{StaticResource Primary}" RowDefinitions="50, *, Auto">
+        <Grid BackgroundColor="{StaticResource Primary}" RowDefinitions="Auto, *, Auto">
             <Label
                 Grid.Column="0"
                 Margin="0,25,0,0"
                 HorizontalOptions="Center"
                 Style="{StaticResource Title}"
-                Text="INDTAST DIT BRUGER ID"
+                Text="{Binding Title}"
                 TextColor="{StaticResource Background}"
                 VerticalOptions="Center" />
 
             <Border
                 Grid.Row="1"
-                Margin="25,125"
+                Margin="25,120"
                 Style="{StaticResource InputBorder}">
 
                 <Entry
@@ -35,7 +35,8 @@
 
             <Button
                 Grid.Row="2"
-                Margin="20,0,20,20"
+                Margin="0,0,0,20"
+                WidthRequest="200"
                 BackgroundColor="{StaticResource Background}"
                 Command="{Binding SubmitUserIdCommand}"
                 Style="{StaticResource Pill}"

@@ -1,31 +1,57 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SoUs.CareApp.Views;
 using SoUs.Entities;
+using SoUs.Services;
+using System.Collections.ObjectModel;
 
 namespace SoUs.CareApp.ViewModels
 {
     public partial class LogIndPageViewmodel : BaseViewModel
     {
-        public LogIndPageViewmodel()
+        private readonly IEmployeeService employeeService;
+
+        public LogIndPageViewmodel(IEmployeeService employeeService)
         {
+            userId = "0";
+            Title = "INDTAST BRUGER ID";
+            this.employeeService = employeeService;
         }
 
         [ObservableProperty]
         private string userId;
 
         [RelayCommand]
-        private void SubmitUserId()
+        private async Task SubmitUserId()
         {
-            if (IsInteger(UserId) && UserId != null)
-            {
-                NoWorkey("Det virker!");
-            }
+            try { 
+                if (IsInteger(UserId) && UserId != null)
+                {
+                    // Hent bruger fra databasen.
+                    Employee employee = await employeeService.GetEmployeeFromIdAsync(int.Parse(UserId));
 
-            NoWorkey("Ugyldigt bruger ID.");
-            return;
+                    if (employee != null)
+                    {
+                        InfoAlert("Korrekt log ind.\nDu bliver sendt videre om et øjeblik.");
+                        employeeService.Employee = employee;
+
+                        // Hvis brugeren er en medarbejder, så vises hovedopgaverne.
+                        if (employee.EmployeeId != 0)
+                        {
+                            await Shell.Current.GoToAsync(nameof(MainPage));
+                        }
+                        return;
+                    }
+                }
+
+                throw new InvalidDataException("Medarbejderen kunne ikke findes.");
+            } catch (Exception e)
+            {
+                ErrorAlert(e.Message);
+            }
         }
 
-        private bool IsInteger(string value)
+        private static bool IsInteger(string value)
         {
             return int.TryParse(value, out _);
         }

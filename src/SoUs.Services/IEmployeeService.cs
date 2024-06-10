@@ -13,9 +13,9 @@ namespace SoUs.Services
 {
     public interface IEmployeeService
     {
-        Employee employee { get; set; }
+        Employee Employee { get; set; }
 
-        Employee GetEmployeeFrom(int id);
+        Task<Employee> GetEmployeeFromIdAsync(int id);
     }
 
     public class EmployeeService : ApiBase, IEmployeeService
@@ -26,22 +26,22 @@ namespace SoUs.Services
 
         public EmployeeService(string baseUri) : base(baseUri) { }
 
-        public Employee employee { get; set; }
+        public Employee Employee { get; set; }
 
-        public Employee GetEmployeeFrom(int id)
+        public async Task<Employee> GetEmployeeFromIdAsync(int id)
         {
             try
             {
                 Employee e = default;
 
-                var response = GetHttpAsync($"Employee/GetEmployeeById?id={id}");
+                var response = await GetHttpAsync($"Employee/GetEmployeeById?id={id}");
 
-                if (!response.Result.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                 {
-                    throw new DataException("Kunne ikke hente medarbejder");
+                    throw new ApplicationException($"Error: {response.StatusCode}");
                 }
 
-                e = response.Result.Content.ReadFromJsonAsync<Employee>().Result;
+                e = await response.Content.ReadFromJsonAsync<Employee>();
 
                 return e;
             }
