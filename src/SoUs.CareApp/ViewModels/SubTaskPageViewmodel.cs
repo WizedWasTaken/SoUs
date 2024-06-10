@@ -6,9 +6,9 @@ using System.Linq;
 namespace SoUs.CareApp.ViewModels
 {
     [QueryProperty(nameof(Assignment), "Assignment")]
-    public partial class SubTaskPageViewModel : BaseViewModel
+    public partial class SubTaskPageViewmodel : BaseViewModel
     {
-        public SubTaskPageViewModel()
+        public SubTaskPageViewmodel()
         {
             SubTasks = new ObservableCollection<SubTask>();
         }

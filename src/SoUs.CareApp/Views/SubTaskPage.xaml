@@ -6,7 +6,6 @@
     xmlns:converters="clr-namespace:SoUs.CareApp.Converters"
     xmlns:model="clr-namespace:SoUs.Entities;assembly=SoUs.Entities"
     xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
-    xmlns:local="clr-namespace:SoUs.CareApp.Components"
     x:DataType="viewModel:SubTaskPageViewmodel">
 
     <ContentPage.Resources>

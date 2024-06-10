@@ -136,7 +136,7 @@
 
                                 <CheckBox
                                     Grid.Column="1"
-                                    IsChecked="{Binding IsCompleted}"
+                                    IsChecked="False"
                                     IsEnabled="False"
                                     Style="{StaticResource CardCheckbox}" />
                             </Grid>
