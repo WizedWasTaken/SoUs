@@ -10,25 +10,31 @@ namespace SoUs.CareApp.ViewModels
 {
     public partial class MainPageViewModel : BaseViewModel
     {
-        private readonly ISoUsService _sousService;
+        private readonly IAssignmentService _sousService;
         private readonly IEmployeeService _employeeService;
+
 
         [ObservableProperty]
         private Employee employee;
 
+        // All assignments from the database.
         public ObservableCollection<Assignment> TodaysAssignments { get; } = new ObservableCollection<Assignment>();
 
-        public MainPageViewModel(ISoUsService sousService, IEmployeeService employeeService)
+        public MainPageViewModel(IAssignmentService sousService, IEmployeeService employeeService)
         {
             Title = "DAGENS OPGAVER";
             _sousService = sousService;
             _employeeService = employeeService;
             Employee = employeeService.Employee;
-            _ = UpdateAssignmentsAsync(); // Brug af discard, da vi ikke bruger resultatet.
+            UpdateAssignmentsAsync();
         }
 
         #region Commands
 
+        /// <summary>
+        /// Command to refresh the assignments if error occured.
+        /// </summary>
+        /// <returns>Nothing</returns>
         [RelayCommand]
         public async Task RefreshAssignments()
         {
@@ -36,6 +42,11 @@ namespace SoUs.CareApp.ViewModels
             await UpdateAssignmentsAsync();
         }
 
+        /// <summary>
+        /// Method to go the specific task.
+        /// </summary>
+        /// <param name="assignment">The specific task.</param>
+        /// <returns>Nothing</returns>
         [RelayCommand]
         private async Task GoToSpecificTask(Assignment assignment)
         {
@@ -55,6 +66,10 @@ namespace SoUs.CareApp.ViewModels
 
         #endregion
 
+        /// <summary>
+        /// Helper method to update assignments.
+        /// </summary>
+        /// <returns>Nothing</returns>
         private async Task UpdateAssignmentsAsync()
         {
             if (IsBusy) return;
@@ -84,6 +99,10 @@ namespace SoUs.CareApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Helper method to update the assignments.
+        /// </summary>
+        /// <returns>Nothing</returns>
         private void UpdateTodaysAssignments(IEnumerable<Assignment> assignments)
         {
             TodaysAssignments.Clear();

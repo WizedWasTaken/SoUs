@@ -18,16 +18,21 @@ namespace SoUs.CareApp.ViewModels
             this.employeeService = employeeService;
         }
 
+        // User ID property.
         [ObservableProperty]
         private string userId;
 
+        /// <summary>
+        /// Command to submit user id.
+        /// </summary>
+        /// <returns>Nothing</returns>
+        /// <exception cref="InvalidDataException">Employee wasn't found.</exception>
         [RelayCommand]
         private async Task SubmitUserId()
         {
             try { 
                 if (IsInteger(UserId) && UserId != null)
                 {
-                    // Hent bruger fra databasen.
                     Employee employee = await employeeService.GetEmployeeFromIdAsync(int.Parse(UserId));
 
                     if (employee != null)
@@ -35,7 +40,6 @@ namespace SoUs.CareApp.ViewModels
                         await InfoAlert("Korrekt log ind.\nDu bliver sendt videre om et øjeblik.");
                         employeeService.Employee = employee;
 
-                        // Hvis brugeren er en medarbejder, så vises hovedopgaverne.
                         if (employee.EmployeeId != 0)
                         {
                             await Shell.Current.GoToAsync(nameof(MainPage));
@@ -51,6 +55,11 @@ namespace SoUs.CareApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Helper method to check if a string is an integer.
+        /// </summary>
+        /// <param name="value">String value containing only numbers</param>
+        /// <returns>Boolean</returns>
         private static bool IsInteger(string value)
         {
             return int.TryParse(value, out _);

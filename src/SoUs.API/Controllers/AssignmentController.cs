@@ -74,5 +74,18 @@ namespace SoUs.API.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPut]
+        public IActionResult UpdateAssignment(Assignment task)
+        {
+            try
+            {
+                _repository.Update(task);
+                return Ok();
+            } catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

@@ -12,8 +12,8 @@ using SoUs.DataAccess;
 namespace SoUs.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240610174440_AddedNotesToAssignments")]
-    partial class AddedNotesToAssignments
+    [Migration("20240612070929_ThisSoStupid")]
+    partial class ThisSoStupid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,7 +93,6 @@ namespace SoUs.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssignmentId"));
 
                     b.Property<string>("Note")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ResidentId")

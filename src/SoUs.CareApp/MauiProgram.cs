@@ -23,7 +23,7 @@ namespace SoUs.CareApp
             Uri uri = new(baseUri);
 
 
-            builder.Services.AddScoped<ISoUsService>(x => new SoUsService(uri));
+            builder.Services.AddScoped<IAssignmentService>(x => new AssignmentService(uri));
             builder.Services.AddScoped<IEmployeeService>(x => new EmployeeService(uri));
 
             builder.Services.AddSingleton<LogIndPageViewmodel>();

@@ -11,6 +11,13 @@ namespace SoUs.DataAccess
     public class AssignmentRepository(DataContext _context) :
         Repository<Assignment>(_context), IAssignmentRepository
     {
+
+        /// <summary>
+        /// Get all assignments for a specific employee on a specific date.
+        /// </summary>
+        /// <param name="date">The date to get all assignments for</param>
+        /// <param name="employeeId">The employee Id to get all assignments for</param>
+        /// <returns>All tasks for the specific employee, on the specific date.</returns>
         public IEnumerable<Assignment> GetAssignmentsForEmployee(DateTime date, int employeeId)
         {
             return _context.Assignments
@@ -19,12 +26,19 @@ namespace SoUs.DataAccess
                 .Include(a => a.SubTasks);
         }
 
+        /// <summary>
+        /// Get assignment by id
+        /// </summary>
+        /// <param name="id">ID to get frmo.</param>
+        /// <returns>Assignment</returns>
         public Assignment GetBy(int id)
         {
-            return _context.Assignments
+            var res = _context.Assignments
                 .Include(a => a.Employees)
                 .Include(a => a.Resident)
                 .FirstOrDefault(a => a.AssignmentId == id);
+
+            return res;
         }
     }
 }

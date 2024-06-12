@@ -28,6 +28,12 @@ namespace SoUs.Services
 
         public Employee Employee { get; set; }
 
+        /// <summary>
+        /// Method to get an employee from the database by id.
+        /// </summary>
+        /// <param name="id">ID to get in database</param>
+        /// <returns>Employee object</returns>
+        /// <exception cref="ApplicationException">An unexpected error happened.</exception>
         public async Task<Employee> GetEmployeeFromIdAsync(int id)
         {
             try
@@ -47,14 +53,7 @@ namespace SoUs.Services
             }
             catch (Exception ex)
             {
-                // Log the detailed exception message and stack trace
-                Debug.WriteLine($"General exception: {ex.Message}");
-                Debug.WriteLine($"Stack Trace: {ex.StackTrace}");
-                if (ex.InnerException != null)
-                {
-                    Debug.WriteLine($"Inner Exception: {ex.InnerException.Message}");
-                }
-                throw new ApplicationException("An unexpected error occurred.", ex);
+                throw new ApplicationException("Der skete en uventet fejl.", ex);
             }
         }
     }

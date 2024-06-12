@@ -9,11 +9,6 @@ namespace SoUs.CareApp.Views
             InitializeComponent();
             BindingContext = viewModel;
         }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-        }
     }
 
 }

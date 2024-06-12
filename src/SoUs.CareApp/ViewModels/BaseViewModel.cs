@@ -29,12 +29,21 @@ namespace SoUs.CareApp.ViewModels
 
         #region Commands
 
+        /// <summary>
+        /// Method to go to previous page.
+        /// </summary>
+        /// <returns>Nothing</returns>
         [RelayCommand]
         protected static async Task GoToPrevPage()
         {
             await Shell.Current.GoToAsync("../");
         }
 
+        /// <summary>
+        /// Method to display an information alert.
+        /// </summary>
+        /// <param name="message">Message content</param>
+        /// <returns>Alert box.</returns>
         [RelayCommand]
         protected static async Task InfoAlert(string message)
         {
@@ -42,6 +51,11 @@ namespace SoUs.CareApp.ViewModels
             return;
         }
 
+        /// <summary>
+        /// Method to display an error alert.
+        /// </summary>
+        /// <param name="message">Message content</param>
+        /// <returns>Alert box.</returns>
         [RelayCommand]
         protected static async Task ErrorAlert(string message)
         {
@@ -49,6 +63,11 @@ namespace SoUs.CareApp.ViewModels
             return;
         }
 
+        /// <summary>
+        /// Method to display an success alert.
+        /// </summary>
+        /// <param name="message">Message content</param>
+        /// <returns>Alert box.</returns>
         [RelayCommand]
         protected static async Task SuccessAlert(string message)
         {

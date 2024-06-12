@@ -9,16 +9,6 @@ namespace SoUs.CareApp.Views
             InitializeComponent();
             BindingContext = viewModel;
         }
-
-        protected void OnAppearing()
-        {
-            base.OnAppearing();
-        }
-
-        private void Label_ChildrenReordered(object sender, EventArgs e)
-        {
-
-        }
     }
 
 }

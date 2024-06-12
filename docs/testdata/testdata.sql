@@ -96,7 +96,6 @@ INSERT INTO Assignments (TimeStart, TimeEnd, ResidentId) VALUES
 ('2024-06-04 14:40:00', '2024-06-04 15:25:00', 2);
 
 -- SubTasks
--- SubTasks
 
 -- Assignment 1
 INSERT INTO SubTasks (Name, AssignmentId, IsCompleted, SubTaskType) VALUES

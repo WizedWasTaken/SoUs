@@ -1,35 +1,49 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SoUs.Entities;
+using SoUs.Services;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace SoUs.CareApp.ViewModels
 {
     [QueryProperty(nameof(Assignment), "Assignment")]
     public partial class SubTaskPageViewmodel : BaseViewModel
     {
-        public SubTaskPageViewmodel()
+        private readonly IAssignmentService _sousService;
+        public SubTaskPageViewmodel(IAssignmentService sousService)
         {
-            SubTasks = new ObservableCollection<SubTask>();
+            _sousService = sousService;
         }
 
+        // Received assignment property.
         [ObservableProperty]
         private Assignment assignment;
 
-        [ObservableProperty]
-        private ObservableCollection<SubTask> subTasks;
-
-        partial void OnAssignmentChanged(Assignment value)
+        /// <summary>
+        /// Submit assignment to database.
+        /// </summary>
+        /// <returns>Void</returns>
+        [RelayCommand]
+        private async Task SubmitAssignment()
         {
-            // Update SubTasks collection based on the new Assignment
-            // ChatGPT coming in clutch, once again.
-            SubTasks.Clear();
-            if (value?.SubTasks != null)
-            {
-                foreach (var subTask in value.SubTasks)
+            try {
+
+                int subLength = assignment.SubTasks.Count;
+
+                // Tjek om alle opgaver er udført.
+                if (Assignment.SubTasks.Any(e => e.IsCompleted))
                 {
-                    SubTasks.Add(subTask);
+                    InfoAlert("Du har ikke gennemført alle opgaverne.");
+                    return; 
                 }
+
+                await _sousService.UpdateAssignmentAsync(Assignment);
+                await Shell.Current.GoToAsync("../");
+                return;
+            } 
+            catch(Exception ex)
+            {
+                ErrorAlert(ex.Message);
             }
         }
     }
