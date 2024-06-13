@@ -37,13 +37,13 @@ namespace SoUs.CareApp.ViewModels
 
                     if (employee != null)
                     {
-                        await InfoAlert("Korrekt log ind.\nDu bliver sendt videre om et øjeblik.");
                         employeeService.Employee = employee;
 
                         if (employee.EmployeeId != 0)
                         {
                             await Shell.Current.GoToAsync(nameof(MainPage));
                         }
+
                         return;
                     }
                 }

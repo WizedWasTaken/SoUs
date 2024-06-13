@@ -126,7 +126,7 @@
                 BackgroundColor="LightGray"
                 FontSize="Medium"
                 HeightRequest="200"
-                Placeholder="Enter text here..."
+                Placeholder="Indtast note her..."
                 Text="{Binding Assignment.Note, Mode=TwoWay}"
                 TextColor="Black" />
 

@@ -12,11 +12,8 @@ namespace SoUs.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SubTask>()
-                .HasDiscriminator<string>("SubTaskType")
-                .HasValue<SubTask>("SubTask")
-                .HasValue<MedicineTask>("MedicineTask");
-
+            modelBuilder.Entity<SubTask>().ToTable("SubTasks");
+            modelBuilder.Entity<MedicineTask>().ToTable("MedicineTasks");
 
             base.OnModelCreating(modelBuilder);
         }
@@ -31,6 +28,7 @@ namespace SoUs.DataAccess
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<CareCenter> CareCenters { get; set; }
         public DbSet<SubTask> SubTasks { get; set; }
+        public DbSet<MedicineTask> MedicineTasks { get; set; }
     }
 }
 

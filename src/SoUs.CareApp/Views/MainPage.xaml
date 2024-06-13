@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <converters:TimeRangeConverter x:Key="TimeRangeConverter" />
             <converters:ItemIndexConverter x:Key="ItemIndexConverter" />
+            <converters:AllSubtasksCompletedConverter x:Key="AllSubtasksCompletedConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -76,7 +77,7 @@
             <CollectionView.ItemTemplate>
 
                 <!--  Cards  -->
-                <DataTemplate x:DataType="model:Assignment">
+                <DataTemplate x:Name="Assignment" x:DataType="model:Assignment">
 
                     <Border Style="{StaticResource Card}">
                         <Border.GestureRecognizers>
@@ -134,9 +135,10 @@
                                     Style="{StaticResource CardText}"
                                     Text="{Binding Resident.Name}" />
 
+                                <!--  HER!!!  -->
                                 <CheckBox
                                     Grid.Column="1"
-                                    IsChecked="False"
+                                    IsChecked="{Binding SubTasks, Converter={StaticResource AllSubtasksCompletedConverter}, Mode=OneWay}"
                                     IsEnabled="False"
                                     Style="{StaticResource CardCheckbox}" />
                             </Grid>

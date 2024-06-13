@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SoUs.CareApp.Views;
 using SoUs.Entities;
 using SoUs.Services;
-using System.Collections.ObjectModel;
 
 namespace SoUs.CareApp.ViewModels
 {
@@ -10,10 +10,15 @@ namespace SoUs.CareApp.ViewModels
     public partial class SubTaskPageViewmodel : BaseViewModel
     {
         private readonly IAssignmentService _sousService;
+
         public SubTaskPageViewmodel(IAssignmentService sousService)
         {
             _sousService = sousService;
         }
+
+        // Original received assignment property.
+        // Used for reverting changes on client if going back.
+        private Assignment originalAssignment;
 
         // Received assignment property.
         [ObservableProperty]
@@ -27,18 +32,16 @@ namespace SoUs.CareApp.ViewModels
         private async Task SubmitAssignment()
         {
             try {
-
-                int subLength = assignment.SubTasks.Count;
-
+                List<MedicineTask> medTasks = Assignment.MedicineTasks;
                 // Tjek om alle opgaver er udført.
-                if (Assignment.SubTasks.Any(e => e.IsCompleted))
+                if (Assignment.SubTasks.All(e => !e.IsCompleted))
                 {
                     InfoAlert("Du har ikke gennemført alle opgaverne.");
                     return; 
                 }
 
                 await _sousService.UpdateAssignmentAsync(Assignment);
-                await Shell.Current.GoToAsync("../");
+                await Shell.Current.GoToAsync(nameof(MainPage));
                 return;
             } 
             catch(Exception ex)

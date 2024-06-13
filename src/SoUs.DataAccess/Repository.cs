@@ -47,6 +47,7 @@ namespace SoUs.DataAccess
         public void Update(T entity)
         {
             _context.Update(entity);
+            _context.SaveChanges();
         }
     }
 }

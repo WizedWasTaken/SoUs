@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoUs.DataAccess;
 
@@ -11,9 +12,11 @@ using SoUs.DataAccess;
 namespace SoUs.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240613112204_FixedAnotherMistake")]
+    partial class FixedAnotherMistake
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -285,6 +288,11 @@ namespace SoUs.DataAccess.Migrations
                     b.Property<int?>("AssignmentId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
@@ -296,9 +304,11 @@ namespace SoUs.DataAccess.Migrations
 
                     b.HasIndex("AssignmentId");
 
-                    b.ToTable("SubTasks", (string)null);
+                    b.ToTable("SubTasks");
 
-                    b.UseTptMappingStrategy();
+                    b.HasDiscriminator<string>("Discriminator").HasValue("SubTask");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("SoUs.Entities.MedicineTask", b =>
@@ -322,7 +332,7 @@ namespace SoUs.DataAccess.Migrations
 
                     b.HasIndex("MedicineId");
 
-                    b.ToTable("MedicineTasks", (string)null);
+                    b.HasDiscriminator().HasValue("MedicineTask");
                 });
 
             modelBuilder.Entity("AssignmentEmployee", b =>
@@ -425,12 +435,6 @@ namespace SoUs.DataAccess.Migrations
                     b.HasOne("SoUs.Entities.Medicine", "Medicine")
                         .WithMany()
                         .HasForeignKey("MedicineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SoUs.Entities.SubTask", null)
-                        .WithOne()
-                        .HasForeignKey("SoUs.Entities.MedicineTask", "SubTaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -23,19 +23,22 @@ namespace SoUs.DataAccess
             return _context.Assignments
                 .Where(a => a.Employees.Any(e => e.EmployeeId == employeeId))
                 .Include(a => a.Resident)
-                .Include(a => a.SubTasks);
+                .Include(a => a.SubTasks)
+                .Include(a => a.MedicineTasks);
         }
 
         /// <summary>
         /// Get assignment by id
         /// </summary>
-        /// <param name="id">ID to get frmo.</param>
+        /// <param name="id">ID to get from.</param>
         /// <returns>Assignment</returns>
         public Assignment GetBy(int id)
         {
             var res = _context.Assignments
                 .Include(a => a.Employees)
                 .Include(a => a.Resident)
+                .Include(a => a.SubTasks)
+                .Include(a => a.MedicineTasks)
                 .FirstOrDefault(a => a.AssignmentId == id);
 
             return res;
