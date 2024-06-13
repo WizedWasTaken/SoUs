@@ -47,8 +47,14 @@
             <Label
                 Grid.ColumnSpan="4"
                 Margin="5,0"
-                HorizontalTextAlignment="Center"
-                Text="9.30 - 10.00" />
+                HorizontalTextAlignment="Center">
+                <Label.Text>
+                    <MultiBinding Converter="{StaticResource TimeRangeConverter}">
+                        <Binding Path="Assignment.TimeStart" />
+                        <Binding Path="Assignment.TimeEnd" />
+                    </MultiBinding>
+                </Label.Text>
+            </Label>
 
             <Label
                 Grid.Column="3"
