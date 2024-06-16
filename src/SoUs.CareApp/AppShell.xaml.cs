@@ -11,6 +11,7 @@ namespace SoUs.CareApp
             // Register routes in .NET MAUI
             Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
             Routing.RegisterRoute(nameof(SubTaskPage), typeof(SubTaskPage));
+            Routing.RegisterRoute(nameof(MedicineTaskPage), typeof(MedicineTaskPage));
         }
     }
 }

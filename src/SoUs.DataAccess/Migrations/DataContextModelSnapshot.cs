@@ -195,6 +195,43 @@ namespace SoUs.DataAccess.Migrations
                     b.ToTable("Medications");
                 });
 
+            modelBuilder.Entity("SoUs.Entities.MedicineTask", b =>
+                {
+                    b.Property<int>("MedicineTaskId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MedicineTaskId"));
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("AssignmentId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MedicineId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MedicineTaskId");
+
+                    b.HasIndex("AssignmentId");
+
+                    b.HasIndex("MedicineId");
+
+                    b.ToTable("MedicineTasks", (string)null);
+                });
+
             modelBuilder.Entity("SoUs.Entities.Prescription", b =>
                 {
                     b.Property<int>("PrescriptionId")
@@ -297,32 +334,6 @@ namespace SoUs.DataAccess.Migrations
                     b.HasIndex("AssignmentId");
 
                     b.ToTable("SubTasks", (string)null);
-
-                    b.UseTptMappingStrategy();
-                });
-
-            modelBuilder.Entity("SoUs.Entities.MedicineTask", b =>
-                {
-                    b.HasBaseType("SoUs.Entities.SubTask");
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AssignmentId1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MedicineId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasIndex("AssignmentId1");
-
-                    b.HasIndex("MedicineId");
-
-                    b.ToTable("MedicineTasks", (string)null);
                 });
 
             modelBuilder.Entity("AssignmentEmployee", b =>
@@ -395,6 +406,21 @@ namespace SoUs.DataAccess.Migrations
                     b.Navigation("CareCenter");
                 });
 
+            modelBuilder.Entity("SoUs.Entities.MedicineTask", b =>
+                {
+                    b.HasOne("SoUs.Entities.Assignment", null)
+                        .WithMany("MedicineTasks")
+                        .HasForeignKey("AssignmentId");
+
+                    b.HasOne("SoUs.Entities.Medicine", "Medicine")
+                        .WithMany()
+                        .HasForeignKey("MedicineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Medicine");
+                });
+
             modelBuilder.Entity("SoUs.Entities.Prescription", b =>
                 {
                     b.HasOne("SoUs.Entities.Resident", null)
@@ -414,27 +440,6 @@ namespace SoUs.DataAccess.Migrations
                     b.HasOne("SoUs.Entities.Assignment", null)
                         .WithMany("SubTasks")
                         .HasForeignKey("AssignmentId");
-                });
-
-            modelBuilder.Entity("SoUs.Entities.MedicineTask", b =>
-                {
-                    b.HasOne("SoUs.Entities.Assignment", null)
-                        .WithMany("MedicineTasks")
-                        .HasForeignKey("AssignmentId1");
-
-                    b.HasOne("SoUs.Entities.Medicine", "Medicine")
-                        .WithMany()
-                        .HasForeignKey("MedicineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SoUs.Entities.SubTask", null)
-                        .WithOne()
-                        .HasForeignKey("SoUs.Entities.MedicineTask", "SubTaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Medicine");
                 });
 
             modelBuilder.Entity("SoUs.Entities.Assignment", b =>

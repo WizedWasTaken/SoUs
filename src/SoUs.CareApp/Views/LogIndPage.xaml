@@ -29,7 +29,7 @@
                     Placeholder="ID"
                     Text="{Binding UserId, Mode=TwoWay}"
                     VerticalOptions="Center"
-                    VerticalTextAlignment="Center" />
+                    VerticalTextAlignment="Center"/>
 
             </Border>
 

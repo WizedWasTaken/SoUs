@@ -79,4 +79,23 @@
         </Setter>
     </Style>
 
+    <!-- Style for the Frame -->
+    <Style x:Key="AlertFrameStyle" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="#f8d7da" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="Margin" Value="10,5" />
+        <Setter Property="HasShadow" Value="True" />
+        <Setter Property="BorderColor" Value="#f5c6cb" />
+    </Style>
+
+    <!-- Style for the Label -->
+    <Style x:Key="AlertLabelStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="#721c24" />
+        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
 </ResourceDictionary>

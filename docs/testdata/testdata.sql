@@ -7,16 +7,16 @@ EXEC sp_MSforeachtable "DISABLE TRIGGER all ON ?"
 -- Delete all data from all tables
 EXEC sp_MSforeachtable "DELETE FROM ?"
 
-DBCC CHECKIDENT ('Addresses', RESEED, 1);
-DBCC CHECKIDENT ('CareCenters', RESEED, 1);
-DBCC CHECKIDENT ('Residents', RESEED, 1);
-DBCC CHECKIDENT ('Diagnoses', RESEED, 1);
-DBCC CHECKIDENT ('Prescriptions', RESEED, 1);
-DBCC CHECKIDENT ('Roles', RESEED, 1);
-DBCC CHECKIDENT ('Employees', RESEED, 1);
-DBCC CHECKIDENT ('Assignments', RESEED, 1);
-DBCC CHECKIDENT ('Medications', RESEED, 1);
-DBCC CHECKIDENT ('SubTasks', RESEED, 1);
+DBCC CHECKIDENT ('Addresses', RESEED, 0);
+DBCC CHECKIDENT ('CareCenters', RESEED, 0);
+DBCC CHECKIDENT ('Residents', RESEED, 0);
+DBCC CHECKIDENT ('Diagnoses', RESEED, 0);
+DBCC CHECKIDENT ('Prescriptions', RESEED, 0);
+DBCC CHECKIDENT ('Roles', RESEED, 0);
+DBCC CHECKIDENT ('Employees', RESEED, 0);
+DBCC CHECKIDENT ('Assignments', RESEED, 0);
+DBCC CHECKIDENT ('Medications', RESEED, 0);
+DBCC CHECKIDENT ('SubTasks', RESEED, 0);
 
 
 
@@ -98,67 +98,72 @@ INSERT INTO Assignments (TimeStart, TimeEnd, ResidentId) VALUES
 -- SubTasks
 
 -- Assignment 1
--- INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
--- ('Hjælp med morgenmad', 1, 1),
--- ('Hjælp med bad', 1, 1),
--- ('Hjælp med påklædning', 1, 1),
--- ('Vask gulv', 1, 1),
--- ('Luft ud', 1, 1);
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Hjælp med morgenmad', 1, 1),
+('Hjælp med bad', 1, 1),
+('Hjælp med påklædning', 1, 1),
+('Vask gulv', 1, 1),
+('Luft ud', 1, 1);
 
--- -- Assignment 2
--- INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
--- ('Støv af', 2, 0),
--- ('Rens sofa', 2, 1),
--- ('Køb chokolade', 2, 0),
--- ('Køb blomster fra Bjørn til Carla', 2, 1);
+-- Assignment 2
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Støv af', 2, 0),
+('Rens sofa', 2, 1),
+('Køb chokolade', 2, 0),
+('Køb blomster fra Bjørn til Carla', 2, 1);
 
--- -- Assignment 3
--- INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
--- ('Find fjernbetjening', 3, 0),
--- ('Læg vasketøj sammen', 3, 1),
--- ('Læs dagens avis højt', 3, 1),
--- ('Plant nye blomster i haven', 3, 0);
+-- Assignment 3
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Find fjernbetjening', 3, 0),
+('Læg vasketøj sammen', 3, 1),
+('Læs dagens avis højt', 3, 1),
+('Plant nye blomster i haven', 3, 0);
 
--- -- Assignment 4
--- INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
--- ('Lav en kop te', 4, 1),
--- ('Find læsebriller', 4, 1),
--- ('Opdatér familiens kontaktinformationer', 4, 0),
--- ('Køb ind til aftensmad', 4, 0);
+-- Assignment 4
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Lav en kop te', 4, 1),
+('Find læsebriller', 4, 1),
+('Opdatér familiens kontaktinformationer', 4, 0),
+('Køb ind til aftensmad', 4, 0);
 
--- -- Assignment 5
--- INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
--- ('Hjælp med at skrive brev', 5, 0),
--- ('Gå en tur i parken', 5, 0),
--- ('Sæt yndlingsmusik på', 5, 1),
--- ('Træn let motion', 5, 1);
+-- Assignment 5
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Hjælp med at skrive brev', 5, 0),
+('Gå en tur i parken', 5, 0),
+('Sæt yndlingsmusik på', 5, 1),
+('Træn let motion', 5, 1);
 
--- -- Assignment 6
--- INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
--- ('Giv kattemad', 6, 1),
--- ('Skift sengetøj', 6, 1),
--- ('Organisér medicinskab', 6, 1),
--- ('Læs en bog sammen', 6, 0);
+-- Assignment 6
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Giv kattemad', 6, 1),
+('Skift sengetøj', 6, 1),
+('Organisér medicinskab', 6, 1),
+('Læs en bog sammen', 6, 0);
 
--- -- Assignment 7
--- INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
--- ('Lav en indkøbsliste', 7, 1),
--- ('Tag et selfie', 7, 0),
--- ('Lyt til en radioudsendelse', 7, 1),
--- ('Hjælp med at finde gamle fotos', 7, 0);
+-- Assignment 7
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Lav en indkøbsliste', 7, 1),
+('Tag et selfie', 7, 0),
+('Lyt til en radioudsendelse', 7, 1),
+('Hjælp med at finde gamle fotos', 7, 0);
 
--- -- Assignment 8
--- INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
--- ('Skriv dagbog', 8, 0),
--- ('Giv planten vand', 8, 1),
--- ('Hent post', 8, 1),
--- ('Se en film sammen', 8, 0);
+-- Assignment 8
+INSERT INTO SubTasks (Name, AssignmentId, IsCompleted) VALUES
+('Skriv dagbog', 8, 0),
+('Giv planten vand', 8, 1),
+('Hent post', 8, 1),
+('Se en film sammen', 8, 0);
 
 -- MedicineTasks
--- INSERT INTO SubTasks (Name, AssignmentId, IsCompleted, MedicineId, Unit, Amount) VALUES
--- ('Tag medicin', 2, 0, 'MedicineTask', 1, 'mg', 500),
--- ('Tag medicin', 2, 0, 'MedicineTask', 2, 'mg', 200),
--- ('Tag medicin', 2, 1, 'MedicineTask', 2, 'mg', 200);
+INSERT INTO MedicineTasks (Name, IsCompleted, MedicineId, Unit, Amount, AssignmentId) VALUES
+('Metformin', 0, 1, 'mg', 500, 2),
+('Aspirin', 0, 2, 'mg', 100, 2),
+('Lisinopril', 0, 3, 'mg', 10, 2),
+('Donepezil', 0, 4, 'mg', 5, 2),
+('Metformin', 0, 1, 'mg', 500, 4),
+('Aspirin', 0, 2, 'mg', 100, 4),
+('Lisinopril', 0, 3, 'mg', 10, 4),
+('Donepezil', 0, 4, 'mg', 5, 4);
 
 -- Medications
 

@@ -6,25 +6,29 @@ using System.Threading.Tasks;
 
 namespace SoUs.Entities
 {
-    public class MedicineTask : SubTask
+    public class MedicineTask
     {
         #region Fields
 
+        private int medicineTaskId;
+        private string name;
+        private bool isCompleted;
         private Medicine medicine;
         private string unit;
         private int amount;
 
-        #endregion
+        #endregion 
 
         #region Constructors
 
-        public MedicineTask() : base(0, "Intet navn", false)
-        {
-        }
+        public MedicineTask()
+        { }
 
-        public MedicineTask(int subTaskId, string name, bool isCompleted, Medicine medicine, string unit, int amount)
-            : base(subTaskId, name, isCompleted)
+        public MedicineTask(int medicineTaskId, string name, bool isCompleted, Medicine medicine, string unit, int amount)
         {
+            MedicineTaskId = medicineTaskId;
+            Name = name;
+            IsCompleted = isCompleted;
             Medicine = medicine;
             Unit = unit;
             Amount = amount;
@@ -33,6 +37,24 @@ namespace SoUs.Entities
         #endregion
 
         #region Properties
+
+        public int MedicineTaskId
+        {
+            get { return medicineTaskId; }
+            set { medicineTaskId = value; }
+        }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public bool IsCompleted
+        {
+            get { return isCompleted; }
+            set { isCompleted = value; }
+        }
 
         public Medicine Medicine
         {

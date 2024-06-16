@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SoUs.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class ThisSoStupid : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -227,6 +227,35 @@ namespace SoUs.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MedicineTasks",
+                columns: table => new
+                {
+                    MedicineTaskId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
+                    MedicineId = table.Column<int>(type: "int", nullable: false),
+                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false),
+                    AssignmentId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MedicineTasks", x => x.MedicineTaskId);
+                    table.ForeignKey(
+                        name: "FK_MedicineTasks_Assignments_AssignmentId",
+                        column: x => x.AssignmentId,
+                        principalTable: "Assignments",
+                        principalColumn: "AssignmentId");
+                    table.ForeignKey(
+                        name: "FK_MedicineTasks_Medications_MedicineId",
+                        column: x => x.MedicineId,
+                        principalTable: "Medications",
+                        principalColumn: "MedicineId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubTasks",
                 columns: table => new
                 {
@@ -234,12 +263,7 @@ namespace SoUs.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    AssignmentId = table.Column<int>(type: "int", nullable: true),
-                    SubTaskType = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
-                    MedicineId = table.Column<int>(type: "int", nullable: true),
-                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amount = table.Column<int>(type: "int", nullable: true),
-                    AssignmentId1 = table.Column<int>(type: "int", nullable: true)
+                    AssignmentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -249,17 +273,6 @@ namespace SoUs.DataAccess.Migrations
                         column: x => x.AssignmentId,
                         principalTable: "Assignments",
                         principalColumn: "AssignmentId");
-                    table.ForeignKey(
-                        name: "FK_SubTasks_Assignments_AssignmentId1",
-                        column: x => x.AssignmentId1,
-                        principalTable: "Assignments",
-                        principalColumn: "AssignmentId");
-                    table.ForeignKey(
-                        name: "FK_SubTasks_Medications_MedicineId",
-                        column: x => x.MedicineId,
-                        principalTable: "Medications",
-                        principalColumn: "MedicineId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -293,6 +306,16 @@ namespace SoUs.DataAccess.Migrations
                 column: "CareCenterId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MedicineTasks_AssignmentId",
+                table: "MedicineTasks",
+                column: "AssignmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MedicineTasks_MedicineId",
+                table: "MedicineTasks",
+                column: "MedicineId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Prescriptions_ResidentId",
                 table: "Prescriptions",
                 column: "ResidentId");
@@ -306,16 +329,6 @@ namespace SoUs.DataAccess.Migrations
                 name: "IX_SubTasks_AssignmentId",
                 table: "SubTasks",
                 column: "AssignmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubTasks_AssignmentId1",
-                table: "SubTasks",
-                column: "AssignmentId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubTasks_MedicineId",
-                table: "SubTasks",
-                column: "MedicineId");
         }
 
         /// <inheritdoc />
@@ -331,6 +344,9 @@ namespace SoUs.DataAccess.Migrations
                 name: "EmployeeRole");
 
             migrationBuilder.DropTable(
+                name: "MedicineTasks");
+
+            migrationBuilder.DropTable(
                 name: "Prescriptions");
 
             migrationBuilder.DropTable(
@@ -343,10 +359,10 @@ namespace SoUs.DataAccess.Migrations
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Assignments");
+                name: "Medications");
 
             migrationBuilder.DropTable(
-                name: "Medications");
+                name: "Assignments");
 
             migrationBuilder.DropTable(
                 name: "Residents");

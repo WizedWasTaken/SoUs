@@ -20,9 +20,38 @@ namespace SoUs.CareApp.ViewModels
         // Used for reverting changes on client if going back.
         private Assignment originalAssignment;
 
+        [ObservableProperty]
+        private bool isMedTaskEmpty;
+
         // Received assignment property.
         [ObservableProperty]
         private Assignment assignment;
+
+        /// <summary>
+        /// Gets executed when the assignment property is set.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        /// <summary>
+        /// Helper method to update the medtask empty property.
+        /// Checking if the medicine task list is empty.
+        /// </summary>
+        private void UpdateIsMedTaskEmpty()
+        {
+            IsMedTaskEmpty = !Assignment.MedicineTasks.Any();
+        }
+
+        [RelayCommand]
+        private void SwipeToMedTasks()
+        {
+            if (IsMedTaskEmpty)
+            {
+                return;
+            }
+
+            Shell.Current.GoToAsync($"{nameof(MedicineTaskPage)}");
+        }
 
         /// <summary>
         /// Submit assignment to database.
