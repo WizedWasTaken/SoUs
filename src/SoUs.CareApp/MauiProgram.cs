@@ -29,10 +29,12 @@ namespace SoUs.CareApp
             builder.Services.AddSingleton<LogIndPageViewmodel>();
             builder.Services.AddTransient<MainPageViewModel>();
             builder.Services.AddTransient<SubTaskPageViewmodel>();
+            builder.Services.AddTransient<MedicineTaskPageViewmodel>();
 
             builder.Services.AddSingleton<LogIndPage>();
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<SubTaskPage>();
+            builder.Services.AddSingleton<MedicineTaskPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

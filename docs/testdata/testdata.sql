@@ -66,11 +66,11 @@ INSERT INTO Roles(RoleName) VALUES
 
 -- Employees
 INSERT INTO Employees(Name, CareCenterId) VALUES
-('Dr. Karen Madsen', 1),
-('Sygeplejerske Lise Sørensen', 1),
-('Fysioterapeut Jakob Hansen', 2),
-('Administrator Mette Thomsen', 3),
-('Sygeplejerske Søren Kristensen', 4);
+('Karen Madsen', 1),
+('Lise Sørensen', 1),
+('Jakob Hansen', 2),
+('Mette Thomsen', 3),
+('Søren Kristensen', 4);
 
 -- EmployeeRole
 INSERT INTO EmployeeRole(EmployeesEmployeeId, RolesRoleId) VALUES

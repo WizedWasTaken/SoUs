@@ -16,41 +16,42 @@ namespace SoUs.CareApp.ViewModels
             _sousService = sousService;
         }
 
-        // Original received assignment property.
-        // Used for reverting changes on client if going back.
-        private Assignment originalAssignment;
-
         [ObservableProperty]
         private bool isMedTaskEmpty;
+        public bool IsMedTaskNotEmpty => !IsMedTaskEmpty;
 
         // Received assignment property.
         [ObservableProperty]
         private Assignment assignment;
 
-        /// <summary>
-        /// Gets executed when the assignment property is set.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        partial void OnAssignmentChanged(Assignment? oldValue, Assignment newValue)
+        {
+            UpdateIsMedTaskEmpty();
+        }
 
-        /// <summary>
-        /// Helper method to update the medtask empty property.
-        /// Checking if the medicine task list is empty.
-        /// </summary>
         private void UpdateIsMedTaskEmpty()
         {
-            IsMedTaskEmpty = !Assignment.MedicineTasks.Any();
+            if (Assignment is null)
+                return; 
+
+            IsMedTaskEmpty = Assignment.MedicineTasks.Count == 0;
         }
 
         [RelayCommand]
-        private void SwipeToMedTasks()
+        private async Task SwipeToMedTasks()
         {
+            // This should never be true...
             if (IsMedTaskEmpty)
             {
                 return;
             }
 
-            Shell.Current.GoToAsync($"{nameof(MedicineTaskPage)}");
+            var navigationParams = new Dictionary<string, object>
+            {
+                { "Assignment", Assignment }
+            };
+
+            await Shell.Current.GoToAsync(nameof(MedicineTaskPage), true, navigationParams);
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace SoUs.CareApp.ViewModels
             try {
                 List<MedicineTask> medTasks = Assignment.MedicineTasks;
                 // Tjek om alle opgaver er udført.
-                if (Assignment.SubTasks.All(e => !e.IsCompleted))
+                if (Assignment.SubTasks.All(e => !e.IsCompleted) || IsMedTaskNotEmpty && Assignment.MedicineTasks.All(e => !e.IsCompleted))
                 {
                     InfoAlert("Du har ikke gennemført alle opgaverne.");
                     return; 

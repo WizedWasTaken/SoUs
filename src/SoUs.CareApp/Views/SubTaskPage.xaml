@@ -4,9 +4,9 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:SoUs.CareApp.Converters"
+    xmlns:local="clr-namespace:SoUs.CareApp.Views"
     xmlns:model="clr-namespace:SoUs.Entities;assembly=SoUs.Entities"
     xmlns:viewModel="clr-namespace:SoUs.CareApp.ViewModels"
-    xmlns:local="clr-namespace:SoUs.CareApp.Views"
     x:DataType="viewModel:SubTaskPageViewmodel">
 
     <ContentPage.Resources>
@@ -17,7 +17,7 @@
     </ContentPage.Resources>
 
     <!--  Base Grid  -->
-    <Grid BackgroundColor="{StaticResource Background}" RowDefinitions="Auto, 20, Auto, *, Auto">
+    <Grid BackgroundColor="{StaticResource Background}" RowDefinitions="Auto, Auto, 20, Auto, *, Auto">
         <Grid.GestureRecognizers>
             <SwipeGestureRecognizer Command="{Binding SwipeToMedTasksCommand}" Direction="Right" />
         </Grid.GestureRecognizers>
@@ -140,5 +140,44 @@
                 Style="{StaticResource Pill}"
                 Text="Jeg er færdig" />
         </VerticalStackLayout>
+
+        <!--  Make it possible to swipe between 2 pages.  -->
+        <!--  This is jank. Not best practice at all.  -->
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="5*,5*"
+            HeightRequest="50"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="{Binding IsMedTaskNotEmpty}">
+            <Grid.GestureRecognizers>
+                <SwipeGestureRecognizer
+                    Command="{Binding SwipeToMedTasksCommand}"
+                    CommandParameter="{Binding Assignment}"
+                    Direction="Left" />
+            </Grid.GestureRecognizers>
+            <!--  add tap gesture to go to the right page  -->
+            <Border
+                Margin="0,5,7.5,0"
+                HeightRequest="15"
+                HorizontalOptions="End"
+                Stroke="Black"
+                StrokeShape="RoundRectangle, 50"
+                WidthRequest="15">
+
+                <Label Grid.Column="0" BackgroundColor="Black" />
+            </Border>
+            <Border
+                Grid.Column="1"
+                Margin="7.5,5,0,0"
+                HeightRequest="15"
+                HorizontalOptions="Start"
+                StrokeShape="RoundRectangle, 50"
+                WidthRequest="15">
+                <Label Grid.Column="1" BackgroundColor="White" />
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SwipeToMedTasksCommand}" CommandParameter="{Binding Assignment}" />
+                </Border.GestureRecognizers>
+            </Border>
+        </Grid>
     </Grid>
 </ContentPage>

@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using SoUs.DataAccess;
 using SoUs.Entities;
 using System.Text.Json.Serialization;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace SoUs.API
 {
@@ -24,8 +23,6 @@ namespace SoUs.API
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("CONNECTION_STRING")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
-
-
 
             builder.Services.AddScoped<IRepository<Assignment>, Repository<Assignment>>();
             builder.Services.AddScoped<IRepository<Address>, Repository<Address>>();

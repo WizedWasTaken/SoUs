@@ -36,7 +36,7 @@ namespace SoUs.CareApp.ViewModels
         [RelayCommand]
         protected static async Task GoToPrevPage()
         {
-            await Shell.Current.GoToAsync("../");
+            await Shell.Current.GoToAsync(nameof(MainPage));
         }
 
         /// <summary>
