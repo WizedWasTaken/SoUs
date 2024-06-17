@@ -70,7 +70,7 @@ namespace SoUs.Services
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Der skete en uventet fejl.", ex);
+                throw new ApplicationException($"Der skete en uventet fejl.\n{ex.Message}");
             }
         }
 

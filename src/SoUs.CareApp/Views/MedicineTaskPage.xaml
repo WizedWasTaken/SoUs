@@ -134,7 +134,7 @@
             HorizontalOptions="FillAndExpand">
             <Grid.GestureRecognizers>
                 <SwipeGestureRecognizer
-                    Command="{Binding GoToMedicinTaskPageCommand}"
+                    Command="{Binding SwipeToSubTaskCommand}"
                     CommandParameter="{Binding Assignment}"
                     Direction="Left" />
             </Grid.GestureRecognizers>
