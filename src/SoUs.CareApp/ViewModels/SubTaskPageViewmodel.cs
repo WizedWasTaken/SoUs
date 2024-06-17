@@ -17,7 +17,9 @@ namespace SoUs.CareApp.ViewModels
         }
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsMedTaskNotEmpty))]
         private bool isMedTaskEmpty;
+
         public bool IsMedTaskNotEmpty => !IsMedTaskEmpty;
 
         // Received assignment property.

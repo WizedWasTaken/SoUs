@@ -13,7 +13,7 @@ namespace SoUs.Entities
         private int medicineTaskId;
         private string name;
         private bool isCompleted;
-        private Medicine medicine;
+        private Medicine? medicine;
         private string unit;
         private int amount;
 
@@ -29,7 +29,7 @@ namespace SoUs.Entities
             MedicineTaskId = medicineTaskId;
             Name = name;
             IsCompleted = isCompleted;
-            Medicine = medicine;
+            Medicine = medicine ?? new Medicine();
             Unit = unit;
             Amount = amount;
         }
@@ -56,7 +56,7 @@ namespace SoUs.Entities
             set { isCompleted = value; }
         }
 
-        public Medicine Medicine
+        public Medicine? Medicine
         {
             get { return medicine; }
             set { medicine = value; }
