@@ -2,34 +2,39 @@
 
 ### Værktøjer
 
-1. Agile Metoder:
+1. **Agile Metoder**
    - Kanban tabeller (Projects)
    - Hvordan er disse blevet brugt?
-2. GitHub Projects
+2. **GitHub Projects**
    - Issues
+   - Labels
+   - Milestones
 
 ### Projekt Planlægning
 
-3. Inception
+3. **Inception**
    - Mål & Vision for projektet
-4. Ellaboration
+4. **Ellaboration**
    - Krav specifikation
-5. Construction
+5. **Construction**
    - Construction fasens resultat vises med kode eksempler & powerpoint.
-6. Testing
+6. **Testing**
    - Hvorfor?
    - Hvordan? (Vis eksempler)
    - Svært i dette projekt grundet manglende "hjælpe metoder" (vis eksempel fra andet projekt)
-7. Hvorfor kategorier?
+7. **Hvorfor punkter?**
    - Hvorfor dele det op i kategorier. (Nedbrydning)
 
 ### Kode eksempler
 
-7. API lag
+7. **API**
+
    - Controllers
      - Seperation of concerns
    - Dependency Injection (Program.cs)
-8. Repository lag
+
+8. **Repository**
+
    - DataContext
    - Repository klasse
      - Hvorfor bruger nogle controllers standard repository, og andre ikke?
@@ -38,16 +43,24 @@
      - Hvorfor?
      - Code first tilgang
        - Hvorfor?
-9. Klient
+
+9. **Klient**
+
    - Design (Adobe XD)
    - Teknologi (MAUI)
      - Hvorfor?
-   - MVVM (Model View Viemodel)
-     - Muligt billede (TODO) _(Ellers bare forklar i PowerPoint)_
-10. Service lag
+   - Community Toolkit
+     - Hvorfor?
+   - Data Binding
+     - Hvad gør det?
+     - Hvordan virker det?
+
+10. **Service lag**
+
     - Hvordan?
     - Hvorfor?
-11. PowerPoint
+
+11. **PowerPoint**
     - MVVM (Måske)
       - Seperation of concerns
     - Polymorfi
