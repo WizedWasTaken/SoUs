@@ -3,12 +3,13 @@
 ### Værktøjer
 
 1. **Agile Metoder**
-   - Kanban tabeller (Projects)
+   - Iterativ udvikling
    - Hvordan er disse blevet brugt?
 2. **GitHub Projects**
    - Issues
    - Labels
    - Milestones
+   - Kanban Tabeller
 
 ### Projekt Planlægning
 
@@ -61,7 +62,7 @@
     - Hvorfor?
 
 11. **PowerPoint**
-    - MVVM (Måske)
+    - MVVM
       - Seperation of concerns
     - Polymorfi
       - Interfaces
